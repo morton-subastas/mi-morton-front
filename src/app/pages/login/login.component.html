@@ -1,0 +1,68 @@
+<div class="bg-first-login">
+<div class="limiter animated fadeInDown">
+    <div class="container-login100">
+        <div class="wrap-login100 p-form">
+            <form (ngSubmit) ="login(formulario)" #formulario="ngForm" class="login100-form validate-form flex-sb flex-w">
+              <div class="img-logo-main">
+                <img src="../../../assets/images/logosMorton.png" alt="">
+              </div>
+                <h2 class="login100-form-title">
+                    <span style="color:#004d43;">BIENVENIDO</span>
+                </h2>
+
+                <!-- <span class="text-danger">El correo es obligatorio</span> -->
+                <span *ngIf="formulario.submitted && formulario.controls['email'].errors" class="text-danger" animated fadeIn>El correo es invalido</span>
+                <div class="wrap-input100 m-b-16">
+                    <input class="input100"
+                           type="email"
+                           name="email"
+                           [(ngModel)]="usuario.email"
+                           required
+                           email
+                           placeholder="Email">
+
+                    <span class="focus-input100"></span>
+                </div>
+
+                <span *ngIf="formulario.submitted && formulario.controls['password'].errors" class="text-danger" animated fadeIn>Al menos 5 letras</span>
+                <div class="wrap-input100 m-b-16" data-validate = "Password is required">
+                    <input class="input100"
+                           type="password"
+                           name="password"
+                           minlength="5"
+                           required
+                           [(ngModel)]="usuario.password"
+                           placeholder="Contraseña">
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="alert alert-danger w-full" role="alert" *ngIf="DontShowData">
+                  Datos incorrectos, verifique nuevamente.
+                </div>
+
+                <div class="flex-sb-m w-full p-t-3 p-b-24">
+                    <!--
+                    <div class="contact100-form-checkbox">
+                        <input class="input-checkbox100" id="recordarme" type="checkbox" name="recordarme">
+                        <label class="label-checkbox100" for="ckb1">
+                            Recordar mi usuario
+                        </label>
+                    </div>
+                    -->
+                    <div>
+                        <a routerLink="/registro" class="txt1">
+                            ¿No tienes cuenta?
+                        </a>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn m-t-17">
+                    <button class="login100-form-btn" type="submit">
+                        Ingresar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</div>

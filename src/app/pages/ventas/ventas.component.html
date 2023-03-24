@@ -1,0 +1,65 @@
+<app-header></app-header><br><br>
+
+<div class="container">
+  <div class="col-12">
+    <h1 class="main-title-morton">Ventas</h1>
+    <div id="SpinnerActivo" *ngIf="ActivoSpinner">
+       <!-- begin folding modal -->
+      <div class="folding">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+      </div>
+      <!-- Cargando información... -->
+    </div>
+
+    <div *ngIf="DontShowTable">
+    <div class="table-responsive">
+      <table class="table table-striped custom-table">
+        <thead>
+          <tr>
+            <th scope="col">Imagen</th>
+            <th scope="col">Lote</th>
+            <th scope="col">Subasta</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Estatus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr scope="row" *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr">
+            <td>
+              <a [routerLink]="['/imagenD', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno }]">
+                <!-- <img  [src]=" auctionsFindSpecificArr.imagen" alt="Image"> -->
+                <img style="max-width:100% ;" [src]="auctionsFindSpecificArr.pictpath | safe" alt="Image">
+              </a>
+            </td>
+            <td>
+                Lote: {{ auctionsFindSpecificArr.bidder}}<br>
+                Descirpcion: {{ auctionsFindSpecificArr.descript}}
+            </td>
+            <td>
+               No. {{auctionsFindSpecificArr.saleno }}<br>
+              {{auctionsFindSpecificArr.salename }}<br>
+              {{ auctionsFindSpecificArr.date}}
+            </td>
+            <td>
+              <img src="../../../assets/images/auction.png" alt="">
+              <br>{{auctionsFindSpecificArr.martillo }}
+            </td>
+            <td>
+              <img src="../../../assets/images/info.png" alt="">
+              <br>{{ auctionsFindSpecificArr.estate }}
+            </td>
+          </tr>
+        </tbody>
+
+
+      </table>
+    </div>
+  </div>
+
+    <!--¡Welcom!<br><br>
+    It is a program where You might undersand English.-->
+  </div>
+</div>

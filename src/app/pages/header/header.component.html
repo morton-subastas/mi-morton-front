@@ -1,0 +1,81 @@
+<nav class="men-nav-morton">
+  <input type="checkbox" name="" id="check">
+  <label for="check" class="checkbtn">
+    <i class="fa-solid fa-bars"></i>
+  </label>
+  <a href="#" class="img-princ-nav">
+    <img src="../../../assets/images/logosMorton-2.png" alt="" class="img-princ">
+  </a>
+  <ul id="elem-menu">
+    <li>
+      <form>
+        <button class="btn-morton-menu" (click)="Compras()">Compras</button>
+      </form>
+    </li>
+
+    <li>
+      <form>
+        <button class="btn-morton-menu" (click)="ventas()">Ventas</button>
+      </form>
+    </li>
+
+    <li>
+      <form autocomplete="off" (ngSubmit)="Contratos()" #Forma="ngForm">
+        <button type="submit" class="btn-morton-menu">Contratos</button>
+      </form>
+    </li>
+
+    <li>
+      <form>
+        <button class="btn-morton-menu" (click)="Proximas()">Proximas Subastas</button>
+      </form>
+    </li>
+    <li>
+      <form>
+        <button class="btn-morton-menu" (click)="Paleta()">Registro Paleta</button>
+      </form>
+    </li>
+    <li>
+      <form>
+        <button class="btn-morton-menu-out" (click)="salir()">Salir</button>
+      </form>
+    </li>
+  </ul>
+</nav>
+<div class="dat-user-login">
+
+   <div class="dat-user-person">{{nombre}} <br>#Cliente: {{ cliente_num}}</div>
+  <div class="dat-user-client"><i class="fi fi-ss-user"></i></div> 
+</div>
+
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light"  style="background-color: #dadfe2;">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <p>Cliente: 25685</p><br><br>
+      <p><b>Luis Lopez Morton</b></p>
+      <form class="d-flex">
+        <button class="btn btn-outline-success" (click)="Compras()">Compras</button>
+      </form>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <form class="d-flex">
+        <button class="btn btn-outline-success" (click)="ventas()">Ventas</button>
+      </form>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <form autocomplete="off" (ngSubmit)="Contratos()" #Forma="ngForm">
+        <button type="submit" class="btn btn-outline-success">Contratos</button>
+      </form>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <form class="d-flex">
+        <button class="btn btn-outline-success" (click)="Proximas()">Proximas Subastas</button>
+      </form>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <form class="d-flex">
+        <button class="btn btn-outline-danger" (click)="salir()">Salir</button>
+      </form>
+    </div>
+  </div>
+</nav><br> -->

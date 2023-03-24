@@ -1,0 +1,28 @@
+<app-header></app-header><br>
+<div class="container">
+  <div class="col-12">
+  <div class="bs-example" data-example-id="panel-without-body-with-table" *ngFor="let item of groupArr">
+    <h1 class="main-title-morton">Contrato: {{item.receipt}}</h1>
+    <div class="table-responsive mb-5">
+      <table class="table table-striped custom-table">
+        <thead>
+          <tr>
+            <th scope="col">Partida</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Status</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr scope="row" *ngFor="let value of item.groupItem">
+            <td class="th-partida" scope="row">{{value.item}}</td>
+            <td class="th-descript">{{value.descript.trim()}}</td>
+            <td class="th-status">{{value.condition}}</td>
+            <td>{{value.edate | fecha }}</td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,68 @@
+<app-header></app-header><br><br>
+<div class="container">
+  <div class="col-12">
+    <h1 class="main-title-morton">Recibo de compra</h1>
+    <b>Recibo:</b> {{ recibo }}<br>
+    <b>Nombre Subasta:</b> {{ nom_sub}}<br>
+    <b>No. Subasta:</b> {{num_sub }}<br>
+    <b>Fecha:</b> {{ fecha_sub }}<br>
+    <b>Paleta:</b>{{ paleta }}<br>
+    <b>Lugar:</b> {{ locale}}<br>
+    <br>
+    <div class="table-responsive">
+
+      <a href="https://mimorton.com/imglink/pdf/{{recibo}}.pdf">
+        <button class="btn-morton-menuimprimir-out" (click)="imprimir()">Imprimir</button>
+      </a>
+    <table class="table table-striped custom-table">
+        <thead>
+          <tr>
+            <th scope="col">Lote</th>
+            <th scope="col">Img</th>
+            <th scope="col">Nombre lote</th>
+            <th scope="col">Martillo</th>
+            <th scope="col">Premium</th>
+            <th scope="col">Bidsquare</th>
+            <th scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="text-align:center;" *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr">
+            <td>{{ auctionsFindSpecificArr.lot }}</td>
+            <td>
+            <img [src]="auctionsFindSpecificArr.pictpath | safe" width="50%">
+            </td>
+            <td>{{ auctionsFindSpecificArr.descript }}</td>
+            <td>{{ auctionsFindSpecificArr.hammer}}</td>
+            <td>{{ auctionsFindSpecificArr.hammer * 0.20}} </td>
+            <td>0</td>
+            <td>{{ auctionsFindSpecificArr.hammer +  auctionsFindSpecificArr.hammer * 0.20 }} </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    <br>
+    <table class="table table-striped custom-table">
+      <thead>
+        <tr>
+          <th scope="col" colspan="3">
+            Subtotal: <b>{{ subtotal | currency}}</b><br>
+          </th>
+        </tr>
+        <tr>
+          <th>Premium:<b>  {{ premium | currency}}</b></th>
+        </tr>
+        <tr>
+          <th>Bidsquare:<b>$0.00</b></th>
+        </tr>
+        <tr>
+          <th>IVA:<b> {{ iva | currency}}</b><br></th>
+        </tr>
+        <tr>
+          <th>
+      Total:<b> {{ total_sum | currency}}</b><br>   
+    </th>
+        </tr>
+      </thead>
+      </table>
+</div>

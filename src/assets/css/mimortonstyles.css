@@ -1,0 +1,349 @@
+/* Home */
+.dat-user-login{
+  font-family: 'Quicksand', sans-serif;
+  display: flex;
+  justify-content: end;
+  /* align-items: center; */
+  width: 100%;
+  padding-right: 35px;
+  font-weight: 500;
+}
+
+.dat-user-login img{
+  margin-right: 7px;
+}
+
+.dat-user-login div{
+  display: flex;
+  align-items: center;
+}
+
+.dat-user-person{
+  margin-right: 10px;
+  text-align: end;
+}
+
+.dat-user-client i{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0362558b;
+    font-size: 2em;
+    margin-right: auto;
+    padding: 0 5px;
+}
+
+
+.main-title-morton{
+  margin-bottom: 60px;
+  font-weight: 300;
+  font-size: 3.5em;
+  color: #004d43;
+}
+
+
+.button-sections{
+  display: flex;
+  margin-bottom: 15px;
+}
+
+
+.button-sections > div{
+  flex-basis: 50%;
+}
+
+.button-controls{
+  display: flex;
+
+}
+
+.button-controls button{
+  margin: 0 10px;
+}
+
+.btn-arrows{
+  color: #fff;
+  background: #333;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+.numeration-image p{
+  font-family: 'Albert Sans', sans-serif;
+  font-size: 1.2em;
+  color: #004d43;
+}
+
+
+
+
+/* Tables */
+.table thead th{
+  text-align: center;
+  color: #004d43;
+  font-size: 1.2em;
+}
+
+.table td, .table th{
+  vertical-align: middle !important;
+}
+/* Spinner */
+/*  begin folding css */
+
+#SpinnerActivo{
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.folding {
+  margin: 20px auto;
+  width: 70px;
+  height: 70px;
+  position: relative;
+  transform: rotateZ(45deg);
+ }
+
+ .folding .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  transform: scale(1.1);
+ }
+
+ .folding .sk-cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #004d43;
+  animation: sk-foldCubeAngle 2.4s infinite linear both;
+  transform-origin: 100% 100%;
+ }
+
+ .folding .sk-cube2 {
+  transform: scale(1.1) rotateZ(90deg);
+ }
+
+ .folding .sk-cube3 {
+  transform: scale(1.1) rotateZ(180deg);
+ }
+
+ .folding .sk-cube4 {
+  transform: scale(1.1) rotateZ(270deg);
+ }
+
+ .folding .sk-cube2:before {
+  animation-delay: 0.3s;
+ }
+
+ .folding .sk-cube3:before {
+  animation-delay: 0.6s;
+ }
+
+ .folding .sk-cube4:before {
+  animation-delay: 0.9s;
+ }
+
+ @keyframes sk-foldCubeAngle {
+  0%,
+  10% {
+   transform: perspective(140px) rotateX(-180deg);
+   opacity: 0;
+  }
+  25%,
+  75% {
+   transform: perspective(140px) rotateX(0deg);
+   opacity: 1;
+  }
+  90%,
+  100% {
+   transform: perspective(140px) rotateY(180deg);
+   opacity: 0;
+  }
+ }
+
+
+
+
+/* ---------- */
+.men-nav-morton{
+  background-image: url("../images/MassCircles.svg");
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: cover;
+  height: 120px;
+  width: 100%;
+  box-shadow: 0 10px 10px -10px rgba(108, 108, 108, 0.201);
+}
+
+.img-princ-nav{
+  position: absolute;
+  padding: 30px 50px;
+}
+
+.img-princ{
+  height: 60px;
+}
+
+
+.men-nav-morton ul{
+  float: right;
+  margin-right: 30px;
+}
+
+.men-nav-morton ul li{
+  display: inline-block;
+  line-height: 120px;
+  margin: 0 5px;
+}
+
+
+/* Botones menu de navegación */
+
+.btn-morton-menu{
+  font-family: 'Ibarra Real Nova', serif;
+  line-height: 1.5;
+  font-weight: 500;
+  font-size: 1.3em;
+  padding: 0 7px;
+  color: #004d43;
+
+}
+
+.btn-morton-menu:hover{
+  border-bottom: 2px solid #000;
+}
+
+.btn-morton-menu-out{
+  font-family: 'Ibarra Real Nova', serif;
+  color: #fff;
+  background: #004d43;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1.3em;
+  padding: 5px 10px;
+  width: 80px;
+  border-radius: 20px;
+}
+
+.btn-morton-menu-out:hover{
+  background: #333;
+}
+
+.btn-morton-menuimprimir-out{
+  font-family: 'Ibarra Real Nova', serif;
+  color: #fff;
+  background: #004d43;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1.3em;
+  padding: 5px 10px;
+  width: 100px;
+  border-radius: 20px;
+}
+
+.btn-morton-menuimprimir-out:hover{
+  background: #333;
+}
+
+
+.btn-morton{
+  color: #fff;
+  background-color: #004d43;
+  padding: 7px;
+  border: 1px solid #004d43;
+  line-height: 1.5;
+  font-weight: 400;
+  border-radius: 5px;
+
+}
+
+.btn-morton-logout{
+  color: #ff0000;
+  background-color: #fff;
+  padding: 7px;
+  border: 2px solid #ff0000;
+  line-height: 1.5;
+  font-weight: 400;
+  border-radius: 5px;
+
+}
+
+
+.checkbtn{
+  font-size: 40px;
+  color: #000;
+  float: right;
+  line-height: 120px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+
+#check{
+  display: none;
+}
+
+
+@media screen and (max-width: 952px){
+  .img-princ-nav{
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 931px){
+  .checkbtn{
+    display: block;
+  }
+
+  .men-nav-morton ul{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    top: 120px;
+    left: -100%;
+    text-align: center;
+    transition: all .5s;
+    z-index: 1;
+  }
+
+  .men-nav-morton ul li{
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+
+  }
+
+  #check:checked ~ #elem-menu{
+    left: 0;
+  }
+
+  .btn-morton{
+    border: none;
+    border-bottom: 2px solid #004d43;
+    border-radius: 0;
+    padding: 2px;
+    line-height: 2.5;
+    font-size: 18px;
+
+  }
+
+  .btn-morton-logout{
+    border: none;
+    border-bottom: 2px solid #ff0000;
+    border-radius: 0;
+    padding: 2px;
+    line-height: 2.5;
+    font-size: 18px;
+  }
+
+}
+
+

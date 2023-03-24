@@ -1,0 +1,78 @@
+#carouselExampleIndicators{
+  width: 80%;
+  margin: auto;
+}
+
+.mercado-prueba{
+  display: flex;
+}
+
+.carousel-indicators{
+  width: 40%;
+  background: rgba(255, 255, 255, 0.789);
+  position: initial;
+  flex-direction: column;
+  margin: 0;
+}
+
+.carousel-indicators button{
+  height:30%;
+}
+
+
+.carousel-indicators img{
+  width: 40%;
+
+}
+
+.box_style_1{
+  font-family: 'Quicksand', sans-serif;
+}
+
+
+.box_style_1 h2{
+  color: #004d43;
+  margin-bottom: 15px;
+}
+
+
+.box_style_1 i{
+  color: rgb(148, 234, 61);
+}
+
+
+.box_style_icons{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
+}
+
+
+.box_style_estimate_1{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2em;
+  color: #000;
+  font-weight: 500 ;
+}
+
+.box_style_estimate_2{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2em;
+  color: #004d43;
+  font-weight: 500 ;
+}
+
+.box_style_estimate_2 i{
+  color: #004d43;
+}
+
+
+.box_style_estimate_3{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2em;
+  color: #c32727;
+  font-weight: 500 ;
+}
+
+.box_style_estimate_3 i{
+  color: #c32727;
+}
