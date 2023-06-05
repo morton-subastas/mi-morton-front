@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UsuarioModel } from '../../models/usuario.model';
+import { UsuarioModel } from '../../models/usuario/usuario.model';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-  usuario: UsuarioModel;
+  usuario: UsuarioModel | undefined;
 
   constructor(private auth: AuthService,  private router:Router) { }
 
@@ -27,7 +27,7 @@ export class RegistroComponent implements OnInit {
     //console.log(this.usuario);
     //console.log(form);
 
-    this.auth.nuevo_usuario(this.usuario).subscribe(
+    this.auth.nuevo_usuario(this.usuario!).subscribe(
       resp =>{
         console.log(resp);
         console.log('Exito registro');

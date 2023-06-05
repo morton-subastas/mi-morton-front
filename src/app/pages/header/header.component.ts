@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  cliente_num:string;
-  nombre:string;
+  cliente_num:string = '';
+  nombre:string = '';
   constructor(private auth:AuthService, private router:Router) { }
 
   ngOnInit() {
-      this.cliente_num = localStorage.getItem('cliente');
-      this.nombre = localStorage.getItem('nombre');
+      this.cliente_num = localStorage.getItem('cliente')!;
+      this.nombre = localStorage.getItem('nombre')!;
       //console.log("HEADER");
       //console.log(localStorage.getItem('cliente'));
       //console.log(localStorage.getItem('token'));
@@ -40,9 +40,17 @@ Proximas(){
   this.router.navigateByUrl('/proximas');
 }
 
-  salir(){
+salir(){
     this.auth.logout();
     this.router.navigateByUrl('/login');
+}
+
+catalogos(){
+  this.router.navigateByUrl('/index-catalogos')
+}
+
+pendientes(){
+  this.router.navigateByUrl('/pendientes')
 }
 
 }

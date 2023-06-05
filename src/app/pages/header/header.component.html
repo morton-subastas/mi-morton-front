@@ -1,81 +1,140 @@
-<nav class="men-nav-morton">
-  <input type="checkbox" name="" id="check">
-  <label for="check" class="checkbtn">
-    <i class="fa-solid fa-bars"></i>
-  </label>
-  <a href="#" class="img-princ-nav">
-    <img src="../../../assets/images/logosMorton-2.png" alt="" class="img-princ">
-  </a>
-  <ul id="elem-menu">
-    <li>
-      <form>
-        <button class="btn-morton-menu" (click)="Compras()">Compras</button>
-      </form>
-    </li>
+<!-- <nav class="men-nav-morton">
+    <input type="checkbox" name="" id="check">
+    <label for="check" class="checkbtn">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <a href="#" class="img-princ-nav">
+      <img src="../../../assets/images/logosMorton-2.png" alt="" class="img-princ">
+    </a>
+    <ul id="elem-menu">
+      <li>
+        <form>
+          <button class="btn-morton-menu" (click)="Compras()">Compras</button>
+        </form>
+      </li> -->
 
-    <li>
-      <form>
-        <button class="btn-morton-menu" (click)="ventas()">Ventas</button>
-      </form>
-    </li>
+     <!--  <li>
+        <form>
+          <button class="btn-morton-menu" (click)="ventas()">Ventas</button>
+        </form>
+      </li> -->
 
-    <li>
-      <form autocomplete="off" (ngSubmit)="Contratos()" #Forma="ngForm">
-        <button type="submit" class="btn-morton-menu">Contratos</button>
-      </form>
-    </li>
+      <!-- <li mdbDropdown class="nav-item dropdown"> -->
+        <!-- <form autocomplete="off" (ngSubmit)="Contratos()" #Forma="ngForm">
+          <button type="submit" class="btn-morton-menu">Contratos</button>
+        </form> -->
 
-    <li>
-      <form>
-        <button class="btn-morton-menu" (click)="Proximas()">Proximas Subastas</button>
-      </form>
-    </li>
-    <li>
-      <form>
-        <button class="btn-morton-menu" (click)="Paleta()">Registro Paleta</button>
-      </form>
-    </li>
-    <li>
-      <form>
-        <button class="btn-morton-menu-out" (click)="salir()">Salir</button>
-      </form>
-    </li>
-  </ul>
-</nav>
-<div class="dat-user-login">
+      <!-- <li> -->
+          <!-- <button class="btn-morton-menu dropbtn" (click)="Proximas()">Proximas Subastas</button> -->
+          <!-- <div class="dropdown">
+            <p
+            class="dropdown-toggle btn-morton-menu"
+            type="button"
+            id="dropdownMenuButton"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+            (click)="Contratos()"
+            >Recibo</p>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li class=""><a class="dropdown-item btn-morton-menu option" (click)="ventas()">Ventas</a></li>
+              <li class=""><a class="dropdown-item btn-morton-menu option" (click)="Contratos()">Contratos</a></li>
+            </ul>
+          </div>
+      </li>
+      <li>
+        <form>
+          <button class="btn-morton-menu" (click)="Proximas()">Próximas subastas</button>
+        </form>
+      </li> -->
+      <!-- <li>
+        <form>
+          <button class="btn-morton-menu" (click)="Paleta()">Registro Paleta</button>
+        </form>
+      </li> -->
+   <!--    <li>
+        <form>
+          <button class="btn-morton-menu-out" (click)="salir()">Salir</button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+  <div class="dat-user-login">
 
-   <div class="dat-user-person">{{nombre}} <br>#Cliente: {{ cliente_num}}</div>
-  <div class="dat-user-client"><i class="fi fi-ss-user"></i></div> 
-</div>
+     <div class="dat-user-person">{{nombre}} <br>#Cliente: {{ cliente_num}}</div>
+    <div class="dat-user-client"><i class="fi fi-ss-user"></i></div>
+  </div> -->
 
 
-<!-- <nav class="navbar navbar-expand-lg navbar-light"  style="background-color: #dadfe2;">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <!-- <nav class="navbar navbar-expand-lg navbar-light"  style="background-color: #dadfe2;">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <p>Cliente: 25685</p><br><br>
+        <p><b>Luis Lopez Morton</b></p>
+        <form class="d-flex">
+          <button class="btn btn-outline-success" (click)="Compras()">Compras</button>
+        </form>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <form class="d-flex">
+          <button class="btn btn-outline-success" (click)="ventas()">Ventas</button>
+        </form>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <form autocomplete="off" (ngSubmit)="Contratos()" #Forma="ngForm">
+          <button type="submit" class="btn btn-outline-success">Contratos</button>
+        </form>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <form class="d-flex">
+          <button class="btn btn-outline-success" (click)="Proximas()">Proximas Subastas</button>
+        </form>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <form class="d-flex">
+          <button class="btn btn-outline-danger" (click)="salir()">Salir</button>
+        </form>
+      </div>
+    </div>
+  </nav><br> -->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light men-nav-morton navcontainer">
+  <div class="image">
+    <input type="checkbox" name="" id="check">
+    <label for="check" class="checkbtn">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <a class="img-princ-nav">
+      <img src="../../../assets/images/logosMorton-2.png" alt="" class="img-princ">
+    </a>
+  </div>
+  <div class="navbar-options">
+    <!-- <a class="navbar-brand btn-morton-menu" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <p>Cliente: 25685</p><br><br>
-      <p><b>Luis Lopez Morton</b></p>
-      <form class="d-flex">
-        <button class="btn btn-outline-success" (click)="Compras()">Compras</button>
-      </form>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <form class="d-flex">
-        <button class="btn btn-outline-success" (click)="ventas()">Ventas</button>
-      </form>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <form autocomplete="off" (ngSubmit)="Contratos()" #Forma="ngForm">
-        <button type="submit" class="btn btn-outline-success">Contratos</button>
-      </form>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <form class="d-flex">
-        <button class="btn btn-outline-success" (click)="Proximas()">Proximas Subastas</button>
-      </form>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <form class="d-flex">
-        <button class="btn btn-outline-danger" (click)="salir()">Salir</button>
-      </form>
+    </button> -->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active ">
+          <a class="nav-link btn-morton-menu" (click)="Compras()">Compras</a>
+        </li>
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle  btn-morton-menu" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Ventas
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item option" (click)="ventas()">Recibo</a>
+            <a class="dropdown-item option" (click)="Contratos()">Contratos</a>
+          </div>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link btn-morton-menu" (click)="Proximas()">Próximas subastas</a>
+        </li>
+        <!-- <li class="nav-item active">
+          <a class="nav-link btn-morton-menu" (click)="catalogos()">Catálogos</a>
+        </li> -->
+        <li class="nav-item active">
+          <a (click)="salir()" class="nav-link btn-morton-menu">Salir</a>
+        </li>
+      </ul>
     </div>
   </div>
-</nav><br> -->
+  </nav>

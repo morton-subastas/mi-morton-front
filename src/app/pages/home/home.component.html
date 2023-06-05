@@ -1,112 +1,129 @@
 <app-header></app-header><br><br>
 <div class="container">
-  <div class="col-12">
-    <h1 class="main-title-morton">Compras</h1>
+    <div class="col-12">
+      <h1 class="main-title-morton">Compras</h1>
 
-    <div id="SpinnerActivo" *ngIf="ActivoSpinner">
-      <div class="folding">
-        <div class="sk-cube1 sk-cube"></div>
-        <div class="sk-cube2 sk-cube"></div>
-        <div class="sk-cube4 sk-cube"></div>
-        <div class="sk-cube3 sk-cube"></div>
+      <div id="SpinnerActivo" *ngIf="ActivoSpinner">
+        <div class="folding">
+          <div class="sk-cube1 sk-cube"></div>
+          <div class="sk-cube2 sk-cube"></div>
+          <div class="sk-cube4 sk-cube"></div>
+          <div class="sk-cube3 sk-cube"></div>
+        </div>
       </div>
-    </div>
-    <div *ngIf="MuestraDatos" class="button-sections">
-      <div>
-        <form autocomplete="off" (ngSubmit)="saveNumber( FormaNumber )" #FormaNumber="ngForm">
-          <b>Mostrar</b>
-            <select name="numFilter" ngModel required class=" selectAltura"  [class.is-invalid]="auctionFind.invalid && auctionFind.touched" #auctionFind="ngModel" (change)="saveNumber(FormaNumber)"> 
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="75">75</option>
-            <option value="100">100</option>  
-          </select>
-          <b>registros</b>
-        </form>
+
+      <div *ngIf="MuestraDatos" class="button-sections">
+        <div>
+          <form autocomplete="off" (ngSubmit)="saveNumber( FormaNumber )" #FormaNumber="ngForm">
+            <b>Mostrar</b>
+              <select name="numFilter" ngModel required class=" selectAltura"  [class.is-invalid]="auctionFind.invalid && auctionFind.touched" #auctionFind="ngModel" (change)="saveNumber(FormaNumber)">
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="75">75</option>
+              <option value="100">100</option>
+            </select>
+            <b>registros</b>
+          </form>
+        </div>
+        <br><br>
+        <div class="button-controls">
+          <div *ngIf="desactivaPrevious">
+            <button class="btn-arrows" (click)="previousPage()">
+              <i class="fa-solid fa-angles-left"></i> Anteriores
+            </button>
+          </div>
+          <div *ngIf="desactivaNextPage">
+            <button  class="btn-arrows" (click)="nextPage()" >
+              Siguientes <i class="fa-solid fa-angles-right"></i>
+            </button>
+          </div>
+        </div>
+        <div>
+        </div>
+
+        <input type="text" class="form-control" placeholder="Buscar por descripción" #txtSearch (keyup)="onSearchLote(txtSearch.value)"/>
       </div>
-      <br><br>
+      <div class="numeration-image" style="text-align: end;"><p>Mostrando <b>{{ suma }}</b> de <b>{{ total}}</b></p></div>
+
+      <div *ngIf="DontShowTable">
+        <div class="table-responsive">
+          <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">Imagen</th>
+              <th scope="col">Lote</th>
+              <th scope="col">Subasta</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr | filtro:page:searchItem:suma; let indice=index">
+              <td class="elements-table-image">
+                <!-- <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno,
+                  id:auctionsFindSpecificArr.refno, iv: auctionsFindSpecificArr.invno }]" target="_blank">
+                  {{auctionsFindSpecificArr.invno}}
+                </a> -->
+
+                  <img style="max-width:100% ;" [src]="auctionsFindSpecificArr.pictpath | safe" alt="Image">
+
+              </td>
+              <td class="elements-table">
+                <b>Lote:</b> {{ auctionsFindSpecificArr.bidder}}<br><br>
+                  {{ auctionsFindSpecificArr.descript}}
+                  <!-- {{auctionsFindSpecificArr.saleno}} -->
+              </td>
+              <td class="elements-table">
+                No. {{auctionsFindSpecificArr.saleno }}<br>
+                {{auctionsFindSpecificArr.salename }}<br>
+                {{ auctionsFindSpecificArr.dateshort }} <br><br>
+                <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno, iv:auctionsFindSpecificArr.invno, state: auctionsFindSpecificArr.estate}]">
+                  {{auctionsFindSpecificArr.invno}}
+                </a>
+              </td>
+              <td class="elements-table">
+                <img src="../../../assets/images/auction.png" alt="">
+                <br>
+                ${{numberWithCommas(auctionsFindSpecificArr.martillo) }}.00
+                
+                <!-- {{auctionsFindSpecificArr.lastupdate}} -->
+
+              </td>
+              <td class="elements-table">
+                
+                
+                  <img src="../../../assets/images/info.png" alt="">
+                  <br>
+                  {{ auctionsFindSpecificArr.estate }}
+                  <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
+                    <a [routerLink]="['/factura']" target="_blank">
+                      <button class="btn-morton-menuimprimir-out" >Facturar</button>
+                    </a>
+                  </div>
+                  <!--  -->
+              </td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+
       <div class="button-controls">
         <div *ngIf="desactivaPrevious">
           <button class="btn-arrows" (click)="previousPage()">
             <i class="fa-solid fa-angles-left"></i> Anteriores
           </button>
         </div>
+
         <div *ngIf="desactivaNextPage">
           <button  class="btn-arrows" (click)="nextPage()" >
             Siguientes <i class="fa-solid fa-angles-right"></i>
           </button>
         </div>
       </div>
-      <div>
-      </div>
-    
-        <input type="text" class="form-control" placeholder="Buscar por descripción" #txtSearch (keyup)="onSearchLote(txtSearch.value)"/>
-    </div>
-    <div class="numeration-image" style="text-align: end;"><p>Mostrando <b>{{ suma }}</b> de <b>{{ total}}</b></p></div>
-
-    <div *ngIf="DontShowTable">
-      <div class="table-responsive">
-        <table class="table table-striped custom-table">
-        <thead>
-          <tr>
-            <th scope="col">Imagen</th>
-            <th scope="col">Lote</th>
-            <th scope="col">Subasta</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Estatus</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr | filtro:page:searchItem:suma; let indice=index">
-            <td style="width: 20%;"> <!--{{indice + 1}}-->
-              <a [routerLink]="['/imagenD', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno, NFilter:numFilter}]">
-                <!-- <img  [src]=" auctionsFindSpecificArr.imagen" alt="Image"> -->
-                <img style="max-width:100% ;" [src]="auctionsFindSpecificArr.pictpath | safe" alt="Image">
-              </a>
-            </td>
-            <td>
-                <b>Lote:</b> {{ auctionsFindSpecificArr.bidder}}<br><br>
-                 {{ auctionsFindSpecificArr.descript}}
-            </td>
-            <td style="text-align: center;">
-               No. {{auctionsFindSpecificArr.saleno }}<br>
-              {{auctionsFindSpecificArr.salename }}<br>
-              {{ auctionsFindSpecificArr.date}}<br><br>
-              <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno }]">
-                  <i class="fa-solid fa-eye"></i> Ver Recibo
-              </a>
-            </td>
-            <td style="text-align: center;">
-              <img src="../../../assets/images/auction.png" alt="">
-              <br>
-              {{auctionsFindSpecificArr.martillo }}
-
-            </td>
-            <td style="text-align: center;">
-              <img src="../../../assets/images/info.png" alt="">
-              <br>
-              {{ auctionsFindSpecificArr.estate }}
-            </td>
-          </tr>
-        </tbody>
-        </table>
-      </div>
-    
-    <div class="button-controls">
-      <div *ngIf="desactivaPrevious">
-        <button class="btn-arrows" (click)="previousPage()">
-          <i class="fa-solid fa-angles-left"></i> Anteriores
-        </button>
       </div>
 
-      <div *ngIf="desactivaNextPage">
-        <button  class="btn-arrows" (click)="nextPage()" >
-          Siguientes <i class="fa-solid fa-angles-right"></i>
-        </button>
-      </div>
+
+      <!--¡Welcom!<br><br>
+      It is a program where You might undersand English.-->
     </div>
   </div>
-    <!--¡Welcom!<br><br>
-    It is a program where You might undersand English.-->
-  </div>
-</div>

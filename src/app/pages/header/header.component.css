@@ -1,0 +1,78 @@
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+.dropdown-menu{
+  background-color: transparent;
+}
+
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  /* padding: 0.5rem 0; */
+  /* margin: 0.125rem 0 0; */
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: transparent;
+  background-clip: padding-box;
+  border: 0px solid rgba(0,0,0,.15);
+  border-radius: 0;
+  margin-top: -40px;
+}
+.option{
+  cursor: pointer;
+  font-family: 'Ibarra Real Nova', serif;
+  line-height: 1.5;
+  font-weight: 500;
+  font-size: 1.1em;
+  padding: 0 7px;
+  color: #004d43 !important;
+}
+
+.nav-item{
+  cursor: pointer;
+}
+
+.image{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.navcontainer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-link{
+  color: #004d43  !important;
+}
+
+.exit{
+  font-family: 'Ibarra Real Nova', serif;
+  color: #fff;
+  background: #004d43;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1.3em;
+  padding: 5px 10px;
+  width: 80px;
+  border-radius: 20px;
+}
+
+.dropdown-menu {
+  top: 150% !important;
+}

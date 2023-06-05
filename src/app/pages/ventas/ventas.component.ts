@@ -27,7 +27,7 @@ export class VentasComponent implements OnInit {
     });
 */
 
-this.cliente_num = localStorage.getItem('cliente');
+this.cliente_num = localStorage.getItem('cliente')!;
 
     this.auth.getVentasToRFC(this.cliente_num).subscribe(dataVenvtas => {
       this.ActivoSpinner = false;
@@ -37,6 +37,11 @@ this.cliente_num = localStorage.getItem('cliente');
       //console.log(auctionfindSpecificSaleDB[0]);
       this.auctionsFindSpecificArr = dataVenvtas;
     });
+  }
+
+
+  numberWithCommas(x: any) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
 
 }

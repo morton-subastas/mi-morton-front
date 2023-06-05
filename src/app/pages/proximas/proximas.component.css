@@ -1,35 +1,54 @@
-.row-shadow{
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  margin: 15px;
-  padding: 15px;
+.subasta{
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
 }
 
-.d-grid.gap-2.d-md-flex.justify-content-md-end.boton> .multi-button{
-  font-family:'Quicksand', sans-serif;
-  color: #fff;
-  /* font-weight: bold; */
-  background: #004D43;
-  padding: 7px;
-  margin-right: 15px;
-  border-radius: 5px;
-  font-weight: bold;
+.button{
+    color: #fff;
 }
 
-.d-grid.gap-2.d-md-flex.justify-content-md-end.boton> .multi-button:hover{
-
-  color: #fff;
-  /* font-weight: bold; */
-  background: #333;
-  text-decoration: none;
-
-
-
+.imagen{
+    width: 25%;
+    display: flex;
+    justify-content: center;
 }
 
-.tour_list_desc h3{
-  margin-bottom: 15px;
+.descripcion{
+    width: 65%;
 }
 
-.parrafo p{
-  font-family:'Quicksand', sans-serif;
+.detail{
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: #fff;
+    background: #004D43;
+    cursor: pointer;
+    padding: 7px 20px;
+    display: inline-block;
+    outline: none;
+    font-size: 12px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.gosubastas{
+    text-align: end;
+}
+
+.description-subasta{
+    text-align: justify;
+}
+
+.inf-sub{
+    font-size:12px !important; color:grey
 }

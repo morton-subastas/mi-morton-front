@@ -1,0 +1,170 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="col-12">
+    <h1 class="main-title-morton">Registro de Paleta</h1>
+
+    <div class="row row-shadow" *ngFor="let sub of resultado">
+      <div class="col-lg-4 col-md-4">
+        <div class="img_list">
+            <img src="https://www.mortonsubastas.com/new/img/mini/{{sub.subWebInfo_MinIMG}}" alt="Image" width="100%">
+          
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8">
+        <div class="tour_list_desc" >
+
+            <h3><strong>{{sub.subasta_Nom}}</strong></h3>
+            <div class="parrafo">
+              
+            <p>{{sub.subasta_Des | slice:0:300}}
+            <br>
+            </p>
+            <p class="inf-sub" style="font-size:12px !important; color:grey">{{sub.subWebInfo_FecMan}}
+              <br><strong>{{sub.salon_nom }}</strong></p>
+        <br>
+        <div class="row" *ngIf="isSubasta"><div class="col-4">
+            <button  class="login100-form-btn"  (click)="accionPresencial()">Presencial</button>
+            </div>
+          <div class="col-4"></div>
+            <div class="col-4">
+          <button  class="login100-form-btn" (click)="accionAusencia()" >Ausencia</button>
+            </div>
+          </div>
+          <br>
+          <div *ngIf="isPresencial">
+            <div class="row">
+              <div class="col-4">
+                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">Asignarme una paleta-P</div>
+              <div class="card-body">
+                <p class="card-text"><button  class="login100-form-btn" >Buscar</button></p>
+              </div>
+                </div>
+              </div>
+              <div class="col-1"></div>
+              <div class="col-2">
+                <button  class="btn btn-secondary" (click)="accionRegresar()">Regresar</button>
+              </div>
+              <div class="col-1"></div>
+
+              <div class="col-4">
+                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">Elegir una paleta-P</div>
+              <div class="card-body">
+                <!--
+                <select class="form-select" aria-label="Default select example">
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+                -->
+                <input type="text" class="form-control" placeholder="Ingresa un número">
+                <br><br><br>
+                <p class="card-text"><button  class="login100-form-btn" >Guardar</button></p>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!------>
+          <div *ngIf="isAusencia">
+            <div class="row">
+              <div class="col-6">
+                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">Asignarme una paleta-A</div>
+              <div class="card-body">
+                <p class="card-text"><button  class="login100-form-btn" >Buscar</button></p>
+              </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">Elegir una paleta-A</div>
+              <div class="card-body">
+                <select class="form-select" aria-label="Default select example">
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+                <br><br><br>
+                <p class="card-text"><button  class="login100-form-btn" >Guardar</button></p>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+          
+        <br><br>
+        </div>
+      </div>
+      <br><br><br><br>
+    </div>
+
+    <!--
+  <div class="row row-shadow">
+    <div class="col-lg-4 col-md-4">
+      <div class="img_list">
+        <a href="https://www.mortonsubastas.com/subastas/pagosgarantia/index_pagos.php?Sub=1078"><img src="https://www.mortonsubastas.com/new/img/mini/mini_1078.jpg" alt="Image" width="100%">
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-8">
+      <div class="tour_list_desc">
+
+          <h3><strong>SUBASTA DE RELOJES Y JOYERÍA</strong></h3>
+          <div class="parrafo">
+          <p>Incluye sección de relojes Rolex y Omega
+            Visite la exhibición en Monte Athos 179, Lomas de Chapultepec. De lunes a...
+          <br>
+          </p>
+          <p class="inf-sub" style="font-size:12px !important; color:grey">Subasta en vivo, miércoles 20 de julio de 2022, 4:00 p.m.<br><strong>Monte Athos</strong></p>
+      <br>
+        </div>
+
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end boton">
+      <a href="https://www.mortonsubastas.com/subastas/pagosgarantia/index_pagos.php?Sub=1078" class="multi-button">Pago de Garantía</a>
+      </div>
+
+              </div>
+    </div>
+  </div>
+
+  <div class="row row-shadow">
+    <div class="col-lg-4 col-md-4">
+      <div class="img_list">
+        <a href="https://www.mortonsubastas.com/subastas/index_pagos.php?Sub=1079"><img src="https://www.mortonsubastas.com/new/img/mini/mini_1079.jpg" alt="Image" width="100%">
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-8">
+      <div class="tour_list_desc">
+
+          <h3><strong>SUBASTA DE OBRA GRÁFICA Y FO...</strong></h3>
+          <div class="parrafo">
+          <p>Pop art. El mercado de las imágenes.
+            El mundo del arte, un espacio inmenso e interconectado en el que agentes de tod...
+          <br>
+          </p>
+          <p class="inf-sub" style="font-size:12px !important; color:grey">Subasta en vivo, jueves 11 de agosto de 2022, 5:00 p.m.<br><strong>Cerro de Mayka</strong></p>
+      <br>
+        </div>
+
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end boton">
+      <a href="https://www.mortonsubastas.com/subastas/index_pagos.php?Sub=1079" class="multi-button">Pago de Garantía</a>
+      </div>
+
+              </div>
+    </div>
+  </div>
+  -->
+</div>
+
+
+</div>
+
+

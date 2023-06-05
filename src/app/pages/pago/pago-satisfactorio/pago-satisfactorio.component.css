@@ -1,0 +1,23 @@
+.success-img{
+    width: 20%;
+    height: 20%;
+}
+
+.col-12{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+p{
+    font-size: 17px;
+    color: black;
+}
+
+.container-table{
+    width: 30%;
+}
+
+table{
+    width: 100%;
+}

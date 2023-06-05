@@ -1,0 +1,42 @@
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.sectionForm{
+    display: flex;
+    justify-content: space-between;
+}
+
+.sectionForm2{
+    display: flex;
+}
+
+.subtitle{
+    color: #004d43;
+}
+
+.table{
+    width: 100%;
+}
+
+
+.title-table{
+    display: flex;
+    justify-content: space-between;
+}
+
+.fields{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+h3{
+    color: #004d43;
+}

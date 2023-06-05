@@ -19,37 +19,43 @@
       <table class="table table-striped custom-table">
         <thead>
           <tr>
-            <th scope="col">Imagen</th>
-            <th scope="col">Lote</th>
-            <th scope="col">Subasta</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Estatus</th>
+            <th scope="col" class="header">Imagen</th>
+            <th scope="col" class="header">Lote</th>
+            <th scope="col" class="header">Subasta</th>
+            <th scope="col" class="header">Precio</th>
+            <th scope="col" class="header">Estatus</th>
           </tr>
         </thead>
         <tbody>
           <tr scope="row" *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr">
-            <td>
-              <a [routerLink]="['/imagenD', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno }]">
+            <td class="item">
+              <img style="max-width:40% ;" [src]="auctionsFindSpecificArr.pictpath | safe" alt="Image">
+              <!-- <a [routerLink]="['/imagenD', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno }]">
+              </a> -->
                 <!-- <img  [src]=" auctionsFindSpecificArr.imagen" alt="Image"> -->
-                <img style="max-width:100% ;" [src]="auctionsFindSpecificArr.pictpath | safe" alt="Image">
-              </a>
             </td>
-            <td>
-                Lote: {{ auctionsFindSpecificArr.bidder}}<br>
-                Descirpcion: {{ auctionsFindSpecificArr.descript}}
+            <td class="item">
+                Lote: {{ auctionsFindSpecificArr.lot}}<br>
+                Descripción: {{ auctionsFindSpecificArr.descript}}
             </td>
-            <td>
-               No. {{auctionsFindSpecificArr.saleno }}<br>
+            <td class="item">
+              No. {{auctionsFindSpecificArr.saleno }}<br>
               {{auctionsFindSpecificArr.salename }}<br>
               {{ auctionsFindSpecificArr.date}}
+              <a [routerLink]="['/recibo-venta', {subasta: auctionsFindSpecificArr.saleno, 
+                id:auctionsFindSpecificArr.refno, iv:auctionsFindSpecificArr.invno, 
+                salename: auctionsFindSpecificArr.salename, saleDate: auctionsFindSpecificArr.saledate,
+                salelocale: auctionsFindSpecificArr.salelocale}]">
+                Ver recibo: {{auctionsFindSpecificArr.invno}}
+              </a>
             </td>
-            <td>
+            <td class="item">
               <img src="../../../assets/images/auction.png" alt="">
-              <br>{{auctionsFindSpecificArr.martillo }}
+              <br>{{numberWithCommas(auctionsFindSpecificArr.martillo) }}.00
             </td>
-            <td>
+            <td class="item">
               <img src="../../../assets/images/info.png" alt="">
-              <br>{{ auctionsFindSpecificArr.estate }}
+              <br>{{ auctionsFindSpecificArr.estatus }}
             </td>
           </tr>
         </tbody>

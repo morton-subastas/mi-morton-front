@@ -29,4 +29,7 @@ date: string;
 martillo: number;
 estate: string;
 pictpath:string;
+invno:string;
+lastupdate:string;
+dateshort:string
 }

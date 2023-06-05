@@ -4,16 +4,18 @@
     <h1 class="main-title-morton">Recibo de compra</h1>
     <b>Recibo:</b> {{ recibo }}<br>
     <b>Nombre Subasta:</b> {{ nom_sub}}<br>
-    <b>No. Subasta:</b> {{num_sub }}<br>
+    <b>No. Subasta:</b> {{ num_sub[0] }}<br>
     <b>Fecha:</b> {{ fecha_sub }}<br>
     <b>Paleta:</b>{{ paleta }}<br>
     <b>Lugar:</b> {{ locale}}<br>
     <br>
     <div class="table-responsive">
 
-      <a href="https://mimorton.com/imglink/pdf/{{recibo}}.pdf">
+      <a href="https://mimorton.com/imglink/pdf/{{recibo}}.pdf" target="_blank">
         <button class="btn-morton-menuimprimir-out" (click)="imprimir()">Imprimir</button>
       </a>
+      <br>
+      <br>
     <table class="table table-striped custom-table">
         <thead>
           <tr>
@@ -27,16 +29,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr style="text-align:center;" *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr">
-            <td>{{ auctionsFindSpecificArr.lot }}</td>
+          {{auctionsFindSpecificArr.lot | json}}
+          <tr style="text-align:center;" *ngFor="let auctionsFindSpecificArrHTML of auctionsFindSpecificArr; let indice=index">
+            <td>{{ auctionsFindSpecificArrHTML.lot }}</td>
             <td>
-            <img [src]="auctionsFindSpecificArr.pictpath | safe" width="50%">
+            <img [src]="auctionsFindSpecificArrHTML.pictpath| safe" width="40%">
             </td>
-            <td>{{ auctionsFindSpecificArr.descript }}</td>
-            <td>{{ auctionsFindSpecificArr.hammer}}</td>
-            <td>{{ auctionsFindSpecificArr.hammer * 0.20}} </td>
+            <td class="descipt-item">{{ auctionsFindSpecificArrHTML.descript[0] }}</td>
+            <td>{{ numberWithCommas (auctionsFindSpecificArrHTML.hammer)}}.00</td>
+            <td>{{ numberWithCommas(auctionsFindSpecificArrHTML.hammer*0.20)}}.00 </td>
             <td>0</td>
-            <td>{{ auctionsFindSpecificArr.hammer +  auctionsFindSpecificArr.hammer * 0.20 }} </td>
+            <td>{{ auctionsFindSpecificArrHTML.hammer +  auctionsFindSpecificArrHTML.hammer * 0.20 }}.00 </td>
           </tr>
         </tbody>
       </table>
@@ -46,23 +49,34 @@
       <thead>
         <tr>
           <th scope="col" colspan="3">
-            Subtotal: <b>{{ subtotal | currency}}</b><br>
+            Subtotal: <b>${{ numberWithCommas(subtotal) }}.00</b><br>
           </th>
         </tr>
         <tr>
-          <th>Premium:<b>  {{ premium | currency}}</b></th>
+          <th>Premium: <b>${{ numberWithCommas(premium)}}.00</b></th>
         </tr>
         <tr>
-          <th>Bidsquare:<b>$0.00</b></th>
+          <th>Bidsquare: <b>$0.00</b></th>
         </tr>
         <tr>
-          <th>IVA:<b> {{ iva | currency}}</b><br></th>
+          <th>IVA:<b> ${{ calculateIVA(iva)}}</b><br></th>
         </tr>
         <tr>
           <th>
-      Total:<b> {{ total_sum | currency}}</b><br>   
-    </th>
+            Total:<b> ${{ numberWithCommas(total_sum)}}.00</b><br>
+          </th>
         </tr>
+
+        <tr>
+          <th>
+            <div class="button" *ngIf="estado =='Pagado'">
+              <a [routerLink]="['/pago', {noRecibo: recibo, total: total_sum}]" >
+                <button class="btn-morton-menuimprimir-out">Pagar</button>
+              </a>
+            </div>
+          </th>
+        </tr>
+
       </thead>
       </table>
 </div>
