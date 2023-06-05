@@ -1,0 +1,107 @@
+.payment-section{
+    display: flex;
+    width: 100%;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+}
+
+.customer-detail{
+    width: 49.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-info{
+    text-align: center;
+    color: #004d43;
+    font-weight: 400;
+}
+
+.payment{
+    text-align: center;
+    color: #004d43;
+    font-weight: 400;
+}
+
+.customer{
+    width: 90%;
+}
+
+.payment{
+    width: 90%;
+}
+
+h4{
+    font-weight: 400;
+    text-align: center;
+}
+
+p{
+    font-size: 17px;
+    color: black;
+}
+
+.custom-table{
+    width: 100%;
+}
+
+.items{
+    width: 95%;
+}
+
+.elements-table{
+    text-align: center;
+}
+
+.elements-table-image{
+    text-align: center;
+}
+
+.header{
+    width: 33%;
+}
+
+.lot-image{
+    max-width:40%;
+}
+
+.fields{
+    font-size: 17px;
+    width: 100%;
+    display: flex;
+}
+
+.input{
+    width: 100%;
+}
+
+.detail{
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: #fff;
+    background: #004D43;
+    cursor: pointer;
+    padding: 7px 20px;
+    display: inline-block;
+    outline: none;
+    font-size: 20px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+    width: 95%;
+
+}
+
+.button{
+    color: #fff;
+}
+
+.buttons{
+    text-align: center;
+}

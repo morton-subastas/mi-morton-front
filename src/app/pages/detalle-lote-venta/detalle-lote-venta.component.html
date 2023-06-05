@@ -1,0 +1,97 @@
+<app-header></app-header><br><br>
+
+<div class="container">
+    <div class="col-12">
+    <h1 class="main-title-morton">Detalle de lote: <strong>{{lote}} </strong> </h1>
+    <div class="img-container">
+        <img [src]="imagen| safe"width="22%">
+    </div>
+    <table class="table table-striped custom-table">
+        <thead>
+            <tr>
+                <th scope="col" colspan="3">
+                    Subtotal: <b>${{numberWithCommas(subtotal)}}.00</b><br>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Comisión: <b>${{numberWithCommas(premium)}}.00 </b>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    IVA: <b>${{numberWithCommas(iva)}}.00</b><br>
+                </th>
+            </tr>
+            <tr>
+            <th>
+                Total: <b>${{ numberWithCommas(total)}}.00</b><br>
+            </th>
+            </tr>
+        </thead>
+    </table>
+
+    <!-- <br>
+    <div class="table-responsive">
+    <br>
+    <br>
+    <table class="table table-striped custom-table">
+        <thead>
+            <tr>
+                <th scope="col">Lote</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Nombre lote</th>
+                <th scope="col">Detalle</th>
+                <th scope="col">Martillo</th>
+                <th scope="col">Premium</th>
+                <th scope="col">Bidsquare</th>
+                <th scope="col">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr style="text-align:center;" *ngFor="let item of items; let indice=index">
+                <td>{{ item.lot }}</td>
+                <td>
+                    <img [src]="item.pictpath| safe"width="40%">
+                </td>
+                <td class="descipt-item">{{ item.descript[0] }}</td>
+                <td>
+                <a [routerLink]="['/recibo-venta', {lote: item.lot, 
+                    hammer:item.hammer.refno, img:item.pictpath}]">
+                    Ver Detalle
+                </a>
+                </td>
+                <td>{{ item.hammer}}</td>
+                <td> {{ item.hammer * 0.20}}</td>
+                <td>0</td>
+                <td>{{ item.hammer +  item.hammer * 0.20 }} </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <br> -->
+    <!-- <table class="table table-striped custom-table">
+    <thead>
+        <tr>
+        <th scope="col" colspan="3">
+            Subtotal: <b>{{ subtotal}}</b><br>
+        </th>
+        </tr>
+        <tr>
+        <th>Premium:<b> {{ premium}} </b></th>
+        </tr>
+        <tr>
+        <th>Bidsquare:<b>$0.00</b></th>
+        </tr>
+        <tr>
+        <th>IVA:<b> {{ iva}}</b><br></th>
+        </tr>
+        <tr>
+        <th>
+            Total:<b> {{ total_sum}} </b><br>
+        </th>
+        </tr>
+        </thead>
+    </table> -->
+</div>

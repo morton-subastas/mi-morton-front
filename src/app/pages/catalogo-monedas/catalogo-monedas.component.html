@@ -1,0 +1,34 @@
+<app-header></app-header><br><br>
+<div class="container">
+    <div class="col-12">
+    <h1 class="main-title-morton">Bancos</h1>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped custom-table">
+        <thead>
+        <tr>
+            <th scope="col" class="header">Clave</th>
+            <th scope="col" class="header">Nombre</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let moneda of allMonedas">
+                <td class="item">
+                <!-- <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno,
+                    id:auctionsFindSpecificArr.refno, iv: auctionsFindSpecificArr.invno }]" target="_blank">
+                    {{auctionsFindSpecificArr.invno}}
+                </a> -->
+                {{moneda.moneda_clave}}
+                </td>
+                <td class="item">
+                    <!-- <b>Lote:</b> {{ auctionsFindSpecificArr.bidder}}<br><br>
+                    {{ auctionsFindSpecificArr.descript}} -->
+                    {{moneda.moneda_nombre}}
+                    <!-- {{auctionsFindSpecificArr.saleno}} -->
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>

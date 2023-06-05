@@ -140,7 +140,8 @@ iframe {
   background-image: url("../../assets/images/bg_morton_1.jpg");
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-size: 100%;
 }
 
 .img-logo-main{
@@ -201,7 +202,7 @@ iframe {
 
 .wrap-login100 {
   width: 400px;
-  background: #fff;
+  background-color: rgba(0,0,0,0.7);
   border-radius: 10px;
   position: relative;
 }

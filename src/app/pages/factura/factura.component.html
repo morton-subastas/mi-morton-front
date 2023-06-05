@@ -1,0 +1,210 @@
+<app-header></app-header><br>
+<div class="container">
+    <div class="col-12">
+    <h1 class="main-title-morton">Generar Factura</h1>
+    <div class="form">
+        <form action="" [formGroup]="formFactura" class="formFactura">
+            <h2 class="subtitle">Información general</h2>
+            <div class="sectionForm">
+                <div class="form-group col-md-3">
+                    <label for="folioFactura">Folio factura</label>
+                    <input type="text" class="form-control" id="folioFactura" formControlName="folioFactura" placeholder="123">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="fechaFactura">Fecha</label>
+                    <input type="text" class="form-control" id="fechaFactura" formControlName="fechaFactura" placeholder="11/01/22">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="horaFactura">Hora</label>
+                    <input type="text" class="form-control" id="horaFactura" formControlName="horaFactura" placeholder="12:14:12">
+                </div>
+            </div>
+            <div class="sectionForm">
+                <div class="form-group col-md-3">
+                    <label for="subastaFactura">Subasta</label>
+                    <input type="text" class="form-control" id="subastaFactura" formControlName="subastaFactura" placeholder="1179T">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="paletaFactura">Paleta-Contrato</label>
+                    <input type="text" class="form-control" id="paletaFactura" formControlName="paletaFactura" placeholder="123">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="fechaParticipacionF">Fecha Participa</label>
+                    <input type="text" class="form-control" id="fechaParticipacionF" formControlName="fechaParticipacionF" placeholder="06/12/2022">
+                </div>
+            </div>
+
+            <div class="sectionForm">
+                <div class="form-group col-md-3">
+                    <label for="emisorFactura">Emisor</label>
+                    <input type="text" class="form-control" id="emisorFactura" formControlName="emisorFactura" placeholder="Morton Subastas SA">
+                </div>
+                <div class="form-group col-md-3">
+                </div>
+                <div class="form-group col-md-3">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="subtitle">Datos Fiscales del Comprador</h2>
+                <div class="fields">
+                    <div class="form-group col-md-3">
+                        <label for="receptorFactura">Nombre o razón social del receptor</label>
+                        <input type="text" class="form-control" id="receptorFactura" formControlName="receptorFactura" placeholder="Juan Torres">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <br>
+                        <label for="emailSendFactura">RFC</label>
+                        <input type="text" class="form-control" id="emailSendFactura" formControlName="rfc" placeholder="MXXX970705HG5">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <br>
+                        <label for="emailSendFactura">Correo</label>
+                        <input type="text" class="form-control" id="emailSendFactura" formControlName="emailSendFactura" placeholder="juan@mail.com">
+                    </div>
+                </div>
+                <h3>Dirección</h3>
+                <div class="fields">
+                    <div class="form-group col-md-3">
+                        <label for="emailSendFactura">Calle y número</label>
+                        <input type="text" class="form-control" id="emailSendFactura" formControlName="emailSendFactura" placeholder="Juan Escutia 26">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="emailSendFactura">Colonia</label>
+                        <input type="text" class="form-control" id="emailSendFactura" formControlName="emailSendFactura" placeholder="Miguel Hidalgo">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="emailSendFactura">Delegación</label>
+                        <input type="text" class="form-control" id="emailSendFactura" formControlName="emailSendFactura" placeholder="Alvaro Obregón">
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="form-group col-md-3">
+                        <label for="emailSendFactura">Código Postal</label>
+                        <input type="text" class="form-control" id="emailSendFactura" formControlName="emailSendFactura" placeholder="01296">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="emailSendFactura">Ciudad</label>
+                        <input type="text" class="form-control" id="emailSendFactura" formControlName="emailSendFactura" placeholder="Ciudad de México">
+                    </div>
+                    <div class="form-group col-md-3">
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="subtitle">Datos Generales</h2>
+            <div class="sectionForm">
+                <div class="form-group col-md-3">
+                    <label for="metodoPago">Método </label>
+                    <select name="metodoPago" id="metodoPago">
+                        <option *ngFor="let metodo of allMetodos" [value]="metodo.metodopago_clave">{{metodo.metodopago_descripcion}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="formaPago">Forma de Pago </label>
+                    <select name="formaPago" id="formaPago">
+                        <option *ngFor="let formaPago of allFormasPago" [value]="formaPago.formapago_clave">{{formaPago.formapago_descripcion}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="monedaPago">Moneda </label>
+                    <select name="monedaPago" id="monedaPago" [disabled]="true">
+                        <option *ngFor="let moneda of allMonedas" [value]="moneda.moneda_clave">{{moneda.moneda_nombre}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="sectionForm">
+                <div class="form-group col-md-3">
+                    <label for="tipoComprobante">Tipo Comprobante </label>
+                    <select name="tipoComprobante" id="tipoComprobante" [disabled]="true">
+                        <option *ngFor="let Comprobante of allComprobantes" [value]="Comprobante.formapago_clave">{{Comprobante.tcomprobante_concepto}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="tipoUso">Tipo de Uso </label>
+                    <select name="tipoUso" id="tipoUso">
+                        <option *ngFor="let uso of allUsos" [value]="uso.uso_clave">{{uso.uso_descripcion}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="lugarExpedicion">Lugar Expedición </label>
+                    <select name="lugarExpedicion" id="lugarExpedicion" [disabled]="true">
+                        <option *ngFor="let lugar of allLugares" [value]="lugar.lugarexpedicion_cp">{{lugar.lugarexpedicion_estado}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="title-table">
+                <h2 class="subtitle">Conceptos</h2>
+                <button class="btn-morton-menuimprimir-out" >
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+            <br>
+            <div class="table">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Clave SAT</th>
+                            <th scope="col">Unidad</th>
+                            <th scope="col">Martillo</th>
+                            <th scope="col">Valor unitario</th>
+                            <th scope="col">Iva</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td class="elements-table">
+                            </td>
+                            <td class="elements-table">
+                            </td>
+                            <td class="elements-table">
+                            </td>
+                            <td class="elements-table">
+                            </td>
+                            <td class="elements-table">
+                            </td>
+                            <td class="elements-table">
+                            </td>
+                            <td class="elements-table">
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+            </div>
+
+
+        </form>
+    </div>
+    <!--¡Welcom!<br><br>
+    It is a program where You might undersand English.-->
+    </div>
+</div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+				<label for="dateOfBirth">Date of birth</label>
+				<div class="input-group">
+					<input
+						id="dateOfBirth"
+						class="form-control"
+						placeholder="yyyy-mm-dd"
+						name="dp"
+						ngbDatepicker
+					/>
+					<button class="btn btn-outline-secondary bi bi-calendar3"  type="button"></button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+	</div>
+</ng-template>

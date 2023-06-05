@@ -1,0 +1,38 @@
+.condition{
+    color: #004d43;
+}
+
+.row{
+    text-align: center;
+}
+
+.th-partida{
+    text-align: center;
+}
+
+.th-descript{
+    text-align: center;
+}
+
+.th-status{
+    text-align: center;
+}
+
+.th-lote{
+    text-align: center;
+}
+
+.filters{
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}

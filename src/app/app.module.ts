@@ -1,61 +1,97 @@
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import localePy from '@angular/common/locales/es';
 
-import { RegistroComponent } from './pages/registro/registro.component';
-import { HomeComponent } from './pages/home/home.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
-import { VentasComponent } from './pages/ventas/ventas.component';
+import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './pages/header/header.component';
-import { FooterComponent } from './pages/footer/footer.component';
-import { ContratosComponent } from './pages/contratos/contratos.component';
-import { ProximasComponent } from './pages/proximas/proximas.component';
-import { FiltroPipe } from './pages/pipes/filtro.pipe';
-import { DetailImagenComponent } from './pages/detail-imagen/detail-imagen.component';
-import { FormateadoPipe } from './pages/pipes/formateado.pipe';
-import { ReciboComponent } from './pages/recibo/recibo.component';
-import { SafePipe } from './pipes/safe.pipe';
+
+import {SafePipe} from './pipes/safe.pipe';
 import { FechaPipe } from './pipes/fecha.pipe';
 import { SubastaPipe } from './pipes/subasta.pipe';
 import { LotePipe } from './pipes/lote.pipe';
-import { PaletteComponent } from './pages/palette/palette.component';
 import { FechaLargaPipe } from './pipes/fecha-larga.pipe';
 import { FilterwordPipe } from './pipes/filterword.pipe';
-
+import { FiltroPipe } from './pipes/filtro.pipe';
+import { ReciboComponent } from './pages/recibo/recibo.component';
+import { VentasComponent } from './pages/ventas/ventas.component';
+import { ContratosComponent } from './pages/contratos/contratos.component';
+import { ProximasComponent } from './pages/proximas/proximas.component';
+import { PaletaComponent } from './pages/paleta/paleta.component';
+import { RegistroComponent } from './pages/registro/registro.component';
+import { DetailImagenComponent } from './pages/detail-imagen/detail-imagen.component';
+import { PendientesComponent } from './pages/pendientes/pendientes.component';
+import { CatalogoBancosComponent } from './pages/catalogo-bancos/catalogo-bancos.component';
+import { IndexCatalagosComponent } from './pages/index-catalagos/index-catalagos.component';
+import { CatalogoMonedasComponent } from './pages/catalogo-monedas/catalogo-monedas.component';
+import { ReciboVentaComponent } from './pages/recibo-venta/recibo-venta.component';
+import { FacturaComponent } from './pages/factura/factura.component';
+import { ConceptosFacturaComponent } from './pages/conceptos-factura/conceptos-factura.component';
+import { AgregarConceptosComponent } from './pages/factura/agregar-conceptos/agregar-conceptos.component';
+import { DetalleLoteVentaComponent } from './pages/detalle-lote-venta/detalle-lote-venta.component';
+import { PagoComponent } from './pages/pago/pago.component';
+import { PagoSatisfactorioComponent } from './pages/pago/pago-satisfactorio/pago-satisfactorio.component';
+import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/pago-insatisfactorio.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    RegistroComponent,
-    HomeComponent,
+    AppComponent ,
     LoginComponent,
-    VentasComponent,
+    HomeComponent,
     HeaderComponent,
-    FooterComponent,
-    ContratosComponent,
-    ProximasComponent,
-    FiltroPipe,
-    DetailImagenComponent,
-    FormateadoPipe,
-    ReciboComponent,
     SafePipe,
     FechaPipe,
     SubastaPipe,
     LotePipe,
-    PaletteComponent,
     FechaLargaPipe,
-    FilterwordPipe
+    FilterwordPipe,
+    FiltroPipe,
+    ReciboComponent,
+    VentasComponent,
+    ContratosComponent,
+    ProximasComponent,
+    PaletaComponent,
+    RegistroComponent,
+    DetailImagenComponent,
+    PendientesComponent,
+    CatalogoBancosComponent,
+    IndexCatalagosComponent,
+    CatalogoMonedasComponent,
+    ReciboVentaComponent,
+    FacturaComponent,
+    ConceptosFacturaComponent,
+    AgregarConceptosComponent,
+    DetalleLoteVentaComponent,
+    PagoComponent,
+    PagoSatisfactorioComponent,
+    PagoInsatisfactorioComponent
+
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  schemas:[
+		CUSTOM_ELEMENTS_SCHEMA,
+		NO_ERRORS_SCHEMA
+	],
+  exports: [
+    HeaderComponent,
+  ],
+  providers: [ {provide: LOCALE_ID, useValue: 'es'}, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

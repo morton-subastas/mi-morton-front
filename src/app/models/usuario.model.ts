@@ -1,6 +1,0 @@
-export class UsuarioModel{
-    email: string;
-    password: string;
-    nombre: string;
-    cliente: string;
-}

@@ -1,0 +1,230 @@
+<app-header></app-header>
+<br>
+<div class="container">
+    <div class="col-12">
+        <h1 class="main-title-morton">Realizar Pago</h1>
+        <div class="form">
+
+            <form [action]="url" method="POST" ngNoForm >
+                <div class="" style="display: none">
+                    <tr>
+                      <td>mp_order *:<input type='text' id="mp_order" name="mp_order" value="Proceso"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_account:<input type='text' name="mp_account" value="6963"><br>
+                        <input type='hidden' id="mp_nameS" name="mp_nameS"  value="1190T">
+                    <tr>
+                        <td>mp_product:<input type='text' name="mp_product" value="1"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_reference*<input type="text" id="mp_reference" name="mp_reference" value="{{reference}}"></td>></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_node:<input type='text' name="mp_node" value="0" ></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_currency:<input type='text' name="mp_currency" value="1"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_signature:<input type='text' id='mp_signature' name='mp_signature' value="{{hash}}"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_concept: <input type='text' id="mp_concept" name="mp_concept" value="6"></td>
+                    </tr>
+                    <tr>
+                        <td>mp_urlsuccess:<input type='text' name="mp_urlsuccess" value="https://infosubastas.mortonsubastas.com/#/satisfactorio" ></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_urlfailure:<input type='text' name="mp_urlfailure" value="https://infosubastas.mortonsubastas.com/#/insatisfactorio"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_respuesta:<input type='text' id='mp_respuesta' name='mp_respuesta'></td>
+                    </tr><br>
+                    <tr>
+                        <td>llave_hmac:<input type='text' id='llave_hmac' name='llave_hmac'>{{signature}}</td>
+                    </tr><br>
+                </div>
+                <div class="payment-section">
+                    <div class="customer-detail">
+                        <br>
+                        <h2 class="data-info">Información</h2>
+                        <div class="customer">
+                            <h4>Mis datos</h4>
+                            <div class="fields">
+                                Nombre:&nbsp;<input type='text' id="mp_customername" name="mp_customername" value="{{nombreCliente}}" [readonly]="true"> 
+                            </div>
+                            <br>
+                            <div class="fields">
+                                Email:&nbsp;<input type='text' class="input" id="mp_email" name="mp_email" value="{{email}}" [readonly]="true"> 
+                            </div>
+                            <br>
+                            <p>Número de cliente:  {{nocliente}}</p>
+                        </div>
+                        <div class="items">
+                            <h4>
+                                Recibo: 
+                                <strong>
+                                    {{noRecibo}}
+                                </strong>
+                            </h4>
+                            <br>
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="header">Imagen</th>
+                                        <th scope="col" class="header">Lote</th>
+                                        <th scope="col" class="header">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of elements">
+                                        <td class="elements-table-image">
+                                                <img class="lot-image" [src]="element.pictpath | safe" alt="Image">
+                                        </td>
+                                        <td class="elements-table">
+                                            {{element.lot}}
+                                        </td>
+                                        <td class="elements-table">
+                                            {{ element.hammer +  element.hammer * 0.20 }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                    </div>
+                    <div class="customer-detail">
+                        <br>
+                        <h2 class="payment">Resumen de pago</h2>
+                        <br>
+                        <div class="info">
+                            <p>Premium: ${{premium}} </p>
+                            <p>IVA: ${{iva}}</p>
+                            <div class="fields">
+                                Monto total: $<input type='text' id="mp_amount" name="mp_amount" value="{{total_sum}}" [readonly]="true"> 
+                            </div>
+                            <br>
+                            <br>
+                            <div class="buttons">
+                                <button class="button detail" id="button" type="submit">
+                                    Pagar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- <form [formGroup]="formPayment" (ngSubmit)="generatePayment()" >
+                <div class="" style="display: none">
+                    <tr>
+                      <td>mp_order *:<input type='text' id="mp_order" name="mp_order" formControlName="mp_order" value="Proceso" ></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_account:<input type='text' name="mp_account" formControlName="mp_account" value="6963"><br>
+                        <input type='hidden' id="mp_nameS" name="mp_nameS" formControlName="mp_nameS" value="1190T">
+                    <tr>
+                        <td>mp_product:<input type='text' name="mp_product" formControlName="mp_product" value="1"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_reference*<input type="text" id="mp_reference" name="mp_reference" formControlName="mp_reference" value="{{reference}}"></td>></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_node:<input type='text' name="mp_node" formControlName="mp_node" value="0" ></td>
+                    </tr><br>
+    
+                    <tr>
+                        <td>mp_currency:<input type='text' name="mp_currency" formControlName="mp_currency" value="1"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_signature:<input type='text' id='mp_signature' name='mp_signature' formControlName="mp_signature" value="{{hash}}"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_concept: <input type='text' id="mp_concept" name="mp_concept" formControlName="mp_concept" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>mp_urlsuccess:<input type='text' name="mp_urlsuccess" formControlName="mp_urlsuccess" value="http://localhost:4200/#/satisfactorio" ></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_urlfailure:<input type='text' name="mp_urlfailure" formControlName="mp_urlfailure" value="http://localhost:4200/#/insatisfactorio"></td>
+                    </tr><br>
+                    <tr>
+                        <td>mp_respuesta:<input type='text' id='mp_respuesta' name='mp_respuesta' formControlName="mp_respuesta"></td>
+                    </tr><br>
+                    <tr>
+                        <td>llave_hmac:<input type='text' id='llave_hmac' name='llave_hmac' formControlName="llave_mac" >{{signature}}</td>
+                    </tr><br>
+                </div>
+                
+                <div class="payment-section">
+                    <div class="customer-detail">
+                        <br>
+                        <h2 class="data-info">Información</h2>
+                        <div class="customer">
+                            <h4>Mis datos</h4>
+                            <div class="fields">
+                                Nombre:&nbsp;<input type='text' id="mp_customername" name="mp_customername" formControlName="mp_customername" value="{{nombreCliente}}" [readonly]="true"> 
+                            </div>
+                            <br>
+                            <div class="fields">
+                                Email:&nbsp;<input type='text' class="input" id="mp_email" name="mp_email" value="{{email}}" formControlName="mp_email" [readonly]="true"> 
+                            </div>
+                            <br>
+                            <p>Número de cliente:  {{nocliente}}</p>
+                        </div>
+                        <div class="items">
+                            <h4>
+                                Recibo: 
+                                <strong>
+                                    {{noRecibo}}
+                                </strong>
+                            </h4>
+                            <br>
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="header">Imagen</th>
+                                        <th scope="col" class="header">Lote</th>
+                                        <th scope="col" class="header">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of elements">
+                                        <td class="elements-table-image">
+                                                <img class="lot-image" [src]="element.pictpath | safe" alt="Image">
+                                        </td>
+                                        <td class="elements-table">
+                                            {{element.lot}}
+                                        </td>
+                                        <td class="elements-table">
+                                            {{ element.hammer +  element.hammer * 0.20 }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                        </div>
+                    </div>
+                    <div class="customer-detail">
+                        <br>
+                        <h2 class="payment">Resumen de pago</h2>
+                        <br>
+                        <div class="info">
+                            <p>Premium: ${{premium}} </p>
+                            <p>IVA: ${{iva}}</p>
+                            <div class="fields">
+                                Monto total: $<input type='text' id="mp_amount" name="mp_amount" value="{{total_sum}}" formControlName="mp_amount" [readonly]="true"> 
+                            </div>
+                            <br>
+                            <br>
+                            <div class="buttons">
+                                <button class="button detail" id="button" type="submit">
+                                    Pagar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form> -->
+        </div>
+    </div>
+    
+</div>

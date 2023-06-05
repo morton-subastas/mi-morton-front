@@ -1,28 +1,87 @@
 <app-header></app-header><br>
+
 <div class="container">
   <div class="col-12">
-  <div class="bs-example" data-example-id="panel-without-body-with-table" *ngFor="let item of groupArr">
-    <h1 class="main-title-morton">Contrato: {{item.receipt}}</h1>
-    <div class="table-responsive mb-5">
-      <table class="table table-striped custom-table">
-        <thead>
-          <tr>
-            <th scope="col">Partida</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Status</th>
-            <th scope="col">Fecha</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr scope="row" *ngFor="let value of item.groupItem">
-            <td class="th-partida" scope="row">{{value.item}}</td>
-            <td class="th-descript">{{value.descript.trim()}}</td>
-            <td class="th-status">{{value.condition}}</td>
-            <td>{{value.edate | fecha }}</td>
-          </tr>
-        </tbody>
-        </table>
+    <h1 class="main-title-morton">Contratos</h1>
+    <div class="bs-example" data-example-id="panel-without-body-with-table">
+      <!--<h1 class="main-title-morton">Contrato: {{item.receipt}}</h1>--><!--{{contractData | json}}-->
+      <div class="filters">
+        <div class="form-group col-md-2">
+          <label for="anio">Año </label>
+          <select name="anio" id="anio" (change)="catchYear($event)">
+            <option *ngFor="let year of allYearList" [value]="year.value">{{year.value}}</option>
+        </select>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="subasta">Subasta </label>
+            <select name="subasta" id="subasta" (change)="catchSaleno($event)">
+              <option *ngFor="let saleno of salenoList" [value]="saleno.value">{{saleno.value}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="contrato">Contrato </label>
+            <select name="contrato" id="contrato" (change)="catchReciept($event)">
+              <option *ngFor="let reciept of recieptList" [value]="reciept.value">{{reciept.value}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="contrato">Lote </label>
+          <select name="contrato" id="contrato" (change)="catchLot($event)">
+            <option *ngFor="let lot of lotList" [value]="lot.value">{{lot.value}}</option>
+          </select>
       </div>
-    </div>
-</div>
+      </div>
+      <div class="table-responsive mb-5">
+
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">Lote</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Contrato</th>
+              <th scope="col">Status</th>
+              <th scope="col">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row" *ngFor="let value of groupArr">
+              <td class="th-partida" scope="row">{{value.lot}}</td>
+              <td class="th-descript">{{value.descript.trim()}}</td>
+              <td class="th-reciept">{{value.receipt}}</td>
+              <td class="th-status">
+                Participo en la subasta: {{value.saleno}} <br>
+                <span class="condition">
+                  <strong>
+                    {{value.condition}}
+                  </strong>
+                </span>
+              </td>
+              <td>{{value.edate | fecha }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!--
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">Año</th>
+              <th scope="col">Subasta</th>
+              <th scope="col">Contrato</th>
+              <th scope="col">Lote</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row" *ngFor="let value of item.groupItem">
+              <td class="th-partida" scope="row">{{transformDate(value.edate)}}</td>
+              <td class="th-descript">{{value.saleno}}</td>
+              <td class="th-status">{{value.receipt}}</td>
+              <td class="th-lote">{{value.lot}}</td>
+            </tr>
+          </tbody>
+        </table>
+        -->
+        
+        </div>
+      </div>
+  </div>
 </div>

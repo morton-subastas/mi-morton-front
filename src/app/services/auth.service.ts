@@ -1,10 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
-import { UsuarioModel } from '../models/usuario.model';
+import { UsuarioModel } from '../models/usuario/usuario.model';
 import {  map } from 'rxjs/operators';
-import { count } from 'console';
-import { logging } from 'protractor';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +10,21 @@ export class AuthService {
   //private url = 'https://masanchez.com.mx/ARGENTINA/PHP1/';
   // private url = 'http://localhost/PHP/';
   private url = 'https://infosubastas.mortonsubastas.com/PHP/';
-  userToken: string;
-  clienteToken: string;
-  nombreToken: string;
+  urlMultipagos = 'https://prepro.adquiracloud.mx/clb/endpoint/mortonSubastas'; 
+
+
+  //private url = 'http://localhost/infosubastas/'
+  baseUrllocal =''
+  userToken: string = '';
+  clienteToken: string = '';
+  nombreToken: string = '';
   hasDataCompras:boolean =  false;
   dataCompras:any = [];
   dataCompras2:any = [];
   dataComprasres: any = [];
   //CREAR USUARIO
-
+  baseUrl: any = 'https://mimorton.com:8444';
+  baseLocal: any ='http://localhost:8443'
   //LOGIN USUARIO
   constructor(private http: HttpClient) {
     this.read_token();
@@ -44,9 +47,10 @@ export class AuthService {
     //console.log("E" + authdata.email);
     //console.log("C" + authdata.password);
     //return this.http.get(`${this.url}?busca_usuario=1&email=` + authdata.email);
-    return this.http.get(this.url+'?busca_usuario=1&email=' + authdata.email +'&contra=' + authdata.password+'').pipe(map( resp => {
+    return this.http.get(this.url+'?busca_usuario=1&email=' + authdata.email +'&contra=' + authdata.password+'').pipe(map( (resp:any) => {
       //console.log("Entro en map()");
-      this.saveToken(resp['id_token'], resp['cliente'], resp['nombre']);
+      console.log('Valor de resp----------------- ', resp)
+      this.saveToken(resp['id_token'], resp['cliente'], resp['nombre'], resp['user_id']);
       return resp;
     })
   );
@@ -64,18 +68,27 @@ export class AuthService {
 
     //map =read the answer of http
     authdata.cliente = authdata.cliente.padStart(8);
-    return this.http.post(`${this.url}`, authdata).pipe(map( resp => {
+    return this.http.post(`${this.url}`, authdata).pipe(map( (resp:any) => {
         //console.log("Entro en: map()");
         //console.log(resp);
         //console.log("---------------");
         //this.saveToken(resp['idToken']);
-        this.saveToken(resp['id_token'], resp['cliente'], resp['nombre']);
+        this.saveToken(resp['id_token'], resp['cliente'], resp['nombre'], resp['user_id']);
         return resp;
       })
     );
   }
 
-  private saveToken(idToken: string, cliente: string, nombre: string){
+  multiPagos(data:any){
+    console.log('Data ', data);
+    const formData = new FormData();
+    for (let key of Object.keys(data)) {
+			formData.append(key, data[key]);
+		} 
+    return this.http.post(`${this.baseLocal}/postPayment`, data)
+  }
+
+  private saveToken(idToken: string, cliente: string, nombre: string, email: string){
       //console.log("saveToken");
       //console.log(idToken);
       //console.log(cliente);
@@ -83,6 +96,7 @@ export class AuthService {
       localStorage.setItem('token', idToken);
       localStorage.setItem('cliente', cliente);
       localStorage.setItem('nombre', nombre);
+      localStorage.setItem('email', email)
       let hoy = new Date();
       hoy.setSeconds(3600);
       localStorage.setItem('expira', hoy.getTime().toString());
@@ -98,9 +112,9 @@ export class AuthService {
 
   read_token(){
     if ( localStorage.getItem('token') ){
-      this.userToken = localStorage.getItem('token');
-      this.clienteToken = localStorage.getItem('cliente');
-      this.nombreToken = localStorage.getItem('nombre');
+      this.userToken != localStorage.getItem('token');
+      this.clienteToken != localStorage.getItem('cliente');
+      this.nombreToken != localStorage.getItem('nombre');
       this.dataCompras = localStorage.getItem('dataCompras');
     }else{
       this.userToken = '';
@@ -133,10 +147,20 @@ export class AuthService {
 
   //return this.http.get('https://mimorton.com:8444/getComprasMiMorton/' + custno+'')
 
+  getAuctions(){
+    return this.http.get('https://www.mortonsubastas.com/subastas/calendario/index_M.php')
+    .pipe(
+      map ( (res:any ) => {
+        return res;
+      })
+    );
+
+  }
     /**********************************
   * SERVICIOS NODEJS
   **********************************/
      getContratosToRFC(custno:string){
+      //console.log("https://mimorton.com:8444/getContratosMiMorton/"+custno+"-");
       return this.http.get('https://mimorton.com:8444/getContratosMiMorton/' + custno+'')
       .pipe(
         map ( (res:any ) => {
@@ -144,36 +168,36 @@ export class AuthService {
         })
       );
     }
-    
-    prueba:string;
-     
+
+    prueba:string = '';
+
     getComprasToRFC(custno:string){
-      
-      
-        console.log("entro API");
+
+
+        //console.log("entro API -" + custno +"-");
         return this.http.get('https://mimorton.com:8444/getComprasMiMorton/' + custno+'')
         .pipe(
           map ( (res:any ) => {
-            console.log("__COMPRAS");
+            //console.log("__COMPRAS");
             this.dataCompras = res;
-            console.log(this.dataCompras);
+            //console.log(this.dataCompras);
             this.saveTokenData(this.dataCompras);
-            console.log("FIN__");
+            //console.log("FIN__");
             return res;
           })
-        );  
-      
+        );
+
     }
 
 /*
     getComprasToRFC(custno:string){
-      
-      
+
+
       this.prueba = localStorage.getItem('valorCompras');
       console.log("********COMPRAS");
       console.log(this.prueba);
       console.log("********FINCOMPRAS");
-      
+
       if (this.prueba == null){
         console.log("entro API");
         return this.http.get('https://mimorton.com:8444/getComprasMiMorton/' + custno+'')
@@ -186,7 +210,7 @@ export class AuthService {
             console.log("FIN__");
             return res;
           })
-        );  
+        );
       }else{
         console.log("else.....");
         //this.dataCompras2 = this.read_token();
@@ -195,7 +219,7 @@ export class AuthService {
         //return this.dataCompras2;
         return this.dataCompras2;
       }
-      
+
     }
 
 */
@@ -220,10 +244,25 @@ export class AuthService {
       );
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetail&id=' + busqueda + '');
     }
-    getDetailSaleImg(subasta:string){
+    getDetailSaleImg(subasta:string, termino: string){
+      /* console.log("-----------------API------------------------");
       console.log("subasta" + subasta);
-      return this.http.get('https://mimorton.com:8444/getDetailSaleMiMorton/'+ subasta + '').pipe(
+      console.log("termino" + termino); */
+      return this.http.get('https://mimorton.com:8444/getDetailSaleMiMorton2/'+ termino + '/'+termino+'/'+ subasta).pipe(
         map ( (auctionfindDB:any ) => {
+          return auctionfindDB;
+        })
+      );
+      //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetailSale&subasta='+ subasta +'&id=' + busqueda + '');
+    }
+
+    getDetailSale(subasta:string, termino: string){
+      console.log("-----------------API------------------------");
+      console.log("subasta" + subasta);
+      console.log("termino" + termino);
+      return this.http.get('https://mimorton.com:8444/getDetailSales/'+ termino + '/'+termino+'/'+ subasta).pipe(
+        map ( (auctionfindDB:any ) => {
+          console.log("p");
           return auctionfindDB;
         })
       );
@@ -234,6 +273,94 @@ export class AuthService {
       return this.http.get('https://mimorton.com:8444/getRecibo/' + recibo + '').pipe(
         map ( (auctionfindDB:any ) => {
           return auctionfindDB;
+        })
+      );
+    }
+
+    getRecieptByCustomer(custno: any){
+      return this.http.get(`${this.baseUrl}/getReceiptByCustomer/`+ custno+'').pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getBancos(){
+      return this.http.get(`${this.baseUrl}/getBancos`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getMonedas(){
+      return this.http.get(`${this.baseUrl}/getMonedas`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getMetodos(){
+      return this.http.get(`${this.baseLocal}/getMetodos`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getFormaspago(){
+      return this.http.get(`${this.baseUrl}/getFormasPago`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+    
+    getProductosServicios(){
+      return this.http.get(`${this.baseUrl}/getProductosServicios`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getLugarExpedicion(){
+      return this.http.get(`${this.baseUrl}/getLugarExpedicion`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getComprobantes(){
+      return this.http.get(`${this.baseUrl}/getComprobantes`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getUnidad(){
+      return this.http.get(`${this.baseUrl}/getUnidad`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getUsoCfdi(){
+      return this.http.get(`${this.baseUrl}/getUsoCfdi`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getAllUsos(){
+      return this.http.get(`${this.baseUrl}/getAllUsos`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
         })
       );
     }

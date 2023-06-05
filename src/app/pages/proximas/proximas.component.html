@@ -1,105 +1,37 @@
-<app-header></app-header><br><br><br><br>
-
+<app-header></app-header>
+<br>
 <div class="container">
   <div class="col-12">
     <h1 class="main-title-morton">Proximas Subastas</h1>
-
-
-    <div class="row row-shadow">
-      <div class="col-lg-4 col-md-4">
-        <div class="img_list">
-          <a href="https://www.mortonsubastas.com/subastas/pagosgarantia/index_pagos.php?Sub=1147T"><img src="https://www.mortonsubastas.com/new/img/mini/mini_1147T.jpg" alt="Image" width="100%">
-          </a>
+    <div class="" *ngFor="let sub of resultado">
+      <br>
+      <div class="subasta">
+        <div class="imagen">
+          <img src="https://www.mortonsubastas.com/new/img/mini/{{sub.subWebInfo_MinIMG}}" alt="Image" width="80%">
         </div>
-      </div>
-      <div class="col-lg-8 col-md-8">
-        <div class="tour_list_desc">
-
-            <h3><strong>SUBASTA DE OPORTUNIDADES 1147...</strong></h3>
-            <div class="parrafo">
-            <p>Esta semana hemos reunido una extraordinaria selección de más de 300 lotes que pueden dar un toque clásico o vintage a sus espa...
+        <div class="descripcion">
+          <br>
+          <h3><strong>{{sub.subasta_Nom}}</strong></h3>
+          <p class="description-subasta">
+            {{sub.subasta_Des | slice:0:300}}
             <br>
-            </p>
-            <p class="inf-sub" style="font-size:12px !important; color:grey">Subasta en vivo, sábado 16 de julio de 2022 | 11:00 a.m.
-              <br><strong>Cerro de Mayka</strong></p>
-        <br>
+          </p>
+          <p class="inf-sub">
+            {{sub.subWebInfo_FecMan}}<br>
+            <strong>{{sub.salon_nom }}</strong>
+          </p>
+          <div class="gosubastas">
+            <a  class="detail" href="https://www.mortonsubastas.com/subastas/?Sub={{sub.subasta_NumSub}}" target="_blank">
+              <button class="button">
+                Detalle
+              </button>
+            </a>
           </div>
-
-
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end boton">
-        <a href="https://www.mortonsubastas.com/subastas/pagosgarantia/index_pagos.php?Sub=1147T" class="multi-button">Pago de Garantía</a>
-        </div>
-
-                </div>
-      </div>
-    </div>
-
-
-
-
-  <div class="row row-shadow">
-    <div class="col-lg-4 col-md-4">
-      <div class="img_list">
-        <a href="https://www.mortonsubastas.com/subastas/pagosgarantia/index_pagos.php?Sub=1078"><img src="https://www.mortonsubastas.com/new/img/mini/mini_1078.jpg" alt="Image" width="100%">
-        </a>
-      </div>
-    </div>
-    <div class="col-lg-8 col-md-8">
-      <div class="tour_list_desc">
-
-          <h3><strong>SUBASTA DE RELOJES Y JOYERÍA</strong></h3>
-          <div class="parrafo">
-          <p>Incluye sección de relojes Rolex y Omega
-            Visite la exhibición en Monte Athos 179, Lomas de Chapultepec. De lunes a...
           <br>
-          </p>
-          <p class="inf-sub" style="font-size:12px !important; color:grey">Subasta en vivo, miércoles 20 de julio de 2022, 4:00 p.m.<br><strong>Monte Athos</strong></p>
-      <br>
         </div>
-
-
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end boton">
-      <a href="https://www.mortonsubastas.com/subastas/pagosgarantia/index_pagos.php?Sub=1078" class="multi-button">Pago de Garantía</a>
-      </div>
-
-              </div>
-    </div>
-  </div>
-
-
-
-
-  <div class="row row-shadow">
-    <div class="col-lg-4 col-md-4">
-      <div class="img_list">
-        <a href="https://www.mortonsubastas.com/subastas/index_pagos.php?Sub=1079"><img src="https://www.mortonsubastas.com/new/img/mini/mini_1079.jpg" alt="Image" width="100%">
-        </a>
       </div>
     </div>
-    <div class="col-lg-8 col-md-8">
-      <div class="tour_list_desc">
-
-          <h3><strong>SUBASTA DE OBRA GRÁFICA Y FO...</strong></h3>
-          <div class="parrafo">
-          <p>Pop art. El mercado de las imágenes.
-            El mundo del arte, un espacio inmenso e interconectado en el que agentes de tod...
-          <br>
-          </p>
-          <p class="inf-sub" style="font-size:12px !important; color:grey">Subasta en vivo, jueves 11 de agosto de 2022, 5:00 p.m.<br><strong>Cerro de Mayka</strong></p>
-      <br>
-        </div>
-
-
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end boton">
-      <a href="https://www.mortonsubastas.com/subastas/index_pagos.php?Sub=1079" class="multi-button">Pago de Garantía</a>
-      </div>
-
-              </div>
-    </div>
-  </div>
 </div>
 
-
-</div>
 
 
