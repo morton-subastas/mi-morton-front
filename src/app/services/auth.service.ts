@@ -245,9 +245,9 @@ export class AuthService {
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetail&id=' + busqueda + '');
     }
     getDetailSaleImg(subasta:string, termino: string){
-      /* console.log("-----------------API------------------------");
+      console.log("-----------------API------------------------");
       console.log("subasta" + subasta);
-      console.log("termino" + termino); */
+      console.log("termino" + termino);
       return this.http.get('https://mimorton.com:8444/getDetailSaleMiMorton2/'+ termino + '/'+termino+'/'+ subasta).pipe(
         map ( (auctionfindDB:any ) => {
           return auctionfindDB;

@@ -26,7 +26,7 @@ export class ReciboVentaComponent implements OnInit {
   recibo:string='';
   contador: number = 0;
   total_sum:number = 0;
-
+  date:any;
   constructor(private activatedRoute: ActivatedRoute, private auth:AuthService,) { }
 
   ngOnInit(): void {
@@ -41,10 +41,11 @@ export class ReciboVentaComponent implements OnInit {
       
       this.nombreSubasta = params['salename'];
       this.fechaSubasta = new Date(params['saleDate']);
+      this.date = params['saleDate']
       this.fechaSubasta = this.fechaSubasta.toLocaleDateString()
       this.lugar = params['salelocale'];
     });
-    this.auth.getDetailSale(this.inv, this.termino_html).subscribe(result =>{
+    this.auth.getDetailSale(this.inv, this.date).subscribe(result =>{
       console.log('result', result);
       this.items= result;
 
