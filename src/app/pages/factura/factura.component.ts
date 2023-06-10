@@ -23,16 +23,34 @@ allUnidades: any
 allUsoCfdi: any;
 allUsos: any;
 editable: boolean = true;  
+isDisabled: boolean = true;
+invo: any;
+termino_html: any;
+inv:any;
+recieve: any;
+
   constructor(private formBuilder: FormBuilder, private auth:AuthService, private router:Router, private activatedRouter:ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    this.activatedRouter.params.subscribe(params => {
+      console.log('params', params);
+      this.termino_html = params['id'];
+      this.inv = params['iv'];
+    });
+
+    this.auth.getDetailSaleImg(this.inv, this.termino_html).subscribe(params=>{
+      console.log('El valor de params es: ', params);
+      this.recieve = params;
+    })
+    console.log('***************************************** ',this.recieve);
     this.formFacturaF();
     
     this.auth.getMonedas().subscribe((monedas: any) => {
       this.allMonedas= monedas;
       console.log(this.allMonedas);
     });
-
+    this.formFactura.controls['emisorFactura'].disable();
     this.auth.getBancos().subscribe((bancos: any) => {
       this.allBancos= bancos;
       console.log(this.allBancos);
@@ -89,7 +107,7 @@ editable: boolean = true;
       fechaParticipacionF:  ['', Validators.required],
       emailSendFactura:  ['', Validators.required],
       rfc:['', Validators.required],
-      emisorFactura:  ['', Validators.required],
+      emisorFactura:  ['Morton Subastas S.A de C.V.', Validators.required],
       receptorFactura:  ['', Validators.required],
       metodoPago:  ['', Validators.required],
       formaPago:  ['', Validators.required],
