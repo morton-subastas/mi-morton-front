@@ -3,12 +3,13 @@ import { Validators,FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
-  styleUrls: ['./factura.component.css']
+  styleUrls: ['./factura.component.css'],
+  providers: [DatePipe]
 })
 export class FacturaComponent implements OnInit {
 formFactura!:FormGroup;
@@ -28,6 +29,9 @@ invo: any;
 termino_html: any;
 inv:any;
 recieve: any;
+auction: any;
+dateAuction: any;
+currentDate : any;
 
   constructor(private formBuilder: FormBuilder, private auth:AuthService, private router:Router, private activatedRouter:ActivatedRoute) { }
 
@@ -42,6 +46,13 @@ recieve: any;
     this.auth.getDetailSaleImg(this.inv, this.termino_html).subscribe(params=>{
       console.log('El valor de params es: ', params);
       this.recieve = params;
+      this.auction = params[0].saleno_ok;
+      this.auction = this.auction.trim();
+      this.dateAuction = params[0].saledate;
+      const date = new Date();
+      this.currentDate = this.formatDate(date);
+      console.log('Valor de auction ', this.auction);
+      
     })
     console.log('***************************************** ',this.recieve);
     this.formFacturaF();
@@ -50,7 +61,10 @@ recieve: any;
       this.allMonedas= monedas;
       console.log(this.allMonedas);
     });
+    this.formFactura.controls['subastaFactura'].disable();
     this.formFactura.controls['emisorFactura'].disable();
+    this.formFactura.controls['fechaParticipacionF'].disable();
+    this.formFactura.controls['fechaFactura'].disable();
     this.auth.getBancos().subscribe((bancos: any) => {
       this.allBancos= bancos;
       console.log(this.allBancos);
@@ -96,13 +110,29 @@ recieve: any;
     });
 
   }
-
+  formatDate(inputDate: any) {
+    let date, month, year;
+  
+    date = inputDate.getDate();
+    month = inputDate.getMonth() + 1;
+    year = inputDate.getFullYear();
+  
+      date = date
+          .toString()
+          .padStart(2, '0');
+  
+      month = month
+          .toString()
+          .padStart(2, '0');
+  
+    return `${date}/${month}/${year}`;
+  }
   formFacturaF(){
     this.formFactura = this.formBuilder.group({
       folioFactura:  ['', Validators.required], 
       fechaFactura: ['', Validators.required],
       horaFactura:  ['', Validators.required],
-      subastaFactura:  ['', Validators.required],
+      subastaFactura:  [this.auction, Validators.required],
       paletaFactura:  ['', Validators.required],
       fechaParticipacionF:  ['', Validators.required],
       emailSendFactura:  ['', Validators.required],

@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="fechaFactura">Fecha</label>
-                    <input type="text" class="form-control" id="fechaFactura" formControlName="fechaFactura" placeholder="11/01/22">
+                    <input type="text" class="form-control" id="fechaFactura" formControlName="fechaFactura" placeholder="11/01/22" value="{{currentDate}}">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="horaFactura">Hora</label>
@@ -22,15 +22,15 @@
             <div class="sectionForm">
                 <div class="form-group col-md-3">
                     <label for="subastaFactura">Subasta</label>
-                    <input type="text" class="form-control" id="subastaFactura" formControlName="subastaFactura" placeholder="1179T">
+                    <input type="text" ng-disabled="all" [disabled]="true" class="form-control" id="subastaFactura" formControlName="subastaFactura" value="{{auction}}">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="paletaFactura">Paleta-Contrato</label>
-                    <input type="text" class="form-control" id="paletaFactura" formControlName="paletaFactura" placeholder="123">
+                    <input type="text" class="form-control" id="paletaFactura" formControlName="paletaFactura" placeholder="123" >
                 </div>
                 <div class="form-group col-md-3">
                     <label for="fechaParticipacionF">Fecha Participa</label>
-                    <input type="text" class="form-control" id="fechaParticipacionF" formControlName="fechaParticipacionF" placeholder="06/12/2022">
+                    <input type="text" class="form-control" id="fechaParticipacionF" formControlName="fechaParticipacionF" placeholder="06/12/2022" value="{{dateAuction}}">
                 </div>
             </div>
 
