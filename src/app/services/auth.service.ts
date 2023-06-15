@@ -302,7 +302,7 @@ export class AuthService {
     }
 
     getMetodos(){
-      return this.http.get(`${this.baseLocal}/getMetodos`).pipe(
+      return this.http.get(`${this.baseUrl}/getMetodos`).pipe(
         map((auctionfindDB: any) => {
           return auctionfindDB
         })
