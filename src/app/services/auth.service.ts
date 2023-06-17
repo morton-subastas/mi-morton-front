@@ -10,6 +10,7 @@ export class AuthService {
   //private url = 'https://masanchez.com.mx/ARGENTINA/PHP1/';
   // private url = 'http://localhost/PHP/';
   private url = 'https://infosubastas.mortonsubastas.com/PHP/';
+  phpUrllocal = ''
   urlMultipagos = 'https://prepro.adquiracloud.mx/clb/endpoint/mortonSubastas'; 
 
 
@@ -78,6 +79,12 @@ export class AuthService {
       })
     );
   }
+
+  postPaymentPhp(data: any){
+    console.log('data', data);
+    return this.http.post(`${this.baseLocal}/postPayment.php`, data)
+  }
+
 
   multiPagos(data:any){
     console.log('Data ', data);
