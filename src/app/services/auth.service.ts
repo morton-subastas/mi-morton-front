@@ -10,6 +10,7 @@ export class AuthService {
   //private url = 'https://masanchez.com.mx/ARGENTINA/PHP1/';
   // private url = 'http://localhost/PHP/';
   private url = 'https://infosubastas.mortonsubastas.com/PHP/';
+  phpUrllocal = ''
   urlMultipagos = 'https://prepro.adquiracloud.mx/clb/endpoint/mortonSubastas'; 
 
 
@@ -78,6 +79,12 @@ export class AuthService {
       })
     );
   }
+
+  postPaymentPhp(data: any){
+    console.log('data', data);
+    return this.http.post(`${this.baseLocal}/postPayment.php`, data)
+  }
+
 
   multiPagos(data:any){
     console.log('Data ', data);
@@ -245,9 +252,9 @@ export class AuthService {
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetail&id=' + busqueda + '');
     }
     getDetailSaleImg(subasta:string, termino: string){
-      /* console.log("-----------------API------------------------");
+      console.log("-----------------API------------------------");
       console.log("subasta" + subasta);
-      console.log("termino" + termino); */
+      console.log("termino" + termino);
       return this.http.get('https://mimorton.com:8444/getDetailSaleMiMorton2/'+ termino + '/'+termino+'/'+ subasta).pipe(
         map ( (auctionfindDB:any ) => {
           return auctionfindDB;
@@ -302,7 +309,7 @@ export class AuthService {
     }
 
     getMetodos(){
-      return this.http.get(`${this.baseLocal}/getMetodos`).pipe(
+      return this.http.get(`${this.baseUrl}/getMetodos`).pipe(
         map((auctionfindDB: any) => {
           return auctionfindDB
         })

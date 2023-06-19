@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="fechaFactura">Fecha</label>
-                    <input type="text" class="form-control" id="fechaFactura" formControlName="fechaFactura" placeholder="11/01/22">
+                    <input type="text" class="form-control" id="fechaFactura" formControlName="fechaFactura" placeholder="11/01/22" value="{{currentDate}}">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="horaFactura">Hora</label>
@@ -22,22 +22,22 @@
             <div class="sectionForm">
                 <div class="form-group col-md-3">
                     <label for="subastaFactura">Subasta</label>
-                    <input type="text" class="form-control" id="subastaFactura" formControlName="subastaFactura" placeholder="1179T">
+                    <input type="text" ng-disabled="all" [disabled]="true" class="form-control" id="subastaFactura" formControlName="subastaFactura" value="{{auction}}">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="paletaFactura">Paleta-Contrato</label>
-                    <input type="text" class="form-control" id="paletaFactura" formControlName="paletaFactura" placeholder="123">
+                    <input type="text" class="form-control" id="paletaFactura" formControlName="paletaFactura" placeholder="123" >
                 </div>
                 <div class="form-group col-md-3">
                     <label for="fechaParticipacionF">Fecha Participa</label>
-                    <input type="text" class="form-control" id="fechaParticipacionF" formControlName="fechaParticipacionF" placeholder="06/12/2022">
+                    <input type="text" class="form-control" id="fechaParticipacionF" formControlName="fechaParticipacionF" placeholder="06/12/2022" value="{{dateAuction}}">
                 </div>
             </div>
 
             <div class="sectionForm">
                 <div class="form-group col-md-3">
                     <label for="emisorFactura">Emisor</label>
-                    <input type="text" class="form-control" id="emisorFactura" formControlName="emisorFactura" placeholder="Morton Subastas SA">
+                    <input type="text" ng-disabled="all" class="form-control" id="emisorFactura" formControlName="emisorFactura" placeholder="Morton Subastas SA">
                 </div>
                 <div class="form-group col-md-3">
                 </div>
@@ -133,17 +133,49 @@
                     </select>
                 </div>
             </div>
-            <div class="title-table">
-                <h2 class="subtitle">Conceptos</h2>
-                <button class="btn-morton-menuimprimir-out" >
-                    <i class="fa fa-plus"></i>
-                </button>
+            <div class="formConsepts">
+                <div class="title-table">
+                    <h2 class="subtitle">Conceptos</h2>
+                    <!-- <button class="btn-morton-menuimprimir-out" >
+                        <i class="fa fa-plus"></i>
+                    </button> -->
+                </div>
+                <!-- <form action="">
+                    
+                    <div class="sectionForm">
+                        <div class="form-group col-md-2">
+                            <label for="tipoComprobante">Lote </label>
+                            <select name="tipoComprobante" id="tipoComprobante" [disabled]="true">
+                                <option *ngFor="let Comprobante of allComprobantes" [value]="Comprobante.formapago_clave">{{Comprobante.tcomprobante_concepto}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="tipoUso">Cantidad </label>
+                            <select name="tipoUso" id="tipoUso">
+                                <option *ngFor="let uso of allUsos" [value]="uso.uso_clave">{{uso.uso_descripcion}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="lugarExpedicion">Descripción</label>
+                            <select name="lugarExpedicion" id="lugarExpedicion" [disabled]="true">
+                                <option *ngFor="let lugar of allLugares" [value]="lugar.lugarexpedicion_cp">{{lugar.lugarexpedicion_estado}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="lugarExpedicion">Clave SAT</label>
+                            <select name="lugarExpedicion" id="lugarExpedicion" [disabled]="true">
+                                <option *ngFor="let lugar of allLugares" [value]="lugar.lugarexpedicion_cp">{{lugar.lugarexpedicion_estado}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form> -->
             </div>
             <br>
             <div class="table">
                 <table class="table table-striped custom-table">
                     <thead>
                         <tr>
+                            <th scope="col">Lote</th>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Clave SAT</th>
@@ -154,20 +186,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr >
+                        <tr style="text-align:center;" *ngFor="let recieve of recieves; let indice=index">
                             <td class="elements-table">
+                                {{recieve.lot}}
+                            </td>
+                            <td class="elements-table">
+                                1
+                            </td>
+                            <td class="elements-table">
+                                {{recieve.descript[0]}}
                             </td>
                             <td class="elements-table">
                             </td>
                             <td class="elements-table">
                             </td>
                             <td class="elements-table">
+                                {{recieve.hammer}}
                             </td>
                             <td class="elements-table">
+                                {{recieve.hammer}}
                             </td>
                             <td class="elements-table">
-                            </td>
-                            <td class="elements-table">
+                                {{recieve.hammer * comissionIva}}
                             </td>
                         </tr>
                     </tbody>
