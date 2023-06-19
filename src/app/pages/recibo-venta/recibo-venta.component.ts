@@ -27,6 +27,7 @@ export class ReciboVentaComponent implements OnInit {
   contador: number = 0;
   total_sum:number = 0;
   date:any;
+
   constructor(private activatedRoute: ActivatedRoute, private auth:AuthService,) { }
 
   ngOnInit(): void {
@@ -46,22 +47,24 @@ export class ReciboVentaComponent implements OnInit {
       this.lugar = params['salelocale'];
     });
     this.auth.getDetailSale(this.inv, this.date).subscribe(result =>{
-      console.log('result', result);
-      this.items= result;
-
+      //console.log('result', result);
+      //this.items= result;
+      const uniqueValues = this.removeDuplicates(result);
+      this.items = uniqueValues; 
+      console.log('uniqueValues', uniqueValues);
       this.paleta = result[0]['bidder'][0];
       this.hammer = result[0]['hammer'];
       this.imagene = result[0]['pictpath'];
       this.descript = result[0]['descript'][0];
       this.recibo = result[0]['invno'];
       this.total = this.items.length;
-      console.log("TOTAL" + this.total);
-      console.log(this.items);
+      //console.log("TOTAL" + this.total);
+      //console.log(this.items);
 
       while (this.contador < this.total){
-        console.log("entra" + this.contador);
+        //console.log("entra" + this.contador);
         this.subtotal += this.items[this.contador]['hammer'];
-        console.log("sub" + this.subtotal);
+        //console.log("sub" + this.subtotal);
         this.contador = this.contador + 1;
     }
     this.premium = this.subtotal * 0.20;
@@ -69,6 +72,26 @@ export class ReciboVentaComponent implements OnInit {
     this.total_sum = this.subtotal + this.premium + this.iva;
 
     })
+  }
+
+  removeDuplicates(elements: any){
+    console.log('elements: ', elements);
+    const unique = [...new Map(elements.map((m:any) => [ m.lot, m ])).values()];
+    console.log("unique", unique);
+    return unique;    
+    /* console.log('El valor de elements es: ', elements);
+    const unique = elements.filter(
+      (obj: any, index:any) =>
+      elements.findIndex((item:any) => item.value === obj.value) === index
+    );
+    return unique */
+  /*  this.yearList= this.yearList.slice(1)
+    const unique = this.yearList.filter(
+      (obj: any, index:any) =>
+      this.yearList.findIndex((item:any) => item.value === obj.value) === index
+    );
+    console.log('unique: ', unique);
+    return unique */
   }
 
   openDetail(event: any){
