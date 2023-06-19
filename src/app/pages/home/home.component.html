@@ -95,12 +95,13 @@
                   <img src="../../../assets/images/info.png" alt="">
                   <br>
                   {{ auctionsFindSpecificArr.estate }}
-                  <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
+                  <!-- 
+                    <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
                     <a [routerLink]="['/factura', {iv:auctionsFindSpecificArr.invno, id:auctionsFindSpecificArr.refno}]" target="_blank">
                       <button class="btn-morton-menuimprimir-out" >Facturar</button>
                     </a>
                   </div>
-                  <!--  -->
+                   -->
               </td>
             </tr>
           </tbody>
