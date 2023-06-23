@@ -40,6 +40,7 @@ import { DetalleLoteVentaComponent } from './pages/detalle-lote-venta/detalle-lo
 import { PagoComponent } from './pages/pago/pago.component';
 import { PagoSatisfactorioComponent } from './pages/pago/pago-satisfactorio/pago-satisfactorio.component';
 import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/pago-insatisfactorio.component';
+import { RecuperarContraseniaComponent } from './pages/recuperar-contrasenia/recuperar-contrasenia.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/
     DetalleLoteVentaComponent,
     PagoComponent,
     PagoSatisfactorioComponent,
-    PagoInsatisfactorioComponent
+    PagoInsatisfactorioComponent,
+    RecuperarContraseniaComponent
 
   ],
   imports: [
