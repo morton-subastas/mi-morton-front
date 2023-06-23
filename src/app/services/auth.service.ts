@@ -57,6 +57,24 @@ export class AuthService {
   );
   }
 
+  recoveryPassword(usuario: UsuarioModel){
+    console.log('Usuario: ', usuario)
+    const authdata ={
+      cliente: usuario.cliente,
+      password: usuario.password
+    }
+
+    /* return this.http.post('http://localhost:8443/recoverPassword.php', authdata).pipe(map( (resp:any)=>{
+      return resp;
+    })) */
+
+    return this.http.post('http://localhost:8888/recoverPassword.php', authdata).pipe(map( (resp:any)=>{
+      return resp;
+    }))
+  }
+
+  
+
   nuevo_usuario(usuario: UsuarioModel){
     const authdata = {
       nombre: usuario.nombre,
