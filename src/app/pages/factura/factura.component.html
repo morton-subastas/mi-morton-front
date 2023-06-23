@@ -1,7 +1,12 @@
 <app-header></app-header><br>
 <div class="container">
     <div class="col-12">
-    <h1 class="main-title-morton">Generar Factura</h1>
+        <div class="head">
+            <h1 class="main-title-morton">Generar Factura por lotes</h1>
+            <a [routerLink]="['/factura-un-concepto']" target="_blank">
+                <button class="btn-morton-menuimprimir-out" >Por un concepto</button>
+              </a>
+        </div>
     <div class="form">
         <form action="" [formGroup]="formFactura" class="formFactura">
             <h2 class="subtitle">Información general</h2>
@@ -213,8 +218,13 @@
                     </tbody>
                     </table>
             </div>
-
-
+            <div class="container-login100-form-btn m-t-17">
+                <button class="login100-form-btn" type="submit">
+                    Generar factura
+                </button>
+                <br>
+                <br>
+            </div>
         </form>
     </div>
     <!--¡Welcom!<br><br>

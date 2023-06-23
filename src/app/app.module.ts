@@ -41,6 +41,7 @@ import { PagoComponent } from './pages/pago/pago.component';
 import { PagoSatisfactorioComponent } from './pages/pago/pago-satisfactorio/pago-satisfactorio.component';
 import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/pago-insatisfactorio.component';
 import { RecuperarContraseniaComponent } from './pages/recuperar-contrasenia/recuperar-contrasenia.component';
+import { FacturaUnConceptoComponent } from './pages/factura/factura-un-concepto/factura-un-concepto.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { RecuperarContraseniaComponent } from './pages/recuperar-contrasenia/rec
     PagoComponent,
     PagoSatisfactorioComponent,
     PagoInsatisfactorioComponent,
-    RecuperarContraseniaComponent
+    RecuperarContraseniaComponent,
+    FacturaUnConceptoComponent
 
   ],
   imports: [
