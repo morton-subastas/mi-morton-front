@@ -169,7 +169,6 @@ export class HomeComponent implements OnInit {
         if (this.page < this.total ){
           console.log(this.suma);
           this.numFilter = Number(this.numFilter)
-          console.log('this.numFilter;',this.numFilter);
           this.page += this.numFilter;
           this.suma += this.numFilter;
         }

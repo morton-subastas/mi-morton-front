@@ -2,18 +2,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { UsuarioModel } from '../models/usuario/usuario.model';
 import {  map } from 'rxjs/operators';
+//const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
+  
+const headers= new HttpHeaders()
+  .set('content-type', 'application/json')
+  .set('Access-Control-Allow-Origin', '*');
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  
   //private url = 'https://masanchez.com.mx/ARGENTINA/PHP1/';
   // private url = 'http://localhost/PHP/';
   private url = 'https://infosubastas.mortonsubastas.com/PHP/';
   phpUrllocal = ''
   urlMultipagos = 'https://prepro.adquiracloud.mx/clb/endpoint/mortonSubastas'; 
 
-
+  
   //private url = 'http://localhost/infosubastas/'
   baseUrllocal =''
   userToken: string = '';
@@ -58,19 +64,23 @@ export class AuthService {
   }
 
   recoveryPassword(usuario: UsuarioModel){
-    console.log('Usuario: ', usuario)
+    console.log('Usuario: ', usuario);
+    const headers = {'Autorization': 'Bearer my-token', 'My-Custom-Header':'foobar'}
     const authdata ={
       cliente: usuario.cliente,
       password: usuario.password
     }
 
+    return this.http.post<any>('http://localhost:8443/PHP/recoverPassword.php', authdata,{ headers });
     /* return this.http.post('http://localhost:8443/recoverPassword.php', authdata).pipe(map( (resp:any)=>{
       return resp;
     })) */
 
-    return this.http.post('http://localhost:8888/recoverPassword.php', authdata).pipe(map( (resp:any)=>{
+  
+
+    /* return this.http.post('http://localhost:8080/PHP/recoverPassword.php', authdata,requestOptions ).pipe(map( (resp:any)=>{
       return resp;
-    }))
+    })) */
   }
 
   

@@ -25,14 +25,14 @@ export class RecuperarContraseniaComponent implements OnInit {
     //console.log(form);
 
     this.auth.recoveryPassword(this.usuario!).subscribe(
-      resp =>{
+      (resp: any) =>{
         console.log(resp);
         console.log('Exito registro');
         console.log(resp["insert"]);
         if(resp["insert"]){
           this.router.navigateByUrl('/login');
         }
-      }, (err) => {
+      }, (err:any) => {
         console.log(err.error.mensaje);
       }
 
