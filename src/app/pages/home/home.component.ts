@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
   row_filter:string = '';
   row_filterN:number = 0;
   totalShopping: any;
+  textoFiltro!:string;
   constructor(private auth:AuthService, private router:Router, private activatedRouter:ActivatedRoute) { }
 
   ngOnInit() {
@@ -117,13 +118,19 @@ export class HomeComponent implements OnInit {
   }
 
   applyFilter(filterValue: any) {
-    let filterValueLower = filterValue.value;
-    //filterValueLower = filterValueLower?.toLowerCase() || '';
-    if(filterValue === '' ){
-      this.auctionsFindSpecificArr=this.totalShopping;
-    }else {
-      this.auctionsFindSpecificArr = this.totalShopping.filter((employee:any) => employee.name.includes(filterValueLower))
-    }
+    console.log(filterValue);
+    const filter = (filterValue.target as HTMLInputElement).value;
+		this.auctionsFindSpecificArr.filter = filter.toLocaleLowerCase();
+    filter === '' || filter.length === 1
+			? ''
+			: console.log(`${this.totalShopping.length} registros`);
+  }
+
+  filtrarTabla(textoFiltro: string) {
+    this.auctionsFindSpecificArr = this.totalShopping.filter((item:any) => {
+      const values = Object.values(item).map((value:any) => value.toString().toLowerCase());
+      return values.some(value => value.includes(textoFiltro.toLowerCase()));
+    });
   }
   
   onSearchLote(searchR: string){
@@ -188,7 +195,7 @@ export class HomeComponent implements OnInit {
           this.MuestraDatos = true;
           this.pagingConfig.totalItems= auctionfindSpecificSaleDB.length
           this.auctionsFindSpecificArr = auctionfindSpecificSaleDB;
-          this.totalShopping = auctionfindSpecificSaleDB;
+          this.totalShopping = this.auctionsFindSpecificArr;
 
           console.log('Valor de la peticion auctionfindSpecificSaleDB:', auctionfindSpecificSaleDB);
           

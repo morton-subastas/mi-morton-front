@@ -46,7 +46,7 @@
         <div>
         </div>
 
-        <input type="text" class="form-control" placeholder="Buscar por descripción" #txtSearch (keyup)="applyFilter($event)"/>
+        <input type="text" class="form-control" placeholder="Buscar por descripción" [(ngModel)]="textoFiltro" (input)="filtrarTabla(textoFiltro)" />
       </div>
       <div class="numeration-image" style="text-align: end;"><p>Mostrando <b>{{ suma }}</b> de <b>{{ total}}</b></p></div>
 
