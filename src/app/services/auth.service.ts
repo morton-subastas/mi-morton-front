@@ -84,6 +84,28 @@ export class AuthService {
   }
 
   
+/**
+ * 
+ * @param usuario 
+ * @returns 
+  select a.*,  c.*,  r.*,  i.*, s.*, cns.* ,r.bidder as bidder_ok, s.saleno as saleno_ok,  c.custno as numcus, 
+    SUBSTRING(p.pictpath,4,LEN(p.pictpath)) as pictpath 
+          from results r left join inventor i on r.refno = i.refno 
+          left join typeset t on r.refno = t.refno 
+          left join saledate s on s.saleno= i.saleno 
+          left join pictures p on r.refno = p.refno 
+          left join cusfil c on r.custno = c.custno 
+          left join address a on c.custno = a.custno 
+          left join cnsgbllg cns on c.custno = cnsgbllg.custno
+          where  i.receipt = ' req.params.id2 '  // Descomentar
+          and i.hammer != 0 
+          -- where  i.receipt = req.params.id2 
+          -- where  r.salelot like ' req.params.invno%' 
+          -- and r.refno = ' req.params.id' 
+          and p.pictname in (select top 1 pictname from pictures where refno = r.refno ) 
+          and r.bidder in (select top 1 bidder from results where refno = i.refno order by bidder asc) 
+          order by p.pictpath, r.bidder asc ;
+ */
 
   nuevo_usuario(usuario: UsuarioModel){
     const authdata = {
@@ -289,6 +311,15 @@ export class AuthService {
         })
       );
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetailSale&subasta='+ subasta +'&id=' + busqueda + '');
+    }
+
+    getMoreDetailsSales(receipt: any){
+      console.log('El valor de receipt es :', receipt)
+      return this.http.get('httos://mimorton.com:8444/getMoreDetails/' + receipt).pipe(
+        map((receipt:any) => {
+          return receipt
+        })
+      )
     }
 
     getDetailSale(subasta:string, termino: string){
