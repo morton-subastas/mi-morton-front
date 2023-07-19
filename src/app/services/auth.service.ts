@@ -40,6 +40,7 @@ export class AuthService {
   /**********************************
   * ACCESO
   **********************************/
+  
 
   logout(){
     localStorage.removeItem('token');
@@ -289,6 +290,15 @@ export class AuthService {
         })
       );
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetailSale&subasta='+ subasta +'&id=' + busqueda + '');
+    }
+
+    getDetailLot(receipt: any, lot:any){
+      console.log(`El valor de recript: ${receipt} y de lot: ${lot}`);
+      return this.http.get(`https://mimorton.com:8444/getDetailByLot/${receipt}/${lot}`).pipe(
+        map ((result:any)=>{
+          return result        
+        })
+      );  
     }
 
     getDetailSale(subasta:string, termino: string){
