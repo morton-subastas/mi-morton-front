@@ -314,7 +314,6 @@ export class AuthService {
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetailSale&subasta='+ subasta +'&id=' + busqueda + '');
     }
 
-<<<<<<< HEAD
     getDetailLot(receipt: any, lot:any){
       console.log(`El valor de recript: ${receipt} y de lot: ${lot}`);
       return this.http.get(`https://mimorton.com:8444/getDetailByLot/${receipt}/${lot}`).pipe(
@@ -322,15 +321,6 @@ export class AuthService {
           return result        
         })
       );  
-=======
-    getMoreDetailsSales(receipt: any){
-      console.log('El valor de receipt es :', receipt)
-      return this.http.get('httos://mimorton.com:8444/getMoreDetails/' + receipt).pipe(
-        map((receipt:any) => {
-          return receipt
-        })
-      )
->>>>>>> de39fac17350b01818b19a831b6cb2dc71ad1354
     }
 
     getDetailSale(subasta:string, termino: string){
