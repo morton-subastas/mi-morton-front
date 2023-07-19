@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   };
   
   currentPage:number  = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   totalItems: number = 0;
   tableSize: number[] = [10, 20, 50, 100];
 

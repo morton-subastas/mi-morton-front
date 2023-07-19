@@ -48,7 +48,7 @@
 
         <input type="text" class="form-control" placeholder="Buscar por descripción" [(ngModel)]="textoFiltro" (input)="filtrarTabla(textoFiltro)" />
       </div>
-      <div class="numeration-image" style="text-align: end;"><p>Mostrando <b>{{ suma }}</b> de <b>{{ total}}</b></p></div>
+      <!-- <div class="numeration-image" style="text-align: end;"><p>Mostrando <b>{{ suma }}</b> de <b>{{ total}}</b></p></div> -->
 
       <div *ngIf="DontShowTable">
         <div class="table-responsive">
@@ -100,19 +100,19 @@
                   <img src="../../../assets/images/info.png" alt="">
                   <br>
                   {{ auctionsFindSpecificArr.estate }}
-                  <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
+                  <!-- <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
                     <a [routerLink]="['/factura', {iv:auctionsFindSpecificArr.invno, id:auctionsFindSpecificArr.refno}]" target="_blank">
                       <button class="btn-morton-menuimprimir-out" >Facturar</button>
                     </a>
-                  </div>
+                  </div> -->
                   <!--  -->
               </td>
             </tr>
           </tbody>
           </table>
           <div>
-            <pagination-controls (pageChange)="onTableDataChange($event)" [maxSize]="7" previousLabel="Prev"
-            nextLabel="Next">
+            <pagination-controls (pageChange)="onTableDataChange($event)" [maxSize]="7" previousLabel="Anterior"
+            nextLabel="Siguiente">
             </pagination-controls>
           </div>
         </div>
