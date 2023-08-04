@@ -238,6 +238,7 @@ export class AuthService {
           map ( (res:any ) => {
             //console.log("__COMPRAS");
             this.dataCompras = res;
+            console.log('Res', res)
             //console.log(this.dataCompras);
             this.saveTokenData(this.dataCompras);
             //console.log("FIN__");

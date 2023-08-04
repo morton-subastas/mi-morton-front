@@ -61,7 +61,7 @@ export class DetalleLoteVentaComponent implements OnInit {
     this.hammer = lotDetail.hammer;
     this.photo = this.validatePhoto(lotDetail.photonote);
     this.saleno = lotDetail.saleno;
-    this.inssurance = this.hammer * lotDetail.inspct ;
+    this.inssurance = this.hammer * (lotDetail.inspct/100) ;
     this.commission = this.hammer * (lotDetail.cms1/100);
     this.arr = this.calculateArr(lotDetail);
     this.isr = (this.hammer - this.inssurance - this.photo - this.commission - this.arr)* 0.08; 
@@ -81,17 +81,20 @@ export class DetalleLoteVentaComponent implements OnInit {
   }
 
   calculateAmounts(lotDetail: any){
+    console.log('seguro', lotDetail)
     this.lote = lotDetail.lot;
     this.reserve = lotDetail.reserve;
     this.hammer = lotDetail.hammer;
     this.photo = this.validatePhoto(lotDetail.photonote);
     this.saleno = lotDetail.saleno;
-    this.inssurance = this.hammer * lotDetail.inspct ;
+    this.inssurance = this.reserve * (lotDetail.inspct / 100 );
     this.commission = this.calculateCommision(this.hammer);
     this.arr = this.calculateArr(lotDetail);
     this.isr = (this.hammer - this.inssurance - this.photo - this.commission - this.arr)* 0.08; 
     this.vat =  (this.inssurance + this.commission + this.photo) * 0.16; 
     this.total = this.hammer - this.inssurance - this.photo - this.commission - this.vat - this.arr - this.isr;
+    this.total = this.total.toFixed(2)
+    this.total = this.total.toLocaleString();
   }
 
   calculateCommision(hammer: any){

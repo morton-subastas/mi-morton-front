@@ -50,7 +50,7 @@ export class ReciboComponent implements OnInit {
     this.auth.getDetailSaleImg(this.inv, this.termino_html).subscribe(auctionfindSpecificSaleDB => {
       console.log("INFO");
       console.log(auctionfindSpecificSaleDB);
-
+      const uniqueValue = this.removeDuplicates(auctionfindSpecificSaleDB);
       this.recibo = auctionfindSpecificSaleDB[0]['invno'];
       this.num_sub  = auctionfindSpecificSaleDB[0]['saleno'];
       this.nom_sub = auctionfindSpecificSaleDB[0]['salename'];
@@ -63,7 +63,7 @@ export class ReciboComponent implements OnInit {
       this.imagene = auctionfindSpecificSaleDB[0]['pictpath'];
       this.descript = auctionfindSpecificSaleDB[0]['descript'][0];
 
-      this.auctionsFindSpecificArr = auctionfindSpecificSaleDB;
+      this.auctionsFindSpecificArr = uniqueValue;
       this.total = this.auctionsFindSpecificArr.length;
       console.log("TOTAL" + this.total);
       console.log(this.auctionsFindSpecificArr);
@@ -127,6 +127,12 @@ export class ReciboComponent implements OnInit {
     
   }
 
+  removeDuplicates(elements: any){
+    console.log('element', elements);
+    const unique = [...new Map(elements.map((m:any) => [ m.lot, m])).values()];
+    console.log('unique ', unique);
+    return unique
+  }
 
   imprimir(){
     console.log("impirmi");

@@ -86,13 +86,18 @@ export class ContratosComponent implements OnInit {
       })
     }
     this.yearList= this.yearList.slice(1)
-    const unique = this.yearList.filter(
+    let unique = this.yearList.filter(
       (obj: any, index:any) =>
       this.yearList.findIndex((item:any) => item.value === obj.value) === index
     );
     console.log('unique: ', unique);
+    unique = unique.sort(function (x:any, y:any) {
+      return y.value - x.value;
+    });
     return unique
   }
+
+
 
   getYear(date:any){
     let fulldate:any = new Date(date)
@@ -100,11 +105,11 @@ export class ContratosComponent implements OnInit {
     return fulldate
   }
 
-  transformDate(date: any){
+ /*  transformDate(date: any){
     let year:any = new Date(date)
     year = year.getFullYear();
     return year
-  }
+  } */
 
   catchYear(event: any){
     console.log('event ', event.target.value );
@@ -122,7 +127,12 @@ export class ContratosComponent implements OnInit {
     this.salenoList = this.groupArr.map((item: any) =>({
       id:item.id,
       value:item.saleno
-    }))
+    }));
+    this.salenoList = this.salenoList.slice(1)
+    this.salenoList = this.salenoList.filter(
+      (obj:any, index: any) => 
+      this.salenoList.findIndex((item:any) => item.value === obj.value) === index
+    )
   }
 
   catchSaleno(event:any){
@@ -139,6 +149,11 @@ export class ContratosComponent implements OnInit {
       id : item.id,
       value: item.receipt
     }));
+    this.recieptList = this.recieptList.slice(1)
+    this.recieptList = this.recieptList.filter(
+      (obj:any, index: any) => 
+      this.recieptList.findIndex((item:any) => item.value === obj.value) === index
+    )
     //this.getLotList()
   }
 
