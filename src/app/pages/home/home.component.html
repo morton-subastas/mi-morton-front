@@ -82,7 +82,9 @@
                 No. {{auctionsFindSpecificArr.saleno }}<br>
                 {{auctionsFindSpecificArr.salename }}<br>
                 {{ auctionsFindSpecificArr.dateshort }} <br><br>
-                <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno, iv:auctionsFindSpecificArr.invno, state: auctionsFindSpecificArr.estate}]">
+                <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno, 
+                                              iv:auctionsFindSpecificArr.invno, state: auctionsFindSpecificArr.estate, 
+                                              cliente: cliente_num, receipt:auctionsFindSpecificArr.receipt, dateSale: auctionsFindSpecificArr.dateshort }]">
                   {{auctionsFindSpecificArr.invno}}
                 </a>
               </td>

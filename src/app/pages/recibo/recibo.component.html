@@ -36,10 +36,10 @@
             <img [src]="auctionsFindSpecificArrHTML.pictpath| safe" width="40%">
             </td>
             <td class="descipt-item">{{ auctionsFindSpecificArrHTML.descript[0] }}</td>
-            <td>{{ numberWithCommas (auctionsFindSpecificArrHTML.hammer)}}.00</td>
-            <td>{{ numberWithCommas(auctionsFindSpecificArrHTML.hammer*0.20)}}.00 </td>
-            <td>0</td>
-            <td>{{ auctionsFindSpecificArrHTML.hammer +  auctionsFindSpecificArrHTML.hammer * 0.20 }}.00 </td>
+            <td>{{ transformQuantity (auctionsFindSpecificArrHTML.hammer)}}</td> <!--Hammer-->
+            <td>{{ calculatePremiumReal(auctionsFindSpecificArrHTML.hammer)}} </td> <!--Premium-->
+            <td>{{ calculateAFL(auctionsFindSpecificArrHTML.hammer)}}</td> <!--BidsquareAFL-->
+            <td>{{ calculateRealSubTotal(auctionsFindSpecificArrHTML.hammer) }} </td> <!--Subtotal-->
           </tr>
         </tbody>
       </table>
@@ -49,21 +49,21 @@
       <thead>
         <tr>
           <th scope="col" colspan="3">
-            Subtotal: <b>${{ numberWithCommas(subtotal) }}.00</b><br>
+            Subtotal: <b>${{ calculateSubTotalReceipt(subtotal) }}</b><br>
           </th>
         </tr>
         <tr>
-          <th>Premium: <b>${{ numberWithCommas(premium)}}.00</b></th>
+          <th>Premium: <b>${{ calculatePremiumReceipt(subtotal)}}</b></th>
         </tr>
         <tr>
-          <th>Bidsquare: <b>$0.00</b></th>
+          <th>Bidsquare: <b>${{ calculateBidsquareReceipt(subtotal)}}</b></th>
         </tr>
         <tr>
-          <th>IVA:<b> ${{ calculateIVA(iva)}}</b><br></th>
+          <th>IVA:<b> ${{ calculateIvaReceipt(subtotal)}}</b><br></th>
         </tr>
         <tr>
           <th>
-            Total:<b> ${{ numberWithCommas(total_sum)}}.00</b><br>
+            Total:<b> ${{ calculateTotalReceipt(subtotal)}}</b><br>
           </th>
         </tr>
 

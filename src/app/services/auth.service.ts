@@ -303,11 +303,11 @@ export class AuthService {
       );
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetail&id=' + busqueda + '');
     }
-    getDetailSaleImg(subasta:string, termino: string){
+    getDetailSaleImg(receipt:string, noCliente: string, invno: string, saleSub:any){
       console.log("-----------------API------------------------");
-      console.log("subasta" + subasta);
-      console.log("termino" + termino);
-      return this.http.get('https://mimorton.com:8444/getDetailSaleMiMorton2/'+ termino + '/'+termino+'/'+ subasta).pipe(
+      console.log("Receipt" + receipt);
+      console.log("NoCliente" + noCliente);
+      return this.http.get('https://mimorton.com:8444/getDetailSaleMiMorton2/'+ receipt + '/'+invno+'/'+ noCliente + '/' + {saleSub}).pipe(
         map ( (auctionfindDB:any ) => {
           return auctionfindDB;
         })

@@ -83,7 +83,7 @@ export class PagoComponent implements OnInit {
 
 
   getInfo(termino: any,termina: any){
-    this.auth.getDetailSaleImg(termino, termina).subscribe(items => {
+    this.auth.getDetailSaleImg(termino, termina, termina, termino).subscribe(items => {
       //console.log("INFO");
       this.elements = items;
       this.recibo = items[0]['invno'];

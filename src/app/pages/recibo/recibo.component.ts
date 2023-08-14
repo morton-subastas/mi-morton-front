@@ -28,10 +28,13 @@ export class ReciboComponent implements OnInit {
   subtotal: number = 0;
   premium:number = 0;
   iva:number = 0;
+  num_cliente: any;
   contador: number = 0;
   total_sum:number = 0;
   noRecibo: any;
   estado: any;
+  receipt: any;
+  saleSub:any;
   constructor(private activatedRoute: ActivatedRoute, private auth:AuthService,) { }
 
   ngOnInit() {
@@ -42,12 +45,15 @@ export class ReciboComponent implements OnInit {
       this.termino_html = params['id'];
       this.inv = params['iv'];
       this.estado = params['estate']
+      this.num_cliente = params['cliente'];
+      this.receipt = params['receipt'];
+      this.saleSub = params['dateSale']
     });
     console.log("INVNO" + this.inv);
 
     console.log("termino" + this.termino_html);
 
-    this.auth.getDetailSaleImg(this.inv, this.termino_html).subscribe(auctionfindSpecificSaleDB => {
+    this.auth.getDetailSaleImg(this.receipt, this.num_cliente, this.inv, this.saleSub).subscribe(auctionfindSpecificSaleDB => {
       console.log("INFO");
       console.log(auctionfindSpecificSaleDB);
       const uniqueValue = this.removeDuplicates(auctionfindSpecificSaleDB);
@@ -55,7 +61,7 @@ export class ReciboComponent implements OnInit {
       this.num_sub  = auctionfindSpecificSaleDB[0]['saleno'];
       this.nom_sub = auctionfindSpecificSaleDB[0]['salename'];
       this.locale = auctionfindSpecificSaleDB[0]['salelocale'];
-      this.fecha_sub = new Date (auctionfindSpecificSaleDB[0]['lastupdate'][1]);
+      this.fecha_sub = new Date (auctionfindSpecificSaleDB[0]['saledate']);
       this.fecha_sub = this.fecha_sub.toLocaleDateString();
       console.log('Fecha ', this.fecha_sub)
       this.paleta = auctionfindSpecificSaleDB[0]['bidder'][0];
@@ -136,5 +142,147 @@ export class ReciboComponent implements OnInit {
 
   imprimir(){
     console.log("impirmi");
+  }
+
+  transformQuantity(element:any){
+    const numeroDecimales= (element + 0.00).toFixed(2)
+    const numeroCompleto = numeroDecimales.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return numeroCompleto;
+  }
+  
+  calculatePremiumReal(premium:any){
+    let hammer = premium * 0.20;
+    const hammerWithDecimals = (hammer + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
+  }
+  
+  calculateAFL(premium: any){
+    const bidder = this.paleta;
+    let bidsquare;
+        if (bidder.startsWith("AL")){
+            console.log("comison 23")
+            bidsquare = premium * 0.03
+        }
+        else if (bidder.startsWith("MS")){
+            console.log("comison 21")
+            bidsquare = premium * 0.01
+        }
+        else{
+            console.log("comison 20")
+            bidsquare = 0
+        }
+    const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
+  }
+
+  calculateRealSubTotal(premium: any){
+    const bidder = this.paleta;
+    let bidsquare;
+        if (bidder.startsWith("AL")){
+            console.log("comison 23")
+            bidsquare = premium + (premium * 0.23)
+        }
+        else if (bidder.startsWith("MS")){
+            console.log("comison 21")
+            bidsquare = premium + (premium * 0.21)
+        }
+        else{
+            console.log("comison 20")
+            bidsquare = premium + (premium * 0.20)
+        }
+    const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
+  }
+
+  calculateSubTotalReceipt(subtotal:any){
+    const bidder = this.paleta;
+    let bidsquare;
+        if (bidder.startsWith("AL")){
+            console.log("comison 23")
+            bidsquare = subtotal + (subtotal * 0.23)
+        }
+        else if (bidder.startsWith("MS")){
+            console.log("comison 21")
+            bidsquare = subtotal + (subtotal * 0.21)
+        }
+        else{
+            console.log("comison 20")
+            bidsquare = subtotal + (subtotal * 0.20)
+        }
+    const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
+  }
+
+  calculatePremiumReceipt (subtotal:any){
+    //const bidder = this.paleta;
+    let bidsquare = subtotal * 0.20;
+    const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
+  }
+
+  calculateBidsquareReceipt(subtotal: any){
+    const bidder = this.paleta;
+    let bidsquare;
+        if (bidder.startsWith("AL")){
+            console.log("comison 23")
+            bidsquare =  (subtotal * 0.03)
+        }
+        else if (bidder.startsWith("MS")){
+            console.log("comison 21")
+            bidsquare = (subtotal * 0.01)
+        }
+        else{
+            console.log("comison 20")
+            bidsquare = (subtotal * 0.00)
+        }
+    const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
+  }
+
+  calculateIvaReceipt(subtotal: any){
+    const bidder = this.paleta;
+    let bidsquare = subtotal * 0.20;
+        if (bidder.startsWith("AL")){
+            console.log("comison 23")
+            bidsquare = (bidsquare + (subtotal * 0.03)) * 0.16
+        }
+        else if (bidder.startsWith("MS")){
+            console.log("comison 21")
+            bidsquare = (bidsquare + (subtotal * 0.01)) * 0.16
+        }
+        else{
+            console.log("comison 20")
+            bidsquare = (subtotal + (subtotal * 0.00)) * 0.16
+        }
+    const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
+  }
+
+  calculateTotalReceipt(subtotal:any){
+    console.log('subtotal ', subtotal)
+    const bidder = this.paleta;
+    let total;
+    if (bidder.startsWith("AL")){
+      console.log("comison 23");
+      total = subtotal + (subtotal * 0.23) + ((subtotal * 0.23) * 0.16) 
+    }
+    else if (bidder.startsWith("MS")){
+        console.log("comison 21")
+        total = subtotal + (subtotal * 0.21) + ((subtotal * 0.21) * 0.16) 
+    }
+    else{
+        console.log("comison 20")
+        total = subtotal + (subtotal * 0.20) + ((subtotal * 0.20) * 0.16) 
+    }
+    const hammerWithDecimals = (total + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
   }
 }
