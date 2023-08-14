@@ -1,0 +1,9 @@
+.message{
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.login100-form-btn{
+    width: 20%;
+}

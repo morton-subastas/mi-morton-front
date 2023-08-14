@@ -8,6 +8,22 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
+.head{
+    display: flex;
+    justify-content: space-between;
+}
+
+.login100-form-btn-factura{
+    width: 20%;
+}
+.login100-form-btn{
+    width: 15%;
+}
+
+.container-login100-form-btn{
+    display: flex;
+    justify-content: flex-end;
+}
 .sectionForm{
     display: flex;
     justify-content: space-between;

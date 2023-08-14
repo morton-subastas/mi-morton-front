@@ -2,6 +2,8 @@
     <div class="limiter animated fadeInDown">
         <div class="container-login100">
             <div class="wrap-login100 p-form">
+                <h1>En construcción</h1>
+                
                 <form (ngSubmit) ="login(formulario)" #formulario="ngForm" class="login100-form validate-form flex-sb flex-w">
                   <div class="img-logo-main">
                     <img src="../../../assets/images/logosMorton.png" alt="">
@@ -10,7 +12,7 @@
                         <span style="color:#FFF;">BIENVENIDO</span>
                     </h2>
 
-                    <!-- <span class="text-danger">El correo es obligatorio</span> -->
+                    
                     <span *ngIf="formulario.submitted && formulario.controls['email'].errors" class="text-danger" animated fadeIn>El correo es invalido</span>
                     <div class="wrap-input100 m-b-16">
                         <input class="input100"
@@ -40,17 +42,12 @@
                     </div>
 
                     <div class="flex-sb-m w-full p-t-3 p-b-24">
-                        <!--
-                        <div class="contact100-form-checkbox">
-                            <input class="input-checkbox100" id="recordarme" type="checkbox" name="recordarme">
-                            <label class="label-checkbox100" for="ckb1">
-                                Recordar mi usuario
-                            </label>
-                        </div>
-                        -->
-                        <div>
+                        <div class="options">
                             <a routerLink="/registro" class="txt1">
                                 ¿No tienes cuenta?
+                            </a>
+                            <a routerLink="/recuperar-contrasenia" class="txt1">
+                                Recuperar contraseña
                             </a>
                         </div>
                     </div>
@@ -62,6 +59,7 @@
                     </div>
 
                 </form>
+               
             </div>
         </div>
     </div>

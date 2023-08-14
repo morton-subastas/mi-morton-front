@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import {LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import localePy from '@angular/common/locales/es';
-
+//import localePy from '@angular/common/locales/es';
+import { DataTablesModule } from 'angular-datatables';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './pages/header/header.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
+import { registerLocaleData } from '@angular/common';
 import {SafePipe} from './pipes/safe.pipe';
 import { FechaPipe } from './pipes/fecha.pipe';
 import { SubastaPipe } from './pipes/subasta.pipe';
@@ -40,6 +41,20 @@ import { DetalleLoteVentaComponent } from './pages/detalle-lote-venta/detalle-lo
 import { PagoComponent } from './pages/pago/pago.component';
 import { PagoSatisfactorioComponent } from './pages/pago/pago-satisfactorio/pago-satisfactorio.component';
 import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/pago-insatisfactorio.component';
+import { RecuperarContraseniaComponent } from './pages/recuperar-contrasenia/recuperar-contrasenia.component';
+import { FacturaUnConceptoComponent } from './pages/factura/factura-un-concepto/factura-un-concepto.component';
+
+// importar locales
+import localePy from '@angular/common/locales/es-PY';
+import localePt from '@angular/common/locales/pt';
+import localeEn from '@angular/common/locales/en';
+import localeEsAr from '@angular/common/locales/es-AR';
+
+// registrar los locales con el nombre que quieras utilizar a la hora de proveer
+registerLocaleData(localePy, 'es');
+registerLocaleData(localePt, 'pt');
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeEsAr, 'es-Ar');
 
 @NgModule({
   declarations: [
@@ -72,7 +87,9 @@ import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/
     DetalleLoteVentaComponent,
     PagoComponent,
     PagoSatisfactorioComponent,
-    PagoInsatisfactorioComponent
+    PagoInsatisfactorioComponent,
+    RecuperarContraseniaComponent,
+    FacturaUnConceptoComponent
 
   ],
   imports: [
@@ -83,6 +100,8 @@ import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    DataTablesModule,
+    NgxPaginationModule
   ],
   schemas:[
 		CUSTOM_ELEMENTS_SCHEMA,

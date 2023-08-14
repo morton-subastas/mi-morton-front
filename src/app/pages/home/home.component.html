@@ -14,7 +14,12 @@
 
       <div *ngIf="MuestraDatos" class="button-sections">
         <div>
-          <form autocomplete="off" (ngSubmit)="saveNumber( FormaNumber )" #FormaNumber="ngForm">
+          <select name="noOfRows" (change)="onTableSizeChange($event)" class="form-select form-select-sm selectAltura">
+            <option *ngFor="let size of tableSize" [ngValue]="size">
+              {{ size }}
+            </option>
+          </select>
+          <!-- <form autocomplete="off" (ngSubmit)="saveNumber( FormaNumber )" #FormaNumber="ngForm">
             <b>Mostrar</b>
               <select name="numFilter" ngModel required class=" selectAltura"  [class.is-invalid]="auctionFind.invalid && auctionFind.touched" #auctionFind="ngModel" (change)="saveNumber(FormaNumber)">
               <option value="25">25</option>
@@ -23,10 +28,10 @@
               <option value="100">100</option>
             </select>
             <b>registros</b>
-          </form>
+          </form> -->
         </div>
         <br><br>
-        <div class="button-controls">
+        <!-- <div class="button-controls">
           <div *ngIf="desactivaPrevious">
             <button class="btn-arrows" (click)="previousPage()">
               <i class="fa-solid fa-angles-left"></i> Anteriores
@@ -37,17 +42,17 @@
               Siguientes <i class="fa-solid fa-angles-right"></i>
             </button>
           </div>
-        </div>
+        </div> -->
         <div>
         </div>
 
-        <input type="text" class="form-control" placeholder="Buscar por descripción" #txtSearch (keyup)="onSearchLote(txtSearch.value)"/>
+        <input type="text" class="form-control" placeholder="Buscar por descripción" [(ngModel)]="textoFiltro" (input)="filtrarTabla(textoFiltro)" />
       </div>
       <div class="numeration-image" style="text-align: end;"><p>Mostrando <b>{{ suma }}</b> de <b>{{ total}}</b></p></div>
 
       <div *ngIf="DontShowTable">
         <div class="table-responsive">
-          <table class="table table-striped custom-table">
+          <table class="table table-striped custom-table" >
           <thead>
             <tr>
               <th scope="col">Imagen</th>
@@ -58,7 +63,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr | filtro:page:searchItem:suma; let indice=index">
+            <tr *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr | paginate : pagingConfig; let i = index">
               <td class="elements-table-image">
                 <!-- <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno,
                   id:auctionsFindSpecificArr.refno, iv: auctionsFindSpecificArr.invno }]" target="_blank">
@@ -69,7 +74,7 @@
 
               </td>
               <td class="elements-table">
-                <b>Lote:</b> {{ auctionsFindSpecificArr.bidder}}<br><br>
+                <b>Lote:</b> {{ auctionsFindSpecificArr.lot}}<br><br>
                   {{ auctionsFindSpecificArr.descript}}
                   <!-- {{auctionsFindSpecificArr.saleno}} -->
               </td>
@@ -77,7 +82,9 @@
                 No. {{auctionsFindSpecificArr.saleno }}<br>
                 {{auctionsFindSpecificArr.salename }}<br>
                 {{ auctionsFindSpecificArr.dateshort }} <br><br>
-                <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno, iv:auctionsFindSpecificArr.invno, state: auctionsFindSpecificArr.estate}]">
+                <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno, 
+                                              iv:auctionsFindSpecificArr.invno, state: auctionsFindSpecificArr.estate, 
+                                              cliente: cliente_num, receipt:auctionsFindSpecificArr.receipt, dateSale: auctionsFindSpecificArr.dateshort }]">
                   {{auctionsFindSpecificArr.invno}}
                 </a>
               </td>
@@ -95,35 +102,21 @@
                   <img src="../../../assets/images/info.png" alt="">
                   <br>
                   {{ auctionsFindSpecificArr.estate }}
-                  <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
+                  <!-- <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
                     <a [routerLink]="['/factura', {iv:auctionsFindSpecificArr.invno, id:auctionsFindSpecificArr.refno}]" target="_blank">
                       <button class="btn-morton-menuimprimir-out" >Facturar</button>
                     </a>
-                  </div>
+                  </div> -->
                   <!--  -->
               </td>
             </tr>
           </tbody>
           </table>
+          <div>
+            <pagination-controls (pageChange)="onTableDataChange($event)" [maxSize]="7" previousLabel="Anterior"
+            nextLabel="Siguiente">
+            </pagination-controls>
+          </div>
         </div>
-
-      <div class="button-controls">
-        <div *ngIf="desactivaPrevious">
-          <button class="btn-arrows" (click)="previousPage()">
-            <i class="fa-solid fa-angles-left"></i> Anteriores
-          </button>
-        </div>
-
-        <div *ngIf="desactivaNextPage">
-          <button  class="btn-arrows" (click)="nextPage()" >
-            Siguientes <i class="fa-solid fa-angles-right"></i>
-          </button>
-        </div>
-      </div>
-      </div>
-
-
-      <!--¡Welcom!<br><br>
-      It is a program where You might undersand English.-->
     </div>
   </div>

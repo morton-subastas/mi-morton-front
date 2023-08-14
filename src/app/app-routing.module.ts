@@ -22,7 +22,8 @@ import { DetalleLoteVentaComponent } from './pages/detalle-lote-venta/detalle-lo
 import { PagoComponent } from './pages/pago/pago.component';
 import { PagoSatisfactorioComponent } from './pages/pago/pago-satisfactorio/pago-satisfactorio.component';
 import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/pago-insatisfactorio.component';
-
+import { RecuperarContraseniaComponent } from './pages/recuperar-contrasenia/recuperar-contrasenia.component';
+import { FacturaUnConceptoComponent } from './pages/factura/factura-un-concepto/factura-un-concepto.component';
 const routes: Routes = [
 
   /* { path: 'catalogos', 
@@ -46,6 +47,8 @@ const routes: Routes = [
   { path: 'pago', component:PagoComponent },
   { path: 'satisfactorio', component:PagoSatisfactorioComponent},
   { path: 'insatisfactorio', component:PagoInsatisfactorioComponent},
+  { path: 'recuperar-contrasenia', component:RecuperarContraseniaComponent },
+  { path: 'factura-un-concepto', component: FacturaUnConceptoComponent},
   { path: '**', redirectTo: 'login' }
 ];
 

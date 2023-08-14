@@ -2,18 +2,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Pipe } from '@angular/core';
 import { UsuarioModel } from '../models/usuario/usuario.model';
 import {  map } from 'rxjs/operators';
+//const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
+  
+const headers= new HttpHeaders()
+  .set('content-type', 'application/json')
+  .set('Access-Control-Allow-Origin', '*');
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  
   //private url = 'https://masanchez.com.mx/ARGENTINA/PHP1/';
   // private url = 'http://localhost/PHP/';
   private url = 'https://infosubastas.mortonsubastas.com/PHP/';
   phpUrllocal = ''
   urlMultipagos = 'https://prepro.adquiracloud.mx/clb/endpoint/mortonSubastas'; 
 
-
+  
   //private url = 'http://localhost/infosubastas/'
   baseUrllocal =''
   userToken: string = '';
@@ -34,6 +40,7 @@ export class AuthService {
   /**********************************
   * ACCESO
   **********************************/
+  
 
   logout(){
     localStorage.removeItem('token');
@@ -56,6 +63,50 @@ export class AuthService {
     })
   );
   }
+
+  recoveryPassword(usuario: UsuarioModel){
+    console.log('Usuario: ', usuario);
+    const headers = {'Autorization': 'Bearer my-token', 'My-Custom-Header':'foobar'}
+    const authdata ={
+      cliente: usuario.cliente,
+      password: usuario.password
+    }
+
+    return this.http.post<any>('http://localhost:8443/PHP/recoverPassword.php', authdata,{ headers });
+    /* return this.http.post('http://localhost:8443/recoverPassword.php', authdata).pipe(map( (resp:any)=>{
+      return resp;
+    })) */
+
+  
+
+    /* return this.http.post('http://localhost:8080/PHP/recoverPassword.php', authdata,requestOptions ).pipe(map( (resp:any)=>{
+      return resp;
+    })) */
+  }
+
+  
+/**
+ * 
+ * @param usuario 
+ * @returns 
+  select a.*,  c.*,  r.*,  i.*, s.*, cns.* ,r.bidder as bidder_ok, s.saleno as saleno_ok,  c.custno as numcus, 
+    SUBSTRING(p.pictpath,4,LEN(p.pictpath)) as pictpath 
+          from results r left join inventor i on r.refno = i.refno 
+          left join typeset t on r.refno = t.refno 
+          left join saledate s on s.saleno= i.saleno 
+          left join pictures p on r.refno = p.refno 
+          left join cusfil c on r.custno = c.custno 
+          left join address a on c.custno = a.custno 
+          left join cnsgbllg cns on c.custno = cnsgbllg.custno
+          where  i.receipt = ' req.params.id2 '  // Descomentar
+          and i.hammer != 0 
+          -- where  i.receipt = req.params.id2 
+          -- where  r.salelot like ' req.params.invno%' 
+          -- and r.refno = ' req.params.id' 
+          and p.pictname in (select top 1 pictname from pictures where refno = r.refno ) 
+          and r.bidder in (select top 1 bidder from results where refno = i.refno order by bidder asc) 
+          order by p.pictpath, r.bidder asc ;
+ */
 
   nuevo_usuario(usuario: UsuarioModel){
     const authdata = {
@@ -187,6 +238,7 @@ export class AuthService {
           map ( (res:any ) => {
             //console.log("__COMPRAS");
             this.dataCompras = res;
+            console.log('Res', res)
             //console.log(this.dataCompras);
             this.saveTokenData(this.dataCompras);
             //console.log("FIN__");
@@ -251,16 +303,25 @@ export class AuthService {
       );
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetail&id=' + busqueda + '');
     }
-    getDetailSaleImg(subasta:string, termino: string){
+    getDetailSaleImg(receipt:string, noCliente: string, invno: string, saleSub:any){
       console.log("-----------------API------------------------");
-      console.log("subasta" + subasta);
-      console.log("termino" + termino);
-      return this.http.get('https://mimorton.com:8444/getDetailSaleMiMorton2/'+ termino + '/'+termino+'/'+ subasta).pipe(
+      console.log("Receipt" + receipt);
+      console.log("NoCliente" + noCliente);
+      return this.http.get('https://mimorton.com:8444/getDetailSaleMiMorton2/'+ receipt + '/'+invno+'/'+ noCliente + '/' + {saleSub}).pipe(
         map ( (auctionfindDB:any ) => {
           return auctionfindDB;
         })
       );
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetailSale&subasta='+ subasta +'&id=' + busqueda + '');
+    }
+
+    getDetailLot(receipt: any, lot:any){
+      console.log(`El valor de recript: ${receipt} y de lot: ${lot}`);
+      return this.http.get(`https://mimorton.com:8444/getDetailByLot/${receipt}/${lot}`).pipe(
+        map ((result:any)=>{
+          return result        
+        })
+      );  
     }
 
     getDetailSale(subasta:string, termino: string){

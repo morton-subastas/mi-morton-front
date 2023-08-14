@@ -57,7 +57,7 @@ conceptsList : any = [
       this.inv = params['iv'];
     });
 
-    this.auth.getDetailSaleImg(this.inv, this.termino_html).subscribe(params=>{
+    this.auth.getDetailSaleImg(this.inv, this.termino_html, this.inv, this.termino_html).subscribe(params=>{
       this.recieves = params;
       console.log("this.recieve******************: ", this.recieves);
       this.auction = params[0].saleno_ok;
