@@ -9,27 +9,35 @@
         <div class="form-group col-md-2">
           <label for="anio">Año </label>
           <select name="anio" id="anio" (change)="catchYear($event)">
+            <option [value]=""> -- Selecciona --</option>
             <option *ngFor="let year of allYearList" [value]="year.value">{{year.value}}</option>
         </select>
         </div>
         <div class="form-group col-md-2">
             <label for="subasta">Subasta </label>
-            <select name="subasta" id="subasta" (change)="catchSaleno($event)">
-              <option *ngFor="let saleno of salenoList" [value]="saleno.value">{{saleno.value}}</option>
+            <select name="subasta" id="subasta"  (change)="catchSaleno($event)">
+              <option [value]=""> -- Selecciona --</option>
+              <option *ngFor="let saleno of initialResult" [value]="saleno.saleno">{{saleno.saleno}}</option>
             </select>
         </div>
         <div class="form-group col-md-2">
             <label for="contrato">Contrato </label>
             <select name="contrato" id="contrato" (change)="catchReciept($event)">
-              <option *ngFor="let reciept of recieptList" [value]="reciept.value">{{reciept.value}}</option>
+              <option [value]=""> -- Selecciona --</option>
+              <option *ngFor="let reciept of contractList" [value]="reciept">{{reciept}}</option>
             </select>
         </div>
         <div class="form-group col-md-2">
           <label for="contrato">Lote </label>
-          <select name="contrato" id="contrato" (change)="catchLot($event)">
-            <option *ngFor="let lot of lotList" [value]="lot.value">{{lot.value}}</option>
+          <select name="lote" id="lote" (change)="catchLot($event)">
+            <option [value]=""> -- Selecciona --</option>
+            <option *ngFor="let lot of initialResult" [value]="lot.lot">{{lot.lot}}</option>
           </select>
-      </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="contrato">Mostrar </label>
+          <button type="button" class="btn btn-sm btn-primary showAll" (click) = "resetArray();">Mostrar todos</button>
+        </div>
       </div>
       <div class="table-responsive mb-5">
 

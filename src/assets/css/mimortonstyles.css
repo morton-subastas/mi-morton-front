@@ -173,12 +173,9 @@
 
 /* ---------- */
 .men-nav-morton{
-  background-image: url("../images/MassCircles.svg");
+  background-color:rgba(240,240,240,1);
   background-repeat: no-repeat;
   background-position: top left;
-  background-size: cover;
-  height: 120px;
-  width: 100%;
   box-shadow: 0 10px 10px -10px rgba(108, 108, 108, 0.201);
 }
 
@@ -188,9 +185,8 @@
 }
 
 .img-princ{
-  height: 60px;
+  width: 250px;
 }
-
 
 .men-nav-morton ul{
   float: right;
@@ -272,9 +268,11 @@
   line-height: 1.5;
   font-weight: 400;
   border-radius: 5px;
-
 }
 
+.showAll{
+  margin-top:15px;
+}
 
 .checkbtn{
   font-size: 40px;
@@ -342,6 +340,12 @@
     padding: 2px;
     line-height: 2.5;
     font-size: 18px;
+  }
+
+  /*  BOOTSTRAP UPDATES  IMPORTANT*/ 
+  .container-fluid{
+    padding-right:unset!important;
+    padding-left:unset!important;
   }
 
 }

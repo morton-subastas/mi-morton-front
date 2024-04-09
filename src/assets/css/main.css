@@ -119,6 +119,11 @@ iframe {
 	border: none !important;
 }
 
+.container-fluid{
+  padding-right:unset!important;
+  padding-left:unset!important;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
