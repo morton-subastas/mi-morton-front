@@ -185,7 +185,7 @@
 }
 
 .img-princ{
-  width: 250px;
+  width: 200px;
 }
 
 .men-nav-morton ul{
@@ -347,7 +347,11 @@
     padding-right:unset!important;
     padding-left:unset!important;
   }
-
+   
+  .navbar-principal{
+    background-color: rgba(240, 240, 240, 1)!important;
+  }
+    
 }
 
 

@@ -17,7 +17,7 @@
             <label for="subasta">Subasta </label>
             <select name="subasta" id="subasta"  (change)="catchSaleno($event)">
               <option [value]=""> -- Selecciona --</option>
-              <option *ngFor="let saleno of initialResult" [value]="saleno.saleno">{{saleno.saleno}}</option>
+              <option *ngFor="let saleno of subastaList" [value]="saleno">{{saleno}}</option>
             </select>
         </div>
         <div class="form-group col-md-2">

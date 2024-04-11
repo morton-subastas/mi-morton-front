@@ -26,6 +26,7 @@ export class ContratosComponent implements OnInit {
   recieptList: any;
   optionsSelectors:any;
   contractList: any = [];
+  subastaList : any = [];
   lotList: any;
   yearList: any = [
     {
@@ -48,6 +49,13 @@ export class ContratosComponent implements OnInit {
             this.contractList.push(this.groupArr[i].receipt);
           }
       }
+
+      for(let i=0; i < this.groupArr.length; i++){
+        if(this.subastaList.indexOf(this.groupArr[i].saleno) === -1){
+          this.subastaList.push(this.groupArr[i].saleno);
+        }
+      }
+
       this.allYearList= this.createArrayYear(this.groupArr);
     });
     
