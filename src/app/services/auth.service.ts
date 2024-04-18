@@ -66,22 +66,19 @@ export class AuthService {
 
   recoveryPassword(usuario: UsuarioModel){
     console.log('Usuario: ', usuario);
-    const headers = {'Autorization': 'Bearer my-token', 'My-Custom-Header':'foobar'}
     const authdata ={
       cliente: usuario.cliente,
       password: usuario.password
     }
 
-    return this.http.post<any>('http://localhost:8443/PHP/recoverPassword.php', authdata,{ headers });
-    /* return this.http.post('http://localhost:8443/recoverPassword.php', authdata).pipe(map( (resp:any)=>{
-      return resp;
-    })) */
+    return this.http.post('https://infosubastas.mortonsubastas.com/PHP/recoverPassword.php', JSON.stringify(authdata));
 
-  
+  }
 
-    /* return this.http.post('http://localhost:8080/PHP/recoverPassword.php', authdata,requestOptions ).pipe(map( (resp:any)=>{
-      return resp;
-    })) */
+  getAuctionDate(subasta:any){
+    const auctionData = {
+      
+    }
   }
 
   
@@ -282,6 +279,11 @@ export class AuthService {
     }
 
 */
+
+    getNextAuctionByLot(refno:string,date:string){
+      return this.http.get('https://mimorton.com:8444/getNextAuctionDateLot/' + refno + '/' +date);
+    }
+
     getVentasToRFC(custno:string){
       return this.http.get('https://mimorton.com:8444/getVentasMiMorton/' + custno+'');
       /*

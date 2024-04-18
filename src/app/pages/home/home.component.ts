@@ -82,6 +82,9 @@ export class HomeComponent implements OnInit {
       this.dtTrigger.next();
       this.suma = 10;
       this.total = this.auctionsFindSpecificArr.length;
+
+      console.log("ESTE ES EL BUENO", this.auctionsFindSpecificArr);
+      
       //console.log("TOTAL" + this.total);
       if(this.total < 10){
         this.MuestraDatos = false;

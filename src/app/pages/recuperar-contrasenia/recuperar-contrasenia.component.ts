@@ -27,9 +27,7 @@ export class RecuperarContraseniaComponent implements OnInit {
     this.auth.recoveryPassword(this.usuario!).subscribe(
       (resp: any) =>{
         console.log(resp);
-        console.log('Exito registro');
-        console.log(resp["insert"]);
-        if(resp["insert"]){
+        if(resp['status'] == 200){
           this.router.navigateByUrl('/login');
         }
       }, (err:any) => {

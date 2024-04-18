@@ -41,7 +41,7 @@
             <td class="item">
               No. {{auctionsFindSpecificArr.saleno }}<br>
               {{auctionsFindSpecificArr.salename }}<br>
-              {{ auctionsFindSpecificArr.date}}
+              {{ auctionsFindSpecificArr.fchVenta}}<br>
               <a [routerLink]="['/recibo-venta', {subasta: auctionsFindSpecificArr.saleno, 
                 id:auctionsFindSpecificArr.refno, iv:auctionsFindSpecificArr.invno, 
                 salename: auctionsFindSpecificArr.salename, saleDate: auctionsFindSpecificArr.saledate,
@@ -54,8 +54,9 @@
               <br>{{numberWithCommas(auctionsFindSpecificArr.martillo) }}.00
             </td>
             <td class="item">
-              <img src="../../../assets/images/info.png" alt="">
-              <br>{{ auctionsFindSpecificArr.estatus }}
+              <img src="../../../assets/images/info.png" alt=""><br>
+              {{ auctionsFindSpecificArr.estatus }}<br>
+              <span *ngIf="auctionsFindSpecificArr.proxima != ''"><b>{{auctionsFindSpecificArr.proxima}}</b></span>
             </td>
           </tr>
         </tbody>

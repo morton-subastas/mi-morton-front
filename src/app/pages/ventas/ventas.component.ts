@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { isEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ventas',
@@ -14,6 +15,8 @@ export class VentasComponent implements OnInit {
 
   cliente_num:string = '';
   auctionsFindSpecificArr:any = [];
+  refnoInfo:any = [];
+  numSubasta:any;
 
   constructor(private auth:AuthService, private router:Router,  private activatedRouter:ActivatedRoute) { }
 
@@ -32,12 +35,32 @@ this.cliente_num = localStorage.getItem('cliente')!;
     this.auth.getVentasToRFC(this.cliente_num).subscribe(dataVenvtas => {
       this.ActivoSpinner = false;
       this.DontShowTable = true;
-      //console.log("DATAVENTAS************************");
-      //console.log(dataVenvtas);
-      //console.log(auctionfindSpecificSaleDB[0]);
       this.auctionsFindSpecificArr = dataVenvtas;
+      this.numSubasta = this.auctionsFindSpecificArr.saleno;
+      this.auctionsFindSpecificArr.forEach((element:any,index:any) => {
+          let formattedDate = element.saledate.split("T");
+          if(element.estatus == 'Vendido'){
+            element['proxima'] = '';
+          }else{
+            this.auth.getNextAuctionByLot(element.refno, formattedDate[0]).subscribe(dataInfo=>{
+              this.refnoInfo = dataInfo;
+              if(this.refnoInfo.length == 0){
+                  element['proxima'] = 'Preparando proxima subasta';
+              }else{
+                  element['proxima'] = 'Se agrego a subasta' + this.refnoInfo.event;
+              }
+            })
+          }
+      });
+
+      console.log(this.auctionsFindSpecificArr);
+      
+    
+      
     });
   }
+
+  
 
 
   numberWithCommas(x: any) {

@@ -17,21 +17,21 @@
             <label for="subasta">Subasta </label>
             <select name="subasta" id="subasta"  (change)="catchSaleno($event)">
               <option [value]=""> -- Selecciona --</option>
-              <option *ngFor="let saleno of subastaList" [value]="saleno">{{saleno}}</option>
+              <option *ngFor="let saleno of salenoList" [value]="saleno.value">{{saleno.value}}</option>
             </select>
         </div>
         <div class="form-group col-md-2">
             <label for="contrato">Contrato </label>
             <select name="contrato" id="contrato" (change)="catchReciept($event)">
               <option [value]=""> -- Selecciona --</option>
-              <option *ngFor="let reciept of contractList" [value]="reciept">{{reciept}}</option>
+              <option *ngFor="let reciept of recieptList" [value]="reciept.value">{{reciept.value}}</option>
             </select>
         </div>
         <div class="form-group col-md-2">
           <label for="contrato">Lote </label>
           <select name="lote" id="lote" (change)="catchLot($event)">
             <option [value]=""> -- Selecciona --</option>
-            <option *ngFor="let lot of initialResult" [value]="lot.lot">{{lot.lot}}</option>
+            <option *ngFor="let lot of lotList" [value]="lot.value">{{lot.value}}</option>
           </select>
         </div>
         <div class="form-group col-md-2">

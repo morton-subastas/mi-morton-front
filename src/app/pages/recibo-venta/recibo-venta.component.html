@@ -9,12 +9,15 @@
     <b>Lugar: </b>{{lugar}}<br>
 
     <br>
-    <div class="table-responsive">
+
+    <div class="buttons" style="margin-bottom:10px;">
       <a href="https://mimorton.com/imglink/pdf/{{recibo}}.pdf" target="_blank">
         <button class="btn-morton-menuimprimir-out" >Imprimir</button>
       </a>
-      <br>
-      <br>
+          <button type="button" class="btn-morton-factura" style="float: right;" (click)="openModal()">Solicitar Factura</button>
+    </div>
+
+    <div class="table-responsive">
     <table class="table table-striped custom-table">
         <thead>
             <tr>
@@ -36,12 +39,13 @@
                     <img [src]="item.pictpath| safe"width="30%">
                 </td>
                 <td class="descipt-item">{{ item.descript[0] }}</td>
-                <td>
+               <!--<td>
                   <a [routerLink]="['/detalle-lote-venta', {lote: item.lot, 
                     hammer:item.hammer, img:item.pictpath, inv: inv}]" target="_blank">
                     Ver Detalle
                   </a>
-                </td>
+                <button type="button" dlass="btn btn-sm btn-primary" (click)="showDetail(item.lot, item.hammer, item.pictpath, inv);">Click</button
+                </td>-->
                 <!-- <td>{{ item.hammer}}</td>
                 <td> {{ item.hammer * 0.20}}</td>
                 <td>0</td>
@@ -51,6 +55,37 @@
       </table>
       </div>
     <br>
+
+    <div class="table-responsive">
+      <table class="table table-striped custom-table">
+        <thead>
+            <tr>
+                <th>Subasta</th>
+                <th>Lote</th>
+                <th>Martillo</th>
+                <th>Foto</th>
+                <th>Seguro</th>
+                <th>Comisión</th>
+                <th>ARR</th>
+                <th>ISR</th>
+                <th>IVA</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+            <tbody>
+                <td style="text-align: center;">{{saleno}}</td>
+                <td style="text-align: center;">{{lote}}</td>
+                <td style="text-align: center;">{{hammer}}</td>
+                <td style="text-align: center;">{{photo}}</td>
+                <td style="text-align: center;">{{inssurance}}</td>
+                <td style="text-align: center;">{{commission}}</td>
+                <td style="text-align: center;">{{arr}}</td>
+                <td style="text-align: center;">{{isr}}</td>
+                <td style="text-align: center;">{{vat}}</td>
+                <td style="text-align: center;">{{total}}</td>
+            </tbody>
+        </table>
+    </div>
     <!-- <table class="table table-striped custom-table">
       <thead>
         <tr>
@@ -82,3 +117,76 @@
       </thead>
     </table> -->
 </div>
+
+<div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Solicitar Factura</h5>
+      </div>
+      <div class="modal-body">
+        <label for="adjuntar archivo">Adjunta tu constancia de situación fiscal en formato pdf</label>
+        <input type="file"  accept="application/pdf" id="constancia" name="constancia">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="sendEmailConstancia()">Enviar</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Éxito</h5>
+      </div>
+      <div class="modal-body">
+        <span>Se ha solicitado factura correctamente, en breve, nuestro equipo se pondrá en contacto contigo vía correo electrónico para enviar tu factura.</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModalSuccess()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Error</h5>
+      </div>
+      <div class="modal-body">
+        <span>Ha ocurrido un error, intentarlo en un momento o comunicarse con el área de TI, al correo ehernandez@mortonsubastas.com</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModalError()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="attachModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Adjuntar archivo</h5>
+      </div>
+      <div class="modal-body">
+        <span>Tiene que adjuntar archivo</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModalAttach()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+

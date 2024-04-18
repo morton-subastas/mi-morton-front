@@ -131,8 +131,13 @@ export class ContratosComponent implements OnInit {
   } */
 
   catchYear(event: any){
+    this.select = document.querySelector('#contrato');
+    this.select.selectedIndex = 0;
+    this.selectSubasta = document.querySelector('#subasta');
+    this.selectSubasta.selectedIndex = 0;
+    this.selectLote = document.querySelector('#lote');
+    this.selectLote.selectedIndex = 0;
     console.log('event ', event.target.value );
-    console.log('this.groupArr', this.groupArr);
     this.groupArr = this.initialResult.filter((item: any) =>{
       var d = new Date(item.edate);
       //alert(d.getFullYear());
@@ -157,15 +162,21 @@ export class ContratosComponent implements OnInit {
   }
 
   catchSaleno(event:any){
-    console.log('event ', event.target.value );
+    let DropdownList = (document.getElementById("anio")) as HTMLSelectElement;
+    let sel = DropdownList.selectedIndex;
+    let opt = DropdownList.options[sel];
+    let CurValue = (<HTMLOptionElement>opt).value;
     this.groupArr = this.initialResult;
+    
     this.groupArr = this.groupArr.filter((item: any) =>{
-      //console.log(item.saleno);
-      
-      return item.saleno == event.target.value;
+      var d = new Date(item.edate);
+      return (item.saleno == event.target.value && d.getFullYear() == parseInt(CurValue))
+      //return item.saleno == event.target.value;
     })
     console.log('this.groupArr', this.groupArr);
-    //this.getRecieptList();
+    
+    this.getRecieptList();
+
   }
 
   getRecieptList(){
@@ -173,22 +184,33 @@ export class ContratosComponent implements OnInit {
       id : item.id,
       value: item.receipt
     }));
-    console.log(this.recieptList);
-   // this.recieptList = this.recieptList.slice(1)
+    //console.log(this.recieptList);
     this.recieptList = this.recieptList.filter(
       (obj:any, index: any) => 
       this.recieptList.findIndex((item:any) => item.value === obj.value) === index
     )
+   // console.log("da fuck", this.recieptList);
     
-    
-    //this.getLotList()
+    this.getLotList()
   }
 
   catchReciept(event:any){
+    //this.groupArr = this.initialResult;
+    let DropdownList = (document.getElementById("anio")) as HTMLSelectElement;
+    let sel = DropdownList.selectedIndex;
+    let opt = DropdownList.options[sel];
+    let CurValue = (<HTMLOptionElement>opt).value;
+    
+    let DropDownSubasta = (document.getElementById("subasta")) as HTMLSelectElement;
+    let selSubasta = DropDownSubasta.selectedIndex;
+    let optSubasta = DropDownSubasta.options[selSubasta];
+    let subastaValue = (<HTMLOptionElement>optSubasta).value;
     this.groupArr = this.initialResult;
+
     console.log('event ', event.target.value );
     this.groupArr = this.groupArr.filter((item: any) =>{
-      return item.receipt == event.target.value;
+      var d = new Date(item.edate);
+      return (item.receipt == event.target.value && d.getFullYear() == parseInt(CurValue) && item.saleno == subastaValue)
     })
     this.getLotList();
   }
@@ -213,10 +235,31 @@ export class ContratosComponent implements OnInit {
     }))
   }
   catchLot(event:any){
+    //this.groupArr = this.initialResult;
+    let DropdownList = (document.getElementById("anio")) as HTMLSelectElement;
+    let sel = DropdownList.selectedIndex;
+    let opt = DropdownList.options[sel];
+    let CurValue = (<HTMLOptionElement>opt).value;
+
+    let DropDownSubasta = (document.getElementById("subasta")) as HTMLSelectElement;
+    let selSubasta = DropDownSubasta.selectedIndex;
+    let optSubasta = DropDownSubasta.options[selSubasta];
+    let subastaValue = (<HTMLOptionElement>optSubasta).value;
+
+
+    let DropDownContrato = (document.getElementById("contrato")) as HTMLSelectElement;
+    let selContrato = DropDownContrato.selectedIndex;
+    let optContrato = DropDownContrato.options[selContrato];
+    let contratoValue = (<HTMLOptionElement>optContrato).value;
     this.groupArr = this.initialResult;
+
+
     console.log('event ', event.target.value );
     this.groupArr = this.groupArr.filter((item: any) =>{
-      return item.lot == event.target.value;
+      var d = new Date(item.edate);
+      return (item.lot == event.target.value && d.getFullYear() == parseInt(CurValue) && item.receipt == contratoValue && item.saleno == subastaValue)
+
+      //return item.lot == event.target.value;
     })
     console.log('catch lot function', this.groupArr);
   }

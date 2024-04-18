@@ -248,6 +248,20 @@
   background: #333;
 }
 
+.btn-morton-factura{
+  font-family: 'Ibarra Real Nova', serif;
+  color: #fff;
+  background: #004d43;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1.3em;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.btn-morton-factura:hover{
+  background: #333;
+}
 
 .btn-morton{
   color: #fff;
