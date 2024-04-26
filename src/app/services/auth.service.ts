@@ -51,17 +51,17 @@ export class AuthService {
       email : usuario.email,
       password : usuario.password
     }
-    //console.log("service" + authdata);
-    //console.log("E" + authdata.email);
-    //console.log("C" + authdata.password);
-    //return this.http.get(`${this.url}?busca_usuario=1&email=` + authdata.email);
     return this.http.get(this.url+'?busca_usuario=1&email=' + authdata.email +'&contra=' + authdata.password+'').pipe(map( (resp:any) => {
       //console.log("Entro en map()");
       console.log('Valor de resp----------------- ', resp)
       this.saveToken(resp['id_token'], resp['cliente'], resp['nombre'], resp['user_id']);
       return resp;
-    })
-  );
+    }));
+  }
+
+
+  getAmountDebt(invno:any){
+    return this.http.get('https://mimorton.com:8444/getAmountDebt/' + invno);
   }
 
   recoveryPassword(usuario: UsuarioModel){
@@ -286,6 +286,19 @@ export class AuthService {
 
     getVentasToRFC(custno:string){
       return this.http.get('https://mimorton.com:8444/getVentasMiMorton/' + custno+'');
+      /*
+      .pipe(
+        map ( (res:any ) => {
+          return res;
+        }),
+        catchError ( (err) => this.handlerError(err))
+      );
+      */
+
+    }
+
+    getVentasToRFCWS(custno:string){
+      return this.http.get('https://mimorton.com:8444/getVentasMiMortonWS/' + custno+'');
       /*
       .pipe(
         map ( (res:any ) => {

@@ -14,7 +14,7 @@
       <a href="https://mimorton.com/imglink/pdf/{{recibo}}.pdf" target="_blank">
         <button class="btn-morton-menuimprimir-out" >Imprimir</button>
       </a>
-          <button type="button" class="btn-morton-factura" style="float: right;" (click)="openModal()">Solicitar Factura</button>
+          
     </div>
 
     <div class="table-responsive">
@@ -24,7 +24,7 @@
                 <th scope="col">Lote</th>
                 <th scope="col">Imagen</th>
                 <th scope="col">Descripción</th>
-                <!-- <th scope="col">Detalle</th> -->
+                <th scope="col">Detalle</th>
                 <!-- <th scope="col">Martillo</th>
                 <th scope="col">Premium</th>
                 <th scope="col">Bidsquare</th>
@@ -39,13 +39,12 @@
                     <img [src]="item.pictpath| safe"width="30%">
                 </td>
                 <td class="descipt-item">{{ item.descript[0] }}</td>
-               <!--<td>
+               <td>
                   <a [routerLink]="['/detalle-lote-venta', {lote: item.lot, 
                     hammer:item.hammer, img:item.pictpath, inv: inv}]" target="_blank">
                     Ver Detalle
                   </a>
-                <button type="button" dlass="btn btn-sm btn-primary" (click)="showDetail(item.lot, item.hammer, item.pictpath, inv);">Click</button
-                </td>-->
+                </td>
                 <!-- <td>{{ item.hammer}}</td>
                 <td> {{ item.hammer * 0.20}}</td>
                 <td>0</td>

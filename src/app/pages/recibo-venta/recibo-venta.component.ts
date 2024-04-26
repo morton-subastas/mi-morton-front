@@ -247,7 +247,7 @@ export class ReciboVentaComponent implements OnInit {
     form_data.append("file", file_data); 
     form_data.append("info", this.arrayToEmail);          
        let ajax = new XMLHttpRequest();
-        ajax.open('POST', 'https://infosubastas.mortonsubastas.com/PHP/backend/sendEmailVenta.php');
+        ajax.open('POST', 'http://localhost/mail/sendEmailVenta.php');
         ajax.setRequestHeader("enctype","multipart/form-data");
         ajax.send(form_data);
         ajax.onreadystatechange = ():void => {

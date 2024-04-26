@@ -14,14 +14,17 @@
           <a href="https://mimorton.com/imglink/pdf/{{recibo}}.pdf" target="_blank">
             <button class="btn-morton-menuimprimir-out" (click)="imprimir()">Imprimir</button>
           </a>
+          <button class="btn-morton-pagar" *ngIf = "totalDebt > 0">Pagar</button>
           <button type="button" class="btn-morton-factura" style="float: right;" (click)="openModal()">Solicitar Factura</button>
         </div>
+        <span *ngIf = "totalDebt > 0" ><b>Monto Abonado:</b> {{ debt }}</span><br>
+        <span *ngIf = "totalDebt > 0"><b>Monto Adeudado: </b> {{ totalDebt }}</span>
 
       <table class="table table-striped custom-table">
           <thead>
             <tr>
               <th scope="col">Lote</th>
-              <th scope="col">Img</th>
+              <th scope="col">Imagen</th>
               <th scope="col">Nombre lote</th>
               <th scope="col">Martillo</th>
               <th scope="col">Premium</th>

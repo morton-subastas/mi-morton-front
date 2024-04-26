@@ -59,7 +59,8 @@
               <th scope="col">Lote</th>
               <th scope="col">Subasta</th>
               <th scope="col">Precio</th>
-              <th scope="col">Status</th>
+              <th scope="col">Estatus</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -82,34 +83,37 @@
                 No. {{auctionsFindSpecificArr.saleno }}<br>
                 {{auctionsFindSpecificArr.salename }}<br>
                 {{ auctionsFindSpecificArr.dateshort }} <br><br>
-                <button type="button" class="btn btn-primary btn-sm" >
-                <a style="color:white;" [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno, 
-                                              iv:auctionsFindSpecificArr.invno, state: auctionsFindSpecificArr.estate, 
-                                              cliente: cliente_num, receipt:auctionsFindSpecificArr.receipt, dateSale: auctionsFindSpecificArr.dateshort }]">
-                  Ver recibo
-                </a>
-                </button>
+                
               </td>
               <td class="elements-table">
                 <img src="../../../assets/images/auction.png" alt="">
                 <br>
-                ${{numberWithCommas(auctionsFindSpecificArr.martillo) }}.00
-                
-                <!-- {{auctionsFindSpecificArr.lastupdate}} -->
-
+                ${{numberWithCommas(auctionsFindSpecificArr.martillo) }}.00<br>
               </td>
               <td class="elements-table">
                 
                 
                   <img src="../../../assets/images/info.png" alt="">
                   <br>
-                  {{ auctionsFindSpecificArr.estate }}
+                  {{ auctionsFindSpecificArr.estate }}<br>
                   <!-- <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
                     <a [routerLink]="['/factura', {iv:auctionsFindSpecificArr.invno, id:auctionsFindSpecificArr.refno}]" target="_blank">
                       <button class="btn-morton-menuimprimir-out" >Facturar</button>
                     </a>
                   </div> -->
                   <!--  -->
+              </td>
+              <td>
+                
+                  <a  style="color:white;" [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno, 
+                                                iv:auctionsFindSpecificArr.invno, state: auctionsFindSpecificArr.estate, 
+                                                cliente: cliente_num, receipt:auctionsFindSpecificArr.receipt, dateSale: auctionsFindSpecificArr.dateshort }]">
+                                                <button style="font-size:12px;margin-top:5px;border:unset!important;" type="button" class="btn btn-primary btn-sm btn-danger" *ngIf="auctionsFindSpecificArr.debtAmount >0"><i class="fa fa-money" aria-hidden="true"></i> Pagar</button>
+                                                <button type="button" class="btn btn-primary btn-sm" style="font-size:12px;margin-top:5px;background:#004d43!important;border:unset!important;" *ngIf="auctionsFindSpecificArr.debtAmount == 0"> <i class="fa fa-eye" aria-hidden="true" ></i> Recibo </button>
+                  </a>
+                 
+                  
+
               </td>
             </tr>
           </tbody>

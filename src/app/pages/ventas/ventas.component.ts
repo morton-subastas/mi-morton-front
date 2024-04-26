@@ -32,11 +32,14 @@ export class VentasComponent implements OnInit {
 
 this.cliente_num = localStorage.getItem('cliente')!;
 
-    this.auth.getVentasToRFC(this.cliente_num).subscribe(dataVenvtas => {
+    this.auth.getVentasToRFCWS(this.cliente_num).subscribe(dataVenvtas => {
       this.ActivoSpinner = false;
       this.DontShowTable = true;
       this.auctionsFindSpecificArr = dataVenvtas;
       this.numSubasta = this.auctionsFindSpecificArr.saleno;
+      console.log(this.auctionsFindSpecificArr);
+      return;
+      
       this.auctionsFindSpecificArr.forEach((element:any,index:any) => {
           let formattedDate = element.saledate.split("T");
           if(element.estatus == 'Vendido'){
@@ -45,7 +48,7 @@ this.cliente_num = localStorage.getItem('cliente')!;
             this.auth.getNextAuctionByLot(element.refno, formattedDate[0]).subscribe(dataInfo=>{
               this.refnoInfo = dataInfo;
               if(this.refnoInfo.length == 0){
-                  element['proxima'] = 'Preparando proxima subasta';
+                  element['proxima'] = 'Pendiente para próxima subasta';
               }else{
                   element['proxima'] = 'Se agrego a subasta' + this.refnoInfo.event;
               }

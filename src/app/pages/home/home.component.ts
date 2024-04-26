@@ -190,7 +190,6 @@ export class HomeComponent implements OnInit {
         }
 
       }else{
-        console.log('Entro a la peticion');
 
         this.auth.getComprasToRFC(this.cliente_num).subscribe((auctionfindSpecificSaleDB: any) => {
           this.ActivoSpinner = false;
@@ -199,11 +198,21 @@ export class HomeComponent implements OnInit {
           this.pagingConfig.totalItems= auctionfindSpecificSaleDB.length
           this.auctionsFindSpecificArr = auctionfindSpecificSaleDB;
           this.totalShopping = this.auctionsFindSpecificArr;
+          auctionfindSpecificSaleDB.forEach((element:any) => {
+              if(element.estate=='Por pagar'){
+                this.auth.getAmountDebt(element.invno).subscribe((debtAmount:any) => {
+                    console.log(debtAmount[0].debt);
+                    element['debtAmount'] = debtAmount[0].debt;
+                })
+              }
+              else{
+                element['debtAmount'] = 0;
+              }
+          });
 
-          console.log('Valor de la peticion auctionfindSpecificSaleDB:', auctionfindSpecificSaleDB);
+          console.log('Valor de la peticion auctionfindSpecificSaleDB:', this.auctionsFindSpecificArr);
           
           if (this.auctionsFindSpecificArr.length > 10){
-            console.log('Es mayor a 10');
             this.suma = 10;
             this.total = this.auctionsFindSpecificArr.length;
           }

@@ -23,13 +23,13 @@
             <th scope="col" class="header">Lote</th>
             <th scope="col" class="header">Subasta</th>
             <th scope="col" class="header">Precio</th>
-            <th scope="col" class="header">Estatus</th>
+            <th scope="col" class="header">Detalle</th>
           </tr>
         </thead>
         <tbody>
           <tr scope="row" *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr">
             <td class="item">
-              <img style="max-width:40% ;" [src]="auctionsFindSpecificArr.pictpath | safe" alt="Image">
+              <img style="max-width:30% ;" [src]="auctionsFindSpecificArr.pictpath | safe" alt="Image">
               <!-- <a [routerLink]="['/imagenD', {subasta: auctionsFindSpecificArr.saleno, id:auctionsFindSpecificArr.refno }]">
               </a> -->
                 <!-- <img  [src]=" auctionsFindSpecificArr.imagen" alt="Image"> -->
@@ -42,21 +42,16 @@
               No. {{auctionsFindSpecificArr.saleno }}<br>
               {{auctionsFindSpecificArr.salename }}<br>
               {{ auctionsFindSpecificArr.fchVenta}}<br>
-              <a [routerLink]="['/recibo-venta', {subasta: auctionsFindSpecificArr.saleno, 
-                id:auctionsFindSpecificArr.refno, iv:auctionsFindSpecificArr.invno, 
-                salename: auctionsFindSpecificArr.salename, saleDate: auctionsFindSpecificArr.saledate,
-                salelocale: auctionsFindSpecificArr.salelocale}]">
-                Ver recibo: {{auctionsFindSpecificArr.invno}}
-              </a>
             </td>
             <td class="item">
               <img src="../../../assets/images/auction.png" alt="">
               <br>{{numberWithCommas(auctionsFindSpecificArr.martillo) }}.00
             </td>
-            <td class="item">
-              <img src="../../../assets/images/info.png" alt=""><br>
-              {{ auctionsFindSpecificArr.estatus }}<br>
-              <span *ngIf="auctionsFindSpecificArr.proxima != ''"><b>{{auctionsFindSpecificArr.proxima}}</b></span>
+            <td class="item" style="width:20%">
+              <a [routerLink]="['/detalle-lote-venta', {lote: auctionsFindSpecificArr.lot, 
+                hammer:auctionsFindSpecificArr.martillo, img:auctionsFindSpecificArr.pictpath, inv: auctionsFindSpecificArr.invno}]" target="_blank">
+                <button class="btn btn-sm" style="font-size:12px; background-color: #004d43!important;color:white!important" type="button"><i class="fa fa-eye"></i>Recibo</button>
+              </a>
             </td>
           </tr>
         </tbody>

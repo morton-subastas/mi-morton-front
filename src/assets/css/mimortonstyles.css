@@ -263,6 +263,23 @@
   background: #333;
 }
 
+.btn-morton-pagar{
+  font-family: 'Ibarra Real Nova', serif;
+  color: #fff;
+  background: red;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1.3em;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-left:10px;
+}
+
+.btn-morton-pagar:hover{
+  background: #c9080833;
+}
+
+
 .btn-morton{
   color: #fff;
   background-color: #004d43;
@@ -286,6 +303,8 @@
 
 .showAll{
   margin-top:15px;
+  background-color:  #004d43!important;
+  color: white!important;
 }
 
 .checkbtn{

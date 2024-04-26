@@ -42,6 +42,9 @@ export class ReciboComponent implements OnInit {
   totalEmail:any;
   clientEmail:any;
   clientNum:any;
+  debt:any;
+  totalDebt:any;
+  totalReceipt:any;
 
   constructor(private activatedRoute: ActivatedRoute, private auth:AuthService,) { }
 
@@ -69,12 +72,20 @@ export class ReciboComponent implements OnInit {
       this.fecha_sub = new Date (auctionfindSpecificSaleDB[0]['saledate']);
       this.fecha_sub = this.fecha_sub.toLocaleDateString();
       this.paleta = auctionfindSpecificSaleDB[0]['bidder'][0];
+      console.log(this.paleta);
+      console.log(this.paleta.length);
+      
+      
+      if(this.paleta=="      "){
+        this.paleta = auctionfindSpecificSaleDB[0]['bidder'][1];
+      }
+      console.log(auctionfindSpecificSaleDB);
+      
       this.hammer = auctionfindSpecificSaleDB[0]['hammer'];
       this.imagene = auctionfindSpecificSaleDB[0]['pictpath'];
       this.descript = auctionfindSpecificSaleDB[0]['descript'][0];
       this.auctionsFindSpecificArr = uniqueValue;
       this.total = this.auctionsFindSpecificArr.length;
-
       while (this.contador < this.total){
           this.subtotal += this.auctionsFindSpecificArr[this.contador]['hammer'];
           this.contador = this.contador + 1;
@@ -86,6 +97,13 @@ export class ReciboComponent implements OnInit {
       this.premium = this.subtotal * 0.20;
       this.iva = this.premium * 0.16;
       this.total_sum = this.subtotal + this.premium + this.iva;
+      this.totalReceipt = this.calculateTotalDebt(this.subtotal);
+      console.log(parseInt(this.totalReceipt));
+      this.auth.getAmountDebt(this.inv).subscribe((debtAmount:any) => {
+        this.debt = debtAmount[0].debt;
+        this.totalDebt = this.totalReceipt - this.debt;
+        console.log(this.totalDebt);
+    })
       
     });
   }
@@ -119,7 +137,7 @@ export class ReciboComponent implements OnInit {
     form_data.append("info", this.arrayToEmail); 
     form_data.append("total_info", JSON.stringify(this.finalInfo));          
        let ajax = new XMLHttpRequest();
-        ajax.open('POST', 'https://infosubastas.mortonsubastas.com/PHP/backend/sendEmail.php');
+        ajax.open('POST', 'http://localhost/mail/sendEmail.php');
         ajax.setRequestHeader("enctype","multipart/form-data");
         ajax.send(form_data);
         ajax.onreadystatechange = ():void => {
@@ -313,8 +331,30 @@ export class ReciboComponent implements OnInit {
     }
 
     this.totalEmail = total;
+
     const hammerWithDecimals = (total + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete
   }
+
+  calculateTotalDebt(subtotal:any){
+    const bidder = this.paleta;
+    let total;
+    if (bidder.startsWith("AL")){
+      total = this.subtotal + (this.subtotal * 0.23) + ((this.subtotal * 0.23) * 0.16);
+    }
+    else if (bidder.startsWith("MS")){
+        total = subtotal + (subtotal * 0.21) + ((subtotal * 0.21) * 0.16) 
+    }
+    else{
+        total = this.premium + this.subtotal + (this.premium * 0.16);
+    }
+
+    this.totalEmail = total;
+
+    const hammerWithDecimals = (total + 0.00).toFixed(2)
+    return hammerWithDecimals;
+  }
+
+
 }
