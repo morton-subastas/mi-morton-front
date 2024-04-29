@@ -356,5 +356,13 @@ export class ReciboComponent implements OnInit {
     return hammerWithDecimals;
   }
 
+  changeAuctName(saleName:any){
+    if(saleName.toLocaleLowerCase().includes('descubrimiento') || saleName.toLocaleLowerCase().includes('oportunidades')){
+      return "Subasta de los Sabados"
+    }else{
+      return saleName
+    }
+  }
+
 
 }

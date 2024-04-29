@@ -38,9 +38,9 @@ this.cliente_num = localStorage.getItem('cliente')!;
       this.auctionsFindSpecificArr = dataVenvtas;
       this.numSubasta = this.auctionsFindSpecificArr.saleno;
       console.log(this.auctionsFindSpecificArr);
-      return;
+
       
-      this.auctionsFindSpecificArr.forEach((element:any,index:any) => {
+    /*  this.auctionsFindSpecificArr.forEach((element:any,index:any) => {
           let formattedDate = element.saledate.split("T");
           if(element.estatus == 'Vendido'){
             element['proxima'] = '';
@@ -54,7 +54,7 @@ this.cliente_num = localStorage.getItem('cliente')!;
               }
             })
           }
-      });
+      });*/
 
       console.log(this.auctionsFindSpecificArr);
       
@@ -63,11 +63,16 @@ this.cliente_num = localStorage.getItem('cliente')!;
     });
   }
 
-  
-
-
   numberWithCommas(x: any) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  changeAuctName(saleName:any){
+    if(saleName.toLocaleLowerCase().includes('descubrimiento') || saleName.toLocaleLowerCase().includes('oportunidades')){
+      return "Subasta de los Sabados"
+    }else{
+      return saleName
+    }
   }
 
 }

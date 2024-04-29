@@ -237,10 +237,19 @@ export class HomeComponent implements OnInit {
     this.pagingConfig.currentPage  = event;
     this.getAllElements();
   }
+
   onTableSizeChange(event:any): void {
     this.pagingConfig.itemsPerPage = event.target.value;
     this.pagingConfig.currentPage = 1;
     this.getAllElements();
+  }
+
+  changeAuctName(saleName:any){
+    if(saleName.toLocaleLowerCase().includes('descubrimiento') || saleName.toLocaleLowerCase().includes('oportunidades')){
+      return "Subasta de los Sabados"
+    }else{
+      return saleName
+    }
   }
 
 }
