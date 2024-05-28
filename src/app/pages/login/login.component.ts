@@ -34,24 +34,9 @@ export class LoginComponent implements OnInit {
 
   login(form: NgForm){
     if(form.invalid){ 
-      //console.log("no aparece"); 
-      return;}
-
-    /*
-    Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: 'Something went wrong!',
-    footer: '<a href="">Why do I have this issue?</a>'
-    })
-    */
-
-    //console.log("usuario enviado");
-    //console.log(this.usuario);
-    //console.log(form);
+      return;
+    }
     this.auth.login(this.usuario!).subscribe((res:any) => {
-      //console.log("llega");
-      //console.log(res["id_token"]);
       this.cliente = res['cliente'];
 
       /*

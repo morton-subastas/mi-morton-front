@@ -13,10 +13,12 @@ export class ContratosComponent implements OnInit {
   contractData = [];
   dataUser:any = {};
   groupArr:any;
+  saledate:any;
   initialResult: any;
   groupByYar: any;
   allUnidades: any
   allFormasPago: any;
+  DontShowTable:boolean = false;
   allComprobantes:any
   salenoList: any;
   select: any;
@@ -24,10 +26,15 @@ export class ContratosComponent implements OnInit {
   selectLote: any;
   selectAnio: any;
   recieptList: any;
+  ActivoSpinner:boolean = true;
+  message:any;
   optionsSelectors:any;
   contractList: any = [];
   subastaList : any = [];
+  newDate : any;
+  newAuction:any;
   lotList: any;
+  flag : any;
   yearList: any = [
     {
       id:Number,
@@ -41,7 +48,10 @@ export class ContratosComponent implements OnInit {
 
   ngOnInit() {
     this.cliente_num = localStorage.getItem('cliente')!;
+    this.saledate = new Date().toJSON();
     this.auth.getContratosToRFC(this.cliente_num).subscribe(res => {
+      this.ActivoSpinner = false;
+      this.DontShowTable = true;
       this.groupArr = res;
       this.initialResult = res;
       for(let i = 0; i < this.groupArr.length; i++){
@@ -49,48 +59,16 @@ export class ContratosComponent implements OnInit {
             this.contractList.push(this.groupArr[i].receipt);
           }
       }
-
       for(let i=0; i < this.groupArr.length; i++){
         if(this.subastaList.indexOf(this.groupArr[i].saleno) === -1){
           this.subastaList.push(this.groupArr[i].saleno);
         }
       }
-
+      
       this.allYearList= this.createArrayYear(this.groupArr);
     });
-    
-    this.auth.getComprobantes().subscribe((bancos: any) => {
-      this.allComprobantes= bancos;
-      console.log(this.allComprobantes);
-    });
-    /* this.auth.getContratosToRFC(this.cliente_num).subscribe(res => {
-      //console.log(auctionfindSpecificSaleDB);
-      console.log("************************");
-      console.log(res);
-     // console.log(auctionfindSpecificSaleDB);
-     // this.auctionsFindSpecificArr = auctionfindSpecificSaleDB;
-      this.contractData = res;
-      this.groupArr = res;
-      
-      this.groupArr= this.contractData.reduce((r:any,{receipt})=>{
-        console.log("A1)" + r);
-        console.log("A2)" + receipt)
-        if(!r.some((o:any)=>o.receipt==receipt)){
-          console.log("B)" + r);
-          console.log("B2)" + receipt);
-          
-          r.push(
-            {receipt,
-              groupItem:this.contractData.filter((v:any)=>v.receipt==receipt)});
-              
-          }
-          return r;
-        },[]);
-    }); */
 
-  }
-
-  filterByYear(){
+    console.log(this.groupArr);
     
   }
 
@@ -109,7 +87,6 @@ export class ContratosComponent implements OnInit {
       (obj: any, index:any) =>
       this.yearList.findIndex((item:any) => item.value === obj.value) === index
     );
-    console.log('unique: ', unique);
     unique = unique.sort(function (x:any, y:any) {
       return y.value - x.value;
     });
@@ -124,11 +101,6 @@ export class ContratosComponent implements OnInit {
     return fulldate
   }
 
- /*  transformDate(date: any){
-    let year:any = new Date(date)
-    year = year.getFullYear();
-    return year
-  } */
 
   catchYear(event: any){
     this.select = document.querySelector('#contrato');
@@ -140,11 +112,8 @@ export class ContratosComponent implements OnInit {
     console.log('event ', event.target.value );
     this.groupArr = this.initialResult.filter((item: any) =>{
       var d = new Date(item.edate);
-      //alert(d.getFullYear());
       return d.getFullYear() == event.target.value
     })
-
-    this.getListAuction()
   }
 
   getListAuction(){
@@ -152,13 +121,11 @@ export class ContratosComponent implements OnInit {
       id:item.id,
       value:item.saleno
     }));
-    //this.salenoList = this.salenoList.slice(1)
     this.salenoList = this.salenoList.filter(
       (obj:any, index: any) => 
       this.salenoList.findIndex((item:any) => item.value === obj.value) === index
     )
-    console.log(this.salenoList);
-    
+
   }
 
   catchSaleno(event:any){
@@ -167,16 +134,11 @@ export class ContratosComponent implements OnInit {
     let opt = DropdownList.options[sel];
     let CurValue = (<HTMLOptionElement>opt).value;
     this.groupArr = this.initialResult;
-    
     this.groupArr = this.groupArr.filter((item: any) =>{
       var d = new Date(item.edate);
       return (item.saleno == event.target.value && d.getFullYear() == parseInt(CurValue))
-      //return item.saleno == event.target.value;
     })
-    console.log('this.groupArr', this.groupArr);
-    
     this.getRecieptList();
-
   }
 
   getRecieptList(){
@@ -184,18 +146,14 @@ export class ContratosComponent implements OnInit {
       id : item.id,
       value: item.receipt
     }));
-    //console.log(this.recieptList);
     this.recieptList = this.recieptList.filter(
       (obj:any, index: any) => 
       this.recieptList.findIndex((item:any) => item.value === obj.value) === index
     )
-   // console.log("da fuck", this.recieptList);
-    
     this.getLotList()
   }
 
   catchReciept(event:any){
-    //this.groupArr = this.initialResult;
     let DropdownList = (document.getElementById("anio")) as HTMLSelectElement;
     let sel = DropdownList.selectedIndex;
     let opt = DropdownList.options[sel];
@@ -235,7 +193,6 @@ export class ContratosComponent implements OnInit {
     }))
   }
   catchLot(event:any){
-    //this.groupArr = this.initialResult;
     let DropdownList = (document.getElementById("anio")) as HTMLSelectElement;
     let sel = DropdownList.selectedIndex;
     let opt = DropdownList.options[sel];
@@ -259,9 +216,9 @@ export class ContratosComponent implements OnInit {
       var d = new Date(item.edate);
       return (item.lot == event.target.value && d.getFullYear() == parseInt(CurValue) && item.receipt == contratoValue && item.saleno == subastaValue)
 
-      //return item.lot == event.target.value;
     })
-    console.log('catch lot function', this.groupArr);
+  
   }
+
 
 }

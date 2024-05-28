@@ -14,13 +14,29 @@
           <a href="https://mimorton.com/imglink/pdf/{{recibo}}.pdf" target="_blank">
             <button class="btn-morton-menuimprimir-out" (click)="imprimir()">Imprimir</button>
           </a>
-          <button class="btn-morton-pagar" *ngIf = "totalDebt > 0">Pagar</button>
+          <form style="float:right;" ngNoForm action="https://prepro.adquiracloud.mx/clb/endpoint/mortonSubastas" ng-submit="submit()" method="POST" novalidate>
+              <input type="hidden" name="mp_account" value="6963">
+              <input type="hidden" name="mp_product" value="1">
+              <input type="hidden" name="mp_currency" value="1">
+              <input type="hidden" name="mp_order" value="P{{paletaTrim}}S{{numSubTrim}}{{recibo}}">
+              <input type="hidden" name="mp_reference" value="{{recibo}}">
+              <input type="hidden" name="mp_concept" value="6">
+              <input type="hidden" name="mp_node" value="0">
+              <input type="hidden" name="mp_amount" value="{{totalDebt}}">
+              <input type="hidden" name="mp_customername" value="{{clientName}}">
+              <input type="hidden" name="mp_urlsuccess" value="https://www.mortonsubastas.com/subastas/pagosgarantia/pagos/pago_success.php">
+              <input type="hidden" name="mp_urlfailure" value="https://www.mortonsubastas.com/subastas/pagosgarantia/pagos/pago_denied_mimorton.php">
+              <input type="hidden" name="mp_email" value="{{clientEmail}}">
+              <input type="hidden" name="mp_signature"  id="mp_signature">
+              <button type="submit" class="btn-morton-pagar" *ngIf = "totalDebt > 0">Pagar</button>
+          </form>
           <button type="button" class="btn-morton-factura" style="float: right;" (click)="openModal()">Solicitar Factura</button>
         </div>
-        <span *ngIf = "totalDebt > 0" ><b>Monto Abonado:</b> {{ debt }}</span><br>
-        <span *ngIf = "totalDebt > 0"><b>Monto Adeudado: </b> {{ totalDebt }}</span>
+        <span style="float:right;" *ngIf = "totalDebt > 0" ><b>Monto Abonado:</b> $ {{changeFormat(debt)}}</span><br>
+        <span style="float:right;" *ngIf = "totalDebt > 0"><b>Monto Adeudado: </b>$ {{changeFormat(totalDebt)}}</span>
 
       <table class="table table-striped custom-table">
+        
           <thead>
             <tr>
               <th scope="col">Lote</th>
@@ -29,6 +45,7 @@
               <th scope="col">Martillo</th>
               <th scope="col">Premium</th>
               <th scope="col">Bidsquare</th>
+              <th scope="col">IVA</th>
               <th scope="col">Subtotal</th>
             </tr>
           </thead>
@@ -43,6 +60,7 @@
               <td>{{ transformQuantity (auctionsFindSpecificArrHTML.hammer)}}</td> <!--Hammer-->
               <td>{{ calculatePremiumReal(auctionsFindSpecificArrHTML.hammer)}} </td> <!--Premium-->
               <td>{{ calculateAFL(auctionsFindSpecificArrHTML.hammer)}}</td> <!--BidsquareAFL-->
+              <td>{{ calculateIvaLot(auctionsFindSpecificArrHTML.hammer)}}</td> <!--BidsquareAFL-->
               <td>{{ calculateRealSubTotal(auctionsFindSpecificArrHTML.hammer) }} </td> <!--Subtotal-->
             </tr>
           </tbody>
@@ -89,7 +107,7 @@
         </thead>
         </table>
     </div>
-
+    
     <div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

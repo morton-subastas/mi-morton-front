@@ -30,22 +30,25 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/datatables.net/js/dataTables.min.js"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 }
               ],
               "fileReplacements": [
@@ -105,9 +108,12 @@
               "src/web.config"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/datatables.net/js/dataTables.min.js"
+            ]
           }
         }
       }

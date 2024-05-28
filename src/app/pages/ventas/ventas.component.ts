@@ -21,16 +21,8 @@ export class VentasComponent implements OnInit {
   constructor(private auth:AuthService, private router:Router,  private activatedRouter:ActivatedRoute) { }
 
   ngOnInit() {
-    //console.log("VENTAS");
 
-    /*
-    this.activatedRouter.params.subscribe(params =>{
-      console.log("llega activet");
-      this.cliente_num = params['cliente'];
-    });
-*/
-
-this.cliente_num = localStorage.getItem('cliente')!;
+    this.cliente_num = localStorage.getItem('cliente')!;
 
     this.auth.getVentasToRFCWS(this.cliente_num).subscribe(dataVenvtas => {
       this.ActivoSpinner = false;
@@ -38,28 +30,6 @@ this.cliente_num = localStorage.getItem('cliente')!;
       this.auctionsFindSpecificArr = dataVenvtas;
       this.numSubasta = this.auctionsFindSpecificArr.saleno;
       console.log(this.auctionsFindSpecificArr);
-
-      
-    /*  this.auctionsFindSpecificArr.forEach((element:any,index:any) => {
-          let formattedDate = element.saledate.split("T");
-          if(element.estatus == 'Vendido'){
-            element['proxima'] = '';
-          }else{
-            this.auth.getNextAuctionByLot(element.refno, formattedDate[0]).subscribe(dataInfo=>{
-              this.refnoInfo = dataInfo;
-              if(this.refnoInfo.length == 0){
-                  element['proxima'] = 'Pendiente para próxima subasta';
-              }else{
-                  element['proxima'] = 'Se agrego a subasta' + this.refnoInfo.event;
-              }
-            })
-          }
-      });*/
-
-      console.log(this.auctionsFindSpecificArr);
-      
-    
-      
     });
   }
 

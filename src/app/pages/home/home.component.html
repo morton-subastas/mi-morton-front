@@ -12,59 +12,23 @@
         </div>
       </div>
 
-      <div *ngIf="MuestraDatos" class="button-sections">
-        <div>
-          <select name="noOfRows" (change)="onTableSizeChange($event)" class="form-select form-select-sm selectAltura">
-            <option *ngFor="let size of tableSize" [ngValue]="size">
-              {{ size }}
-            </option>
-          </select>
-          <!-- <form autocomplete="off" (ngSubmit)="saveNumber( FormaNumber )" #FormaNumber="ngForm">
-            <b>Mostrar</b>
-              <select name="numFilter" ngModel required class=" selectAltura"  [class.is-invalid]="auctionFind.invalid && auctionFind.touched" #auctionFind="ngModel" (change)="saveNumber(FormaNumber)">
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="75">75</option>
-              <option value="100">100</option>
-            </select>
-            <b>registros</b>
-          </form> -->
-        </div>
-        <br><br>
-        <!-- <div class="button-controls">
-          <div *ngIf="desactivaPrevious">
-            <button class="btn-arrows" (click)="previousPage()">
-              <i class="fa-solid fa-angles-left"></i> Anteriores
-            </button>
-          </div>
-          <div *ngIf="desactivaNextPage">
-            <button  class="btn-arrows" (click)="nextPage()" >
-              Siguientes <i class="fa-solid fa-angles-right"></i>
-            </button>
-          </div>
-        </div> -->
-        <div>
-        </div>
-
-        <input type="text" class="form-control" placeholder="Buscar por descripción" [(ngModel)]="textoFiltro" (input)="filtrarTabla(textoFiltro)" />
-      </div>
-      <div class="numeration-image" style="text-align: end;"><p>Mostrando <b>{{ suma }}</b> de <b>{{ total}}</b></p></div>
+     
 
       <div *ngIf="DontShowTable">
         <div class="table-responsive">
-          <table class="table table-striped custom-table" >
+          <table datatable class="table table-striped custom-table" >
           <thead>
             <tr>
-              <th scope="col">Imagen</th>
-              <th scope="col">Lote</th>
-              <th scope="col">Subasta</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Estatus</th>
-              <th scope="col">Acciones</th>
+              <th style="text-align:center!important;">Imagen</th>
+              <th style="text-align:center!important;">Lote</th>
+              <th style="text-align:center!important;">Subasta</th>
+              <th style="text-align:center!important;">Precio</th>
+              <th style="text-align:center!important;">Estatus</th>
+              <th style="text-align:center!important;">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr | paginate : pagingConfig; let i = index">
+            <tr *ngFor="let auctionsFindSpecificArr of auctionsFindSpecificArr">
               <td class="elements-table-image">
                 <!-- <a [routerLink]="['/recibo', {subasta: auctionsFindSpecificArr.saleno,
                   id:auctionsFindSpecificArr.refno, iv: auctionsFindSpecificArr.invno }]" target="_blank">
@@ -96,6 +60,11 @@
                   <img src="../../../assets/images/info.png" alt="">
                   <br>
                   {{ auctionsFindSpecificArr.estate }}<br>
+                  <span *ngIf="auctionsFindSpecificArr.estate == 'Pagado' && auctionsFindSpecificArr.lastinfo == 'EAC' "><b>Entregado al Comprador</b></span>
+                  <span *ngIf="auctionsFindSpecificArr.estate == 'Pagado' && auctionsFindSpecificArr.lastinfo == 'EIN' "><b>Esperando Instrucciones</b></span>
+                  <span *ngIf="auctionsFindSpecificArr.estate == 'Pagado' && auctionsFindSpecificArr.lastinfo == 'ENP' "><b>En Proceso</b></span>
+                  <span *ngIf="auctionsFindSpecificArr.estate == 'Pagado' && auctionsFindSpecificArr.lastinfo == 'VEN' "><b>Vendido</b></span>
+                  <span *ngIf="auctionsFindSpecificArr.estate == 'Pagado' && auctionsFindSpecificArr.lastinfo == 'VDS' "><b>Vendido después de subasta</b></span>
                   <!-- <div class="invoices" *ngIf="auctionsFindSpecificArr.estate =='Pagado'">
                     <a [routerLink]="['/factura', {iv:auctionsFindSpecificArr.invno, id:auctionsFindSpecificArr.refno}]" target="_blank">
                       <button class="btn-morton-menuimprimir-out" >Facturar</button>
@@ -118,11 +87,6 @@
             </tr>
           </tbody>
           </table>
-          <div>
-            <pagination-controls (pageChange)="onTableDataChange($event)" [maxSize]="7" previousLabel="Anterior"
-            nextLabel="Siguiente">
-            </pagination-controls>
-          </div>
         </div>
     </div>
   </div>

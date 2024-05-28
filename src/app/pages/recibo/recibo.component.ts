@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-recibo',
@@ -45,6 +45,10 @@ export class ReciboComponent implements OnInit {
   debt:any;
   totalDebt:any;
   totalReceipt:any;
+  clientName:any;
+  numSubTrim: any;
+  paletaTrim: any;
+  auctionName:any;
 
   constructor(private activatedRoute: ActivatedRoute, private auth:AuthService,) { }
 
@@ -58,29 +62,27 @@ export class ReciboComponent implements OnInit {
       this.receipt = params['receipt'];
       this.saleSub = params['dateSale']
     });
-  
+    
+    this.clientName = localStorage.getItem('nombre');
     this.clientEmail = localStorage.getItem('email');
     this.clientNum = localStorage.getItem('cliente');
-    
 
     this.auth.getDetailSaleImg(this.receipt, this.num_cliente, this.inv, this.saleSub).subscribe(auctionfindSpecificSaleDB => {
       const uniqueValue = this.removeDuplicates(auctionfindSpecificSaleDB);
+      console.log(uniqueValue);
       this.recibo = auctionfindSpecificSaleDB[0]['invno'];
       this.num_sub  = auctionfindSpecificSaleDB[0]['saleno'];
+      this.numSubTrim = this.num_sub[0].trim();
       this.nom_sub = auctionfindSpecificSaleDB[0]['salename'];
       this.locale = auctionfindSpecificSaleDB[0]['salelocale'];
       this.fecha_sub = new Date (auctionfindSpecificSaleDB[0]['saledate']);
       this.fecha_sub = this.fecha_sub.toLocaleDateString();
       this.paleta = auctionfindSpecificSaleDB[0]['bidder'][0];
-      console.log(this.paleta);
-      console.log(this.paleta.length);
-      
-      
       if(this.paleta=="      "){
         this.paleta = auctionfindSpecificSaleDB[0]['bidder'][1];
       }
-      console.log(auctionfindSpecificSaleDB);
-      
+      this.paletaTrim = this.paleta.trim();
+      this.auctionName = this.changeAuctName(this.nom_sub);
       this.hammer = auctionfindSpecificSaleDB[0]['hammer'];
       this.imagene = auctionfindSpecificSaleDB[0]['pictpath'];
       this.descript = auctionfindSpecificSaleDB[0]['descript'][0];
@@ -98,14 +100,20 @@ export class ReciboComponent implements OnInit {
       this.iva = this.premium * 0.16;
       this.total_sum = this.subtotal + this.premium + this.iva;
       this.totalReceipt = this.calculateTotalDebt(this.subtotal);
-      console.log(parseInt(this.totalReceipt));
       this.auth.getAmountDebt(this.inv).subscribe((debtAmount:any) => {
-        this.debt = debtAmount[0].debt;
-        this.totalDebt = this.totalReceipt - this.debt;
+        this.debt = this.totalReceipt -  debtAmount[0].debt;
+        console.log(this.debt);
+        this.totalDebt = debtAmount[0].debt;
         console.log(this.totalDebt);
+        
+        this.generateHash();
     })
+
+    
+
       
     });
+
   }
 
   calculatePremium(amount: any){
@@ -142,7 +150,6 @@ export class ReciboComponent implements OnInit {
         ajax.send(form_data);
         ajax.onreadystatechange = ():void => {
             if (ajax.readyState === 4 && ajax.status === 200) {
-                console.log(ajax.responseText);
                 ($('#successModal') as any).modal('show');
             }
         };    
@@ -209,6 +216,42 @@ export class ReciboComponent implements OnInit {
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete
   }
+
+  generateHash(){
+    const order ="P"+this.paletaTrim+"S"+this.numSubTrim+this.recibo;
+    console.log(order);
+    console.log(this.recibo);
+    const reference = this.recibo;
+    const total = this.totalDebt;
+    const date = new Date();
+    const [month, day, year] = [
+      date.getMonth(),
+      date.getDate(),
+      date.getFullYear(),
+    ];
+    const dateToSend = year.toString()+month.toString()+day.toString();
+   
+    var form_data = new FormData();  
+    let ajax = new XMLHttpRequest();
+    form_data.append("mp_order", order); 
+    form_data.append("mp_reference", reference); 
+    form_data.append("mp_amount", total); 
+    form_data.append("mp_email", this.clientEmail)
+    form_data.append("mp_customername", this.clientName)
+    form_data.append("mp_auction", this.numSubTrim)
+    form_data.append("mp_nameS", this.auctionName)
+    form_data.append("mp_fecha", dateToSend)
+    
+    ajax.open('POST', 'https://mortonsubastas.com/subastas/pagosgarantia/pagos/hash.php');
+    ajax.setRequestHeader("enctype","multipart/form-data");
+    ajax.send(form_data);
+    ajax.onreadystatechange = ():void => {
+        if (ajax.readyState === 4 && ajax.status === 200) {
+          console.log(ajax.responseText.trim());
+          (<HTMLInputElement>document.getElementById('mp_signature')).value=ajax.responseText.trim();
+        }
+    };    
+  }
   
   calculateAFL(premium: any){
     const bidder = this.paleta;
@@ -229,17 +272,22 @@ export class ReciboComponent implements OnInit {
 
   calculateRealSubTotal(premium: any){
     const bidder = this.paleta;
+    let premiumLot = premium * 0.20;
+    
     let bidsquare;
-        if (bidder.startsWith("AL")){
-            bidsquare = premium + (premium * 0.23)
-        }
-        else if (bidder.startsWith("MS")){
-            bidsquare = premium + (premium * 0.21)
-        }
-        else{
-            bidsquare = premium + (premium * 0.20)
-        }
-    const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+      if (bidder.startsWith("AL")){
+        bidsquare = premium * 0.03
+      }
+      else if (bidder.startsWith("MS")){
+        bidsquare = premium * 0.01
+      }
+      else{
+        bidsquare = 0
+      }
+    
+      let sumTotal = (parseFloat(this.calculateIvaLotTotal(premium)) + premium) + (premiumLot + bidsquare);
+      
+    const hammerWithDecimals = (sumTotal + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete
   }
@@ -256,6 +304,8 @@ export class ReciboComponent implements OnInit {
         else{
             bidsquare = subtotal + (subtotal * 0.20)
         }
+
+
     const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete
@@ -264,20 +314,20 @@ export class ReciboComponent implements OnInit {
   calculatePremiumReceipt (subtotal:any){
     const bidder = this.paleta;
     let bidsquare;
-    if (bidder.startsWith("AL")){
-      bidsquare = subtotal * 0.23
-  }
-  else if (bidder.startsWith("MS")){
-      bidsquare = subtotal * 0.21
-  }
-  else{
     bidsquare = subtotal * 0.20;
-  }
-
     this.premiumEmail = bidsquare;
     const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete
+  }
+
+  calculatePremiumToTotal (subtotal:any){
+    const bidder = this.paleta;
+    let bidsquare;
+    bidsquare = subtotal * 0.20;
+    this.premiumEmail = bidsquare;
+    const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+    return hammerWithDecimals;
   }
 
   calculateBidsquareReceipt(subtotal: any){
@@ -297,24 +347,67 @@ export class ReciboComponent implements OnInit {
     return hammerComplete
   }
 
-  calculateIvaReceipt(subtotal: any){
+  calculateBidsquareReceiptTotal(subtotal: any){
     const bidder = this.paleta;
-    
-    let bidsquare = 0;
+    let bidsquare;
         if (bidder.startsWith("AL")){
-            bidsquare = this.premium * 0.23;
-            bidsquare = bidsquare * 0.16;
+            bidsquare =  (subtotal * 0.03)
         }
         else if (bidder.startsWith("MS")){
-            bidsquare = this.premium * 0.21;
-            bidsquare = bidsquare * 0.16;
+            bidsquare = (subtotal * 0.01)
         }
         else{
-            bidsquare = this.premium * 0.16;
+            bidsquare = (subtotal * 0.00)
         }
     const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
+    return hammerWithDecimals;
+  }
+
+
+  calculateIvaLot(subtotal: any){
+    const bidder = this.paleta;
+    let ivaResult;
+    let bidsquare;
+    let premium;
+    if(bidder.startsWith("AL")){
+      bidsquare = (subtotal * 0.03);
+    }else if(bidder.startsWith("MS")){
+      bidsquare = (subtotal * 0.01);
+    }else{
+      bidsquare = 0;
+    }
+    premium = subtotal * 0.20;
+    ivaResult = ((bidsquare + premium) * 0.16);
+    const hammerWithDecimals = (ivaResult + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete
+  }
+
+  calculateIvaLotTotal(subtotal: any){
+    const bidder = this.paleta;
+    let ivaResult;
+    let bidsquare;
+    let premium;
+    if(bidder.startsWith("AL")){
+      bidsquare = (subtotal * 0.03);
+    }else if(bidder.startsWith("MS")){
+      bidsquare = (subtotal * 0.01);
+    }else{
+      bidsquare = 0;
+    }
+    premium = subtotal * 0.20;
+    ivaResult = ((bidsquare + premium) * 0.16);
+    const hammerWithDecimals = (ivaResult + 0.00).toFixed(2)
+    return hammerWithDecimals;
+  }
+
+  calculateIvaReceipt(subtotal: any){
+    const bidder = this.paleta;
+    let premiumTotal = (parseInt(this.calculatePremiumToTotal(subtotal)) + parseInt(this.calculateBidsquareReceiptTotal(subtotal))) * 0.16;
+    const hammerWithDecimals = (premiumTotal + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete
+    
   }
 
   calculateTotalReceipt(subtotal:any){
@@ -362,6 +455,13 @@ export class ReciboComponent implements OnInit {
     }else{
       return saleName
     }
+  }
+
+  changeFormat(amount :any){
+    console.log(amount);
+    const hammerWithDecimals = (amount + 0.00).toFixed(2)
+    const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return hammerComplete;
   }
 
 

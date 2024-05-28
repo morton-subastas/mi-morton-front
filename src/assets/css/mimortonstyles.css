@@ -9,6 +9,11 @@
   font-weight: 500;
 }
 
+.navbar-principal{
+  background-color: rgba(240, 240, 240, 1)!important;
+  box-shadow: 0 10px 10px -10px rgba(108, 108, 108, 0.201);
+}
+
 .dat-user-login img{
   margin-right: 7px;
 }
@@ -381,9 +386,7 @@
     padding-left:unset!important;
   }
    
-  .navbar-principal{
-    background-color: rgba(240, 240, 240, 1)!important;
-  }
+ 
     
 }
 

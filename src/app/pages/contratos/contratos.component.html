@@ -1,6 +1,13 @@
 <app-header></app-header><br>
-
-<div class="container">
+<div id="SpinnerActivo" *ngIf="ActivoSpinner">
+  <div class="folding">
+    <div class="sk-cube1 sk-cube"></div>
+    <div class="sk-cube2 sk-cube"></div>
+    <div class="sk-cube4 sk-cube"></div>
+    <div class="sk-cube3 sk-cube"></div>
+  </div>
+</div>
+<div class="container" *ngIf="DontShowTable">
   <div class="col-12">
     <h1 class="main-title-morton">Contratos</h1>
     <div class="bs-example" data-example-id="panel-without-body-with-table">
@@ -61,7 +68,26 @@
                 <span class="condition">
                   <strong>
                     {{value.condition}}
-                  </strong>
+                  </strong><br>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'BDO'">Baja por donación</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'BIN'">Baja por desecho</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'CCL'">Contactar al cliente</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'COS'">Cambio a nueva Subasta</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'DAC'">Devuelto a Consignante</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'DCO'">Devolver al Consignante</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'EIN'">Esperando instrucciones</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'ENP'">En Proceso</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'EAC'">Entregado al Comprador</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'ECO'">Entregar al comprador</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'ADI'">Artículo dividido</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'CMB'">Artículo Combinado</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'CD'">Cambio de Departamento</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'ETR'">En tránsito a otra locación</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'SS'">Sin situación/En revisión</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'LPS' && saledate < value.fecha">Loteado para Subasta<br>{{value.newName}}<br>{{value.fecha}}<br>{{value.newSaleno}}</span>
+                  <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'LPS' && saledate > value.fecha">Loteado para Subasta<br>Fecha de subasta expirada</span>
+                  
+                
                 </span>
               </td>
               <td>{{value.edate | fecha }}</td>

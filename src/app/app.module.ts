@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import {LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app.component'; 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 //import localePy from '@angular/common/locales/es';
 import { DataTablesModule } from 'angular-datatables';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -101,7 +103,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     AppRoutingModule,
     ReactiveFormsModule,
     DataTablesModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgbModule
   ],
   schemas:[
 		CUSTOM_ELEMENTS_SCHEMA,
