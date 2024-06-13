@@ -72,6 +72,10 @@ export class DetalleLoteVentaComponent implements OnInit {
     this.isr = (this.hammer - this.inssurance - this.photo - this.commission - this.arr)* 0.08; 
     this.vat =  (this.inssurance + this.commission + this.photo) * 0.16; 
     this.total = this.hammer - this.inssurance - this.photo - this.commission - this.vat - this.arr - this.isr;
+    this.total = this.total.toFixed(2)
+    this.isr = this.isr.toFixed(2);
+    this.arr = this.arr.toFixed(2);
+    this.vat = this.vat.toFixed(2);
       this.arrayToEmail.push({
         "lot":this.lote,
         "reserve":this.reserve,
@@ -166,6 +170,9 @@ export class DetalleLoteVentaComponent implements OnInit {
     this.vat =  (this.inssurance + this.commission + this.photo) * 0.16; 
     this.total = this.hammer - this.inssurance - this.photo - this.commission - this.vat - this.arr - this.isr;
     this.total = this.total.toFixed(2)
+    this.isr = this.isr.toFixed(2);
+    this.vat = this.vat.toFixed(2);
+    this.arr = this.arr.toFixed(2);
     this.total = this.total.toLocaleString();
     this.arrayToEmail.push({
       "lot":this.lote,

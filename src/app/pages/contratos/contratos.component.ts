@@ -68,13 +68,9 @@ export class ContratosComponent implements OnInit {
       this.allYearList= this.createArrayYear(this.groupArr);
     });
 
-    console.log(this.groupArr);
-    
   }
 
   createArrayYear(object: any){
-    console.log(this.groupArr);
-    
     let year: any;
     for(let i = 0; i <object.length ; i++){
       year = this.getYear(object[i].edate);
@@ -114,12 +110,14 @@ export class ContratosComponent implements OnInit {
       var d = new Date(item.edate);
       return d.getFullYear() == event.target.value
     })
+    this.getListAuction();
   }
 
   getListAuction(){
     this.salenoList = this.groupArr.map((item: any) =>({
       id:item.id,
-      value:item.saleno
+      value:item.saleno,
+      date: new Date(item.edate).toLocaleDateString()
     }));
     this.salenoList = this.salenoList.filter(
       (obj:any, index: any) => 

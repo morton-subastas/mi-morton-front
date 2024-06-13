@@ -78,7 +78,7 @@ export class ReciboComponent implements OnInit {
       this.fecha_sub = new Date (auctionfindSpecificSaleDB[0]['saledate']);
       this.fecha_sub = this.fecha_sub.toLocaleDateString();
       this.paleta = auctionfindSpecificSaleDB[0]['bidder'][0];
-      if(this.paleta=="      "){
+      if(this.paleta=="      " || this.paleta == "@BI   "){
         this.paleta = auctionfindSpecificSaleDB[0]['bidder'][1];
       }
       this.paletaTrim = this.paleta.trim();

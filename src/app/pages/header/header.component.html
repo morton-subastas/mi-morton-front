@@ -9,69 +9,29 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active ">
-          <a class="nav-link btn-morton-menu" (click)="Compras()">Compras</a>
+        <li class="nav-item">
+          <a class="nav-link btn-morton-menu"  routerLinkActive="active-item" [routerLink]="['/home']" style="color:#004d43">Compras</a>
         </li>
-        <li class="nav-item dropdown active">
-          <a class="nav-link dropdown-toggle  btn-morton-menu" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle  btn-morton-menu" routerLinkActive="active-item" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#004d43">
             Ventas
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item option" (click)="ventas()">Recibo</a>
-            <a class="dropdown-item option" (click)="Contratos()">Contratos</a>
+            <a class="dropdown-item option" routerLinkActive="active-item" [routerLink]="['/ventas']" style="color:#004d43">Recibo</a>
+            <a class="dropdown-item option" routerLinkActive="active-item" [routerLink]="['/contratos']" style="color:#004d43">Contratos</a>
           </div>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link btn-morton-menu" (click)="Proximas()">Próximas subastas</a>
+        <li class="nav-item">
+          <a class="nav-link btn-morton-menu" routerLinkActive="active-item" [routerLink]="['/proximas']" style="color:#004d43">Próximas subastas</a>
         </li>
-        <li class="nav-item active">
-          <a (click)="salir()" class="nav-link btn-morton-menu">Salir</a>
+        <li class="nav-item">
+          <a class="nav-link btn-morton-menu" routerLinkActive="active-item" [routerLink]="['/atencion']" style="color:#004d43">Atención</a>
+        </li>
+        <li class="nav-item">
+          <a (click)="salir()" class="nav-link btn-morton-menu" style="color:#004d43">Salir</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
-
-
-
-
-
- <!-- <nav class="navbar navbar-expand-lg navbar-light  men-nav-morton navcontainer navbar-principal">
-    <div class="image">
-      <input type="checkbox" name="" id="check">
-      <label for="check" class="checkbtn">
-        <i class="fa-solid fa-bars"></i>
-      </label>
-      <a class="img-princ-nav">
-        <img src="../../../assets/images/logo_negro_morton.svg" alt="" class="img-princ">
-      </a>
-    </div>
-  <div class="navbar-options">
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active ">
-          <a class="nav-link btn-morton-menu" (click)="Compras()">Compras</a>
-        </li>
-        <li class="nav-item dropdown active">
-          <a class="nav-link dropdown-toggle  btn-morton-menu" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Ventas
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item option" (click)="ventas()">Recibo</a>
-            <a class="dropdown-item option" (click)="Contratos()">Contratos</a>
-          </div>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link btn-morton-menu" (click)="Proximas()">Próximas subastas</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link btn-morton-menu" (click)="catalogos()">Catálogos</a>
-        </li>
-        <li class="nav-item active">
-          <a (click)="salir()" class="nav-link btn-morton-menu">Salir</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  </nav>-->

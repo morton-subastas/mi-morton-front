@@ -51,6 +51,8 @@ import localePy from '@angular/common/locales/es-PY';
 import localePt from '@angular/common/locales/pt';
 import localeEn from '@angular/common/locales/en';
 import localeEsAr from '@angular/common/locales/es-AR';
+import { AtencionComponent } from './atencion/atencion.component';
+import { FooterComponent } from './pages/footer/footer.component';
 
 // registrar los locales con el nombre que quieras utilizar a la hora de proveer
 registerLocaleData(localePy, 'es');
@@ -91,7 +93,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     PagoSatisfactorioComponent,
     PagoInsatisfactorioComponent,
     RecuperarContraseniaComponent,
-    FacturaUnConceptoComponent
+    FacturaUnConceptoComponent,
+    AtencionComponent,
+    FooterComponent
 
   ],
   imports: [
@@ -112,6 +116,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
 	],
   exports: [
     HeaderComponent,
+    FooterComponent
   ],
   providers: [ {provide: LOCALE_ID, useValue: 'es'}, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

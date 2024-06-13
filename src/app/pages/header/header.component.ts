@@ -30,6 +30,10 @@ Compras(){
   this.router.navigateByUrl('/home');
 }
 
+Atencion(){
+  this.router.navigateByUrl('/home');
+}
+
 Paleta(){
   this.router.navigateByUrl('/paleta');
 }
