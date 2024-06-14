@@ -1,5 +1,5 @@
 import { NgModule,CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { PathLocationStrategy, CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import {LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
