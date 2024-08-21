@@ -23,11 +23,12 @@ export class DetalleLoteVentaComponent implements OnInit {
   reserve: any;
   lote: any;
   inv:any;
+  sale:any;
   lotDetail: any;
   arrayToEmail:any = [];
   clientEmail:any;
   clientNum:any;
-
+  ActivoSpinner = false;
 
   constructor(private activatedRoute: ActivatedRoute, private auth:AuthService) { }
 
@@ -35,24 +36,23 @@ export class DetalleLoteVentaComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.lote = params['lote'];
       this.inv = params['inv'];
+      this.sale = params['saleno'];
       this.imagen = params['img'];
     });
     this.clientEmail = localStorage.getItem('email');
     this.clientNum = localStorage.getItem('cliente');
-    this.getDetailLot(this.inv, this.lote);
+    this.getDetailLot(this.inv, this.lote, this.sale);
   }
 
-  getDetailLot(inv: any, lot: any){
-    this.auth.getDetailLot(inv,lot ).subscribe((object: any) => {
+  getDetailLot(inv: any, lot: any, saleno:any){
+    this.auth.getDetailLot(inv,lot,saleno).subscribe((object: any) => {
       this.lotDetail = object;
       this.validateTerm(this.lotDetail)
     });
   }
 
   validateTerm(lotDetail: any){
-    console.log('lotdetail: ',lotDetail.termsname);
     if(lotDetail.termsname == 'Especial  ' ){
-      console.log('')
       this.calculateEspecialAmount(lotDetail)
     }
     else {
@@ -61,6 +61,7 @@ export class DetalleLoteVentaComponent implements OnInit {
   }
 
   calculateEspecialAmount(lotDetail: any){
+    const receipts = ['OG0909', 'LB7678', 'VN0578', 'OG0908', 'OP18002', 'LB7576', 'AG11102', 'AG10829'];
     this.lote = lotDetail.lot;
     this.reserve = lotDetail.reserve;
     this.hammer = lotDetail.hammer;
@@ -69,10 +70,17 @@ export class DetalleLoteVentaComponent implements OnInit {
     this.inssurance = this.hammer * (lotDetail.inspct/100) ;
     this.commission = this.hammer * (lotDetail.cms1/100);
     this.arr = this.calculateArr(lotDetail);
-    this.isr = (this.hammer - this.inssurance - this.photo - this.commission - this.arr)* 0.08; 
+    if(receipts.includes(lotDetail.receipt[0].trim())){
+      this.isr = 0;
+    }else{
+      this.isr = (this.hammer - this.inssurance - this.photo - this.commission - this.arr)* 0.08; 
+    }
     this.vat =  (this.inssurance + this.commission + this.photo) * 0.16; 
     this.total = this.hammer - this.inssurance - this.photo - this.commission - this.vat - this.arr - this.isr;
     this.total = this.total.toFixed(2)
+    console.log(this.total);
+    console.log(lotDetail);
+    
     this.isr = this.isr.toFixed(2);
     this.arr = this.arr.toFixed(2);
     this.vat = this.vat.toFixed(2);
@@ -91,7 +99,6 @@ export class DetalleLoteVentaComponent implements OnInit {
         "email":this.clientEmail,
         "isr":this.isr
       });
-      console.log(this.arrayToEmail);
   }
 
   validatePhoto(photonote: any){  
@@ -114,18 +121,19 @@ export class DetalleLoteVentaComponent implements OnInit {
     if(file_data === undefined){
       ($('#attachModal') as any).modal('show');
     }else{
-  
+    this.ActivoSpinner = true;
     var form_data = new FormData();       
     this.arrayToEmail = JSON.stringify(this.arrayToEmail);           
     form_data.append("file", file_data); 
     form_data.append("info", this.arrayToEmail);          
        let ajax = new XMLHttpRequest();
-        ajax.open('POST', 'http://localhost/mail/sendEmailVenta.php');
+        ajax.open('POST', 'https://mortonsubastas.com/mimorton/sendEmailVenta.php');
         ajax.setRequestHeader("enctype","multipart/form-data");
         ajax.send(form_data);
         ajax.onreadystatechange = ():void => {
             if (ajax.readyState === 4 && ajax.status === 200) {
-                console.log(ajax.responseText);
+                this.ActivoSpinner = false;
+                ($('#invoiceModal') as any).modal('hide');
                 ($('#successModal') as any).modal('show');
             }
         };    
@@ -157,7 +165,6 @@ export class DetalleLoteVentaComponent implements OnInit {
   }
 
   calculateAmounts(lotDetail: any){
-    console.log('seguro', lotDetail)
     this.lote = lotDetail.lot;
     this.reserve = lotDetail.reserve;
     this.hammer = lotDetail.hammer;
@@ -229,7 +236,6 @@ export class DetalleLoteVentaComponent implements OnInit {
           return arr
       }
       else {
-          console.log('No hay arr')
           return arr = 0
       }
   }

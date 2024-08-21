@@ -89,7 +89,6 @@ export class HomeComponent implements OnInit {
           auctionfindSpecificSaleDB.forEach((element:any) => {
               if(element.estate=='Por pagar'){
                 this.auth.getAmountDebt(element.invno).subscribe((debtAmount:any) => {
-                    console.log(debtAmount[0].debt);
                     element['debtAmount'] = debtAmount[0].debt;
                 })
               }

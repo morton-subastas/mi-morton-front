@@ -24,12 +24,11 @@ export class VentasComponent implements OnInit {
 
     this.cliente_num = localStorage.getItem('cliente')!;
 
-    this.auth.getVentasToRFCWS(this.cliente_num).subscribe(dataVenvtas => {
+    this.auth.getVentasToRFC(this.cliente_num).subscribe(dataVenvtas => {
       this.ActivoSpinner = false;
       this.DontShowTable = true;
       this.auctionsFindSpecificArr = dataVenvtas;
       this.numSubasta = this.auctionsFindSpecificArr.saleno;
-      console.log(this.auctionsFindSpecificArr);
     });
   }
 

@@ -1,6 +1,11 @@
 <app-header></app-header><br><br>
 
 <div class="container">
+    <div class="loadingoverlay" *ngIf="ActivoSpinner"> 
+      <div class="cv-spinner" >
+          <span class="spinner"></span>
+      </div>
+    </div>
     <div class="col-12">
     <h1 class="main-title-morton">Detalle de lote: <strong>{{lote}} </strong> </h1>
     <div class="img-container">

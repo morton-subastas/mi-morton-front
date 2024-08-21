@@ -261,9 +261,8 @@ export class AuthService {
       //return this.http.get('https://mimorton.com:8443/estadoCuenta?oper=getDetailSale&subasta='+ subasta +'&id=' + busqueda + '');
     }
 
-    getDetailLot(receipt: any, lot:any){
-      console.log(`El valor de recript: ${receipt} y de lot: ${lot}`);
-      return this.http.get(`https://mimorton.com:8444/getDetailByLot/${receipt}/${lot}`).pipe(
+    getDetailLot(receipt: any, lot:any, saleno:any){
+      return this.http.get(`https://mimorton.com:8444/getDetailByLot/${receipt}/${lot}/${saleno}`).pipe(
         map ((result:any)=>{
           return result        
         })
@@ -271,12 +270,8 @@ export class AuthService {
     }
 
     getDetailSale(subasta:string, termino: string){
-      console.log("-----------------API------------------------");
-      console.log("subasta" + subasta);
-      console.log("termino" + termino);
       return this.http.get('https://mimorton.com:8444/getDetailSales/'+ termino + '/'+termino+'/'+ subasta).pipe(
         map ( (auctionfindDB:any ) => {
-          console.log("p");
           return auctionfindDB;
         })
       );

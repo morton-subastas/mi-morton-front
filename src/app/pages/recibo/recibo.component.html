@@ -1,5 +1,11 @@
 <app-header></app-header><br><br>
+
 <div class="container">
+  <div class="loadingoverlay" *ngIf="ActivoSpinner"> 
+    <div class="cv-spinner" >
+        <span class="spinner"></span>
+    </div>
+  </div>
     <div class="col-12">
       <h1 class="main-title-morton">Recibo de compra</h1>
       <b>Recibo:</b> {{ recibo }}<br>
@@ -15,7 +21,7 @@
             <button class="btn-morton-menuimprimir-out" (click)="imprimir()">Imprimir</button>
           </a>
           <form style="float:right;" ngNoForm action="https://www.adquiramexico.com.mx/clb/endpoint/mortonSubastas" ng-submit="submit()" method="POST" novalidate>
-              <input type="hidden" name="mp_account" value="6963">
+              <input type="hidden" name="mp_account" value="6288">
               <input type="hidden" name="mp_product" value="1">
               <input type="hidden" name="mp_currency" value="1">
               <input type="hidden" name="mp_order" value="P{{paletaTrim}}S{{numSubTrim}}{{recibo}}">
@@ -28,7 +34,7 @@
               <input type="hidden" name="mp_urlfailure" value="https://www.mortonsubastas.com/subastas/pagosgarantia/pagos/pago_denied_mimorton.php">
               <input type="hidden" name="mp_email" value="{{clientEmail}}">
               <input type="hidden" name="mp_signature"  id="mp_signature">
-              <button type="submit" class="btn-morton-pagar" *ngIf = "totalDebt > 0">Pagar</button>
+              <button type="submit" id="pagarButton" class="btn-morton-pagar" *ngIf = "totalDebt > 0" disabled>Pagar</button>
           </form>
           <button type="button" class="btn-morton-factura" style="float: right;" (click)="openModal()">Solicitar Factura</button>
         </div>
@@ -111,6 +117,7 @@
     <div class="modal fade" id="invoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+          
           <div class="modal-header">
             <h5 class="modal-title">Solicitar Factura</h5>
           </div>
@@ -125,6 +132,8 @@
         </div>
       </div>
     </div>
+
+   
 
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">

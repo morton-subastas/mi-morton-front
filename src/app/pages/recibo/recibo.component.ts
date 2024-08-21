@@ -49,6 +49,7 @@ export class ReciboComponent implements OnInit {
   numSubTrim: any;
   paletaTrim: any;
   auctionName:any;
+  ActivoSpinner:boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, private auth:AuthService,) { }
 
@@ -69,7 +70,6 @@ export class ReciboComponent implements OnInit {
 
     this.auth.getDetailSaleImg(this.receipt, this.num_cliente, this.inv, this.saleSub).subscribe(auctionfindSpecificSaleDB => {
       const uniqueValue = this.removeDuplicates(auctionfindSpecificSaleDB);
-      console.log(uniqueValue);
       this.recibo = auctionfindSpecificSaleDB[0]['invno'];
       this.num_sub  = auctionfindSpecificSaleDB[0]['saleno'];
       this.numSubTrim = this.num_sub[0].trim();
@@ -102,16 +102,10 @@ export class ReciboComponent implements OnInit {
       this.totalReceipt = this.calculateTotalDebt(this.subtotal);
       this.auth.getAmountDebt(this.inv).subscribe((debtAmount:any) => {
         this.debt = this.totalReceipt -  debtAmount[0].debt;
-        console.log(this.debt);
         this.totalDebt = debtAmount[0].debt;
-        console.log(this.totalDebt);
-        
         this.generateHash();
     })
 
-    
-
-      
     });
 
   }
@@ -129,14 +123,18 @@ export class ReciboComponent implements OnInit {
   }
 
   openModal(){
+    
     ($('#invoiceModal') as any).modal('show');
+    
   }
 
   sendEmailConstancia(){
+   
     var file_data = $("#constancia").prop("files")[0];  
     if(file_data === undefined){
       ($('#attachModal') as any).modal('show');
     }else{
+    this.ActivoSpinner = true;
     this.finalInfo.push({'premium':this.premiumEmail,'total':this.totalEmail,'subtotal':this.subtotal, 'email':this.clientEmail, 'cliente':this.clientNum});
     this.arrayToEmail.push(this.auctionsFindSpecificArr);
     var form_data = new FormData();       
@@ -145,11 +143,14 @@ export class ReciboComponent implements OnInit {
     form_data.append("info", this.arrayToEmail); 
     form_data.append("total_info", JSON.stringify(this.finalInfo));          
        let ajax = new XMLHttpRequest();
-        ajax.open('POST', 'http://localhost/mail/sendEmail.php');
+        ajax.open('POST', 'https://mortonsubastas.com/mimorton/sendEmail.php');
         ajax.setRequestHeader("enctype","multipart/form-data");
         ajax.send(form_data);
+      
         ajax.onreadystatechange = ():void => {
             if (ajax.readyState === 4 && ajax.status === 200) {
+                this.ActivoSpinner = false;
+                ($('#invoiceModal') as any).modal('hide');
                 ($('#successModal') as any).modal('show');
             }
         };    
@@ -219,8 +220,6 @@ export class ReciboComponent implements OnInit {
 
   generateHash(){
     const order ="P"+this.paletaTrim+"S"+this.numSubTrim+this.recibo;
-    console.log(order);
-    console.log(this.recibo);
     const reference = this.recibo;
     const total = this.totalDebt;
     const date = new Date();
@@ -241,14 +240,13 @@ export class ReciboComponent implements OnInit {
     form_data.append("mp_auction", this.numSubTrim)
     form_data.append("mp_nameS", this.auctionName)
     form_data.append("mp_fecha", dateToSend)
-    
-    ajax.open('POST', 'https://mortonsubastas.com/subastas/pagosgarantia/pagos/hash.php');
+    ajax.open('POST', 'https://mimorton.com/hash/hash.php');
     ajax.setRequestHeader("enctype","multipart/form-data");
     ajax.send(form_data);
     ajax.onreadystatechange = ():void => {
         if (ajax.readyState === 4 && ajax.status === 200) {
-          console.log(ajax.responseText.trim());
           (<HTMLInputElement>document.getElementById('mp_signature')).value=ajax.responseText.trim();
+          (<HTMLInputElement>document.getElementById('pagarButton')).removeAttribute('disabled');;
         }
     };    
   }
@@ -458,7 +456,6 @@ export class ReciboComponent implements OnInit {
   }
 
   changeFormat(amount :any){
-    console.log(amount);
     const hammerWithDecimals = (amount + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete;
