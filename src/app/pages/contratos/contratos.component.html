@@ -66,9 +66,8 @@
               <td class="th-status">
                 Participo en la subasta: {{value.saleno}} <br>
                 <span class="condition">
-                  <strong>
-                    {{value.condition}}
-                  </strong><br>
+                  <strong *ngIf="value.actualStatus == 'VEN' || value.actualStatus == 'EAC' ">Vendido</strong>
+                  <strong *ngIf="value.actualStatus != 'VEN' && value.actualStatus !='EAC'">No Vendido</strong><br>
                   <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'BDO'">Baja por donación</span>
                   <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'BIN'">Baja por desecho</span>
                   <span *ngIf="value.condition == 'No vendido' && value.actualStatus == 'CCL'">Contactar al cliente</span>
