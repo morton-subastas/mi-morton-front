@@ -51,10 +51,12 @@ export class AuthService {
       email : usuario.email,
       password : usuario.password
     }
-    return this.http.get(this.url+'?busca_usuario=1&email=' + authdata.email +'&contra=' + authdata.password+'').pipe(map( (resp:any) => {
+
+    return this.http.post('https://infosubastas.mortonsubastas.com/PHP/login.php',JSON.stringify(authdata)).pipe(map( (resp:any) => {
       this.saveToken(resp['id_token'], resp['cliente'], resp['nombre'], resp['user_id']);
       return resp;
-    }));
+    })
+  );
   }
 
 
