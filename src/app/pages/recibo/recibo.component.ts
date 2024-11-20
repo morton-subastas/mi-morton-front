@@ -50,6 +50,9 @@ export class ReciboComponent implements OnInit {
   paletaTrim: any;
   auctionName:any;
   ActivoSpinner:boolean = false;
+  cards:any;
+  totalCards:any;
+  numClienteTrim:any;
 
   constructor(private activatedRoute: ActivatedRoute, private auth:AuthService,) { }
 
@@ -60,6 +63,7 @@ export class ReciboComponent implements OnInit {
       this.inv = params['iv'];
       this.estado = params['estate']
       this.num_cliente = params['cliente'];
+      this.numClienteTrim = this.num_cliente.trim();
       this.receipt = params['receipt'];
       this.saleSub = params['dateSale']
     });
@@ -96,10 +100,11 @@ export class ReciboComponent implements OnInit {
       // SUBTOTAL TO SHOW 
 
       this.subtotalNew = this.subtotal.toFixed(2).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-      this.premium = this.subtotal * 0.20;
+      this.premium = this.subtotal * 0.22;
       this.iva = this.premium * 0.16;
       this.total_sum = this.subtotal + this.premium + this.iva;
       this.totalReceipt = this.calculateTotalDebt(this.subtotal);
+      
       this.auth.getAmountDebt(this.inv).subscribe((debtAmount:any) => {
         this.debt = this.totalReceipt -  debtAmount[0].debt;
         this.totalDebt = debtAmount[0].debt;
@@ -108,6 +113,17 @@ export class ReciboComponent implements OnInit {
 
     });
 
+    this.getCards();
+
+  }
+
+  getCards(){
+    this.auth.getCards(localStorage.getItem('cliente')).subscribe((resp:any)=>{
+      if(resp.status==200){
+        this.cards = resp.data;
+        this.totalCards = this.cards.length;
+      }
+    })
   }
 
   calculatePremium(amount: any){
@@ -146,7 +162,6 @@ export class ReciboComponent implements OnInit {
         ajax.open('POST', 'https://mortonsubastas.com/mimorton/sendEmail.php');
         ajax.setRequestHeader("enctype","multipart/form-data");
         ajax.send(form_data);
-      
         ajax.onreadystatechange = ():void => {
             if (ajax.readyState === 4 && ajax.status === 200) {
                 this.ActivoSpinner = false;
@@ -212,7 +227,7 @@ export class ReciboComponent implements OnInit {
   }
   
   calculatePremiumReal(premium:any){
-    let hammer = premium * 0.20;
+    let hammer = premium * 0.22;
     const hammerWithDecimals = (hammer + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete
@@ -222,6 +237,8 @@ export class ReciboComponent implements OnInit {
     const order ="P"+this.paletaTrim+"S"+this.numSubTrim+this.recibo;
     const reference = this.recibo;
     const total = this.totalDebt;
+    //const total = '10';
+
     const date = new Date();
     const [month, day, year] = [
       date.getMonth(),
@@ -241,12 +258,11 @@ export class ReciboComponent implements OnInit {
     form_data.append("mp_nameS", this.auctionName)
     form_data.append("mp_fecha", dateToSend)
     ajax.open('POST', 'https://mimorton.com/hash/hash.php');
-    ajax.setRequestHeader("enctype","multipart/form-data");
     ajax.send(form_data);
     ajax.onreadystatechange = ():void => {
         if (ajax.readyState === 4 && ajax.status === 200) {
           (<HTMLInputElement>document.getElementById('mp_signature')).value=ajax.responseText.trim();
-          (<HTMLInputElement>document.getElementById('pagarButton')).removeAttribute('disabled');;
+          (<HTMLInputElement>document.getElementById('pagarButton')).removeAttribute('disabled');
         }
     };    
   }
@@ -312,7 +328,7 @@ export class ReciboComponent implements OnInit {
   calculatePremiumReceipt (subtotal:any){
     const bidder = this.paleta;
     let bidsquare;
-    bidsquare = subtotal * 0.20;
+    bidsquare = subtotal * 0.22;
     this.premiumEmail = bidsquare;
     const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -322,7 +338,7 @@ export class ReciboComponent implements OnInit {
   calculatePremiumToTotal (subtotal:any){
     const bidder = this.paleta;
     let bidsquare;
-    bidsquare = subtotal * 0.20;
+    bidsquare = subtotal * 0.22;
     this.premiumEmail = bidsquare;
     const hammerWithDecimals = (bidsquare + 0.00).toFixed(2)
     return hammerWithDecimals;
@@ -412,10 +428,10 @@ export class ReciboComponent implements OnInit {
     const bidder = this.paleta;
     let total;
     if (bidder.startsWith("AL")){
-      total = this.subtotal + (this.subtotal * 0.23) + ((this.subtotal * 0.23) * 0.16);
+      total = this.subtotal + (this.subtotal * 0.24) + ((this.subtotal * 0.24) * 0.16);
     }
     else if (bidder.startsWith("MS")){
-        total = subtotal + (subtotal * 0.21) + ((subtotal * 0.21) * 0.16) 
+        total = subtotal + (subtotal * 0.22) + ((subtotal * 0.22) * 0.16) 
     }
     else{
         total = this.premium + this.subtotal + (this.premium * 0.16);
@@ -432,17 +448,17 @@ export class ReciboComponent implements OnInit {
     const bidder = this.paleta;
     let total;
     if (bidder.startsWith("AL")){
-      total = this.subtotal + (this.subtotal * 0.23) + ((this.subtotal * 0.23) * 0.16);
+      total = this.subtotal + (this.subtotal * 0.24) + ((this.subtotal * 0.24) * 0.16);
     }
     else if (bidder.startsWith("MS")){
-        total = subtotal + (subtotal * 0.21) + ((subtotal * 0.21) * 0.16) 
+        total = subtotal + (subtotal * 0.22) + ((subtotal * 0.22) * 0.16) 
     }
     else{
         total = this.premium + this.subtotal + (this.premium * 0.16);
+
     }
 
     this.totalEmail = total;
-
     const hammerWithDecimals = (total + 0.00).toFixed(2)
     return hammerWithDecimals;
   }
@@ -459,6 +475,10 @@ export class ReciboComponent implements OnInit {
     const hammerWithDecimals = (amount + 0.00).toFixed(2)
     const hammerComplete = hammerWithDecimals.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return hammerComplete;
+  }
+
+  getCard(event: any){
+    (<HTMLInputElement>document.getElementById('card-box')).value=event.target.selectedOptions[0].cardNumber;
   }
 
 

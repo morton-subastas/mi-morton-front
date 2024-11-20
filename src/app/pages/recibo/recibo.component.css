@@ -1,3 +1,19 @@
 .descipt-item{
   text-align: justify;
 }
+
+.pay-buttons{
+  display:flex;
+}
+
+.btn-morton-pagar{
+  display:inline-block;
+}
+
+.save-card{
+  display:inline;
+}
+
+.btn-morton-factura{
+  margin-left:20px;
+}

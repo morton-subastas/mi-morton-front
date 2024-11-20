@@ -1,5 +1,6 @@
 .dropdown:hover>.dropdown-menu {
   display: block;
+  color: black;
 }
 
 .dropdown>.dropdown-toggle:active {
@@ -29,7 +30,7 @@
   background-clip: padding-box;
   border: 0px solid rgba(0,0,0,.15);
   border-radius: 0;
-  margin-top: -40px;
+  margin-top: -30px;
 }
 .option{
   cursor: pointer;
@@ -38,7 +39,13 @@
   font-weight: 500;
   font-size: 1.1em;
   padding: 0 7px;
-  color: #004d43 !important;
+  color: white !important;
+  background-color: #004d43;
+}
+
+.option:hover{
+  background-color: #f8f9fa ;
+  color: black!important;
 }
 
 .nav-item{

@@ -20,6 +20,7 @@
           <a href="https://mimorton.com/imglink/pdf/{{recibo}}.pdf" target="_blank">
             <button class="btn-morton-menuimprimir-out" (click)="imprimir()">Imprimir</button>
           </a>
+          <button type="button" class="btn-morton-factura" (click)="openModal()">Solicitar Factura</button>
           <form style="float:right;" ngNoForm action="https://www.adquiramexico.com.mx/clb/endpoint/mortonSubastas" ng-submit="submit()" method="POST" novalidate>
               <input type="hidden" name="mp_account" value="6288">
               <input type="hidden" name="mp_product" value="1">
@@ -32,14 +33,26 @@
               <input type="hidden" name="mp_promo_msi" value="3|6|9|12">
               <input type="hidden" name="mp_amount" value="{{totalDebt}}">
               <input type="hidden" name="mp_customername" value="{{clientName}}">
-              <input type="hidden" name="mp_urlsuccess" value="https://www.mortonsubastas.com/subastas/pagosgarantia/pagos/pago_success.php">
+              <input type="hidden" name="mp_urlsuccess" value="https://mimorton.com/sabados/cards/pago_success.php">
               <input type="hidden" name="mp_urlfailure" value="https://www.mortonsubastas.com/subastas/pagosgarantia/pagos/pago_denied_mimorton.php">
               <input type="hidden" name="mp_email" value="{{clientEmail}}">
               <input type="hidden" name="mp_signature"  id="mp_signature">
-              <button type="submit" id="pagarButton" class="btn-morton-pagar" *ngIf = "totalDebt > 0" disabled>Pagar</button>
+              <input type='hidden' name="mp_detail_2" value="{{numClienteTrim}}">
+              <input type='hidden' name='mp_registersb' value='1'/>
+              <input type="hidden" name='card-box' id="card-box">
+              <div class="pay-buttons">
+                <div *ngIf="totalCards > 0 && totalDebt > 0">
+                  <select name="mp_sbtoken" class="form-control save-card" id="mp-sbtoken" (change)="getCard($event)">
+                    <option value="">-- Seleccione Tarjeta --</option>
+                    <option *ngFor="let card of cards" value="{{card.token}}" id="selected-card" name="" data-cardNumber="{{card.card}}">{{ card.card }}</option>
+                  </select>
+                </div>
+                <button type="submit" id="pagarButton" class="btn-morton-pagar" *ngIf = "totalDebt > 0" disabled>Pagar</button>
+              </div>
           </form>
-          <button type="button" class="btn-morton-factura" style="float: right;" (click)="openModal()">Solicitar Factura</button>
         </div>
+          
+       
         <span style="float:right;" *ngIf = "totalDebt > 0" ><b>Monto Abonado:</b> $ {{changeFormat(debt)}}</span><br>
         <span style="float:right;" *ngIf = "totalDebt > 0"><b>Monto Adeudado: </b>$ {{changeFormat(totalDebt)}}</span>
 

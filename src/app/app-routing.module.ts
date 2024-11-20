@@ -25,6 +25,7 @@ import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/
 import { RecuperarContraseniaComponent } from './pages/recuperar-contrasenia/recuperar-contrasenia.component';
 import { FacturaUnConceptoComponent } from './pages/factura/factura-un-concepto/factura-un-concepto.component';
 import { AtencionComponent } from './atencion/atencion.component';
+import { CuentasComponent } from './pages/cuentas/cuentas.component';
 
 const routes: Routes = [
 
@@ -52,6 +53,7 @@ const routes: Routes = [
   { path: 'recuperar-contrasenia', component:RecuperarContraseniaComponent },
   { path: 'factura-un-concepto', component: FacturaUnConceptoComponent},
   { path: 'atencion', component: AtencionComponent},
+  { path: 'cuentas', component: CuentasComponent},
   { path: '**', redirectTo: 'login' }
 ];
 

@@ -64,6 +64,28 @@ export class AuthService {
     return this.http.get('https://mimorton.com:8444/getAmountDebt/' + invno);
   }
 
+  saveCard(client:any,card:any){
+    const authdata={
+      clientId: client,
+      card: card
+    }
+    return this.http.post('https://mimorton.com/sabados/cards/saveCards.php', JSON.stringify(authdata));
+  }
+
+  deleteCard(idCard:any){
+    const authdata={
+      clientId: idCard
+    }
+    return this.http.post('https://mimorton.com/sabados/cards/deleteCard.php', JSON.stringify(authdata));
+  }
+
+  getCards(client:any){
+    const authdata={
+      clientId: client
+    }
+    return this.http.post('https://mimorton.com/sabados/cards/getCards.php', JSON.stringify(authdata));
+  }
+
   recoveryPassword(usuario: UsuarioModel){
     const authdata ={
       cliente: usuario.cliente,
@@ -74,11 +96,7 @@ export class AuthService {
 
   }
 
-  getAuctionDate(subasta:any){
-    const auctionData = {
-      
-    }
-  }
+  
 
   
 /**

@@ -1,0 +1,80 @@
+<app-header></app-header><br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Mis cuentas bancarias
+        </div>
+        <div class="card-body">
+            <button type="button" class="btn btn-primary add-card" (click)="openModal()">Agregar nueva tarjeta</button>
+            <div class="row" *ngIf = "totalCards > 0">
+                <div class="col-md-12 card-div" *ngFor="let card of cards">
+                    <div class="card-buttons">
+                        <label>{{card.card}}</label>
+                        <button type="button" (click)="deleteCard(card.id);" class="btn btn-danger btn-sm delete-card">Eliminar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS -->
+
+<div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Éxito</h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group">
+                <label for="card">Tarjeta</label>
+                <input type="text" class="form-control" name="new-card" id="new-card" minlength="15" maxlength="16">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="saveCard()">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Éxito</h5>
+        </div>
+        <div class="modal-body">
+          <label>Se ha realizado transacción con éxito</label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Error</h5>
+        </div>
+        <div class="modal-body">
+          <label>Ha ocurrido un error, intente de nuevo o contacte a soporte.</label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+

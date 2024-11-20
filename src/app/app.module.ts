@@ -45,6 +45,8 @@ import { PagoSatisfactorioComponent } from './pages/pago/pago-satisfactorio/pago
 import { PagoInsatisfactorioComponent } from './pages/pago/pago-insatisfactorio/pago-insatisfactorio.component';
 import { RecuperarContraseniaComponent } from './pages/recuperar-contrasenia/recuperar-contrasenia.component';
 import { FacturaUnConceptoComponent } from './pages/factura/factura-un-concepto/factura-un-concepto.component';
+import { CuentasComponent } from './pages/cuentas/cuentas.component';
+
 
 // importar locales
 import localePy from '@angular/common/locales/es-PY';
@@ -95,7 +97,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     RecuperarContraseniaComponent,
     FacturaUnConceptoComponent,
     AtencionComponent,
-    FooterComponent
+    FooterComponent,
+    CuentasComponent
 
   ],
   imports: [
