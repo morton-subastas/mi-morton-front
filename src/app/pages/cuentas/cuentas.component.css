@@ -11,3 +11,8 @@
     padding: 10px;
     margin-bottom: 10px;
 }
+
+.modal-row{
+    margin-left:unset!important;
+    margin-right:unset!important;
+}

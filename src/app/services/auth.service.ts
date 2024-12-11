@@ -32,6 +32,7 @@ export class AuthService {
   //CREAR USUARIO
   baseUrl: any = 'https://mimorton.com:8444';
   baseLocal: any ='http://localhost:8443'
+ 
   //LOGIN USUARIO
   constructor(private http: HttpClient) {
     this.read_token();
@@ -388,6 +389,14 @@ export class AuthService {
 
     getAllUsos(){
       return this.http.get(`${this.baseUrl}/getAllUsos`).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getCardBank(card: any){
+      return this.http.get(`${this.baseUrl}/getCardBank/`+ card).pipe(
         map((auctionfindDB: any) => {
           return auctionfindDB
         })
