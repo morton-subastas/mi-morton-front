@@ -18,6 +18,7 @@ export class DetalleLoteVentaComponent implements OnInit {
   premium: number = 0;
   saleno: any;
   hammer:any;
+  blanket:any;
   commission: any;
   inssurance: any;
   reserve: any;
@@ -67,10 +68,12 @@ export class DetalleLoteVentaComponent implements OnInit {
     this.hammer = lotDetail.hammer;
     this.photo = this.validatePhoto(lotDetail.photonote);
     this.saleno = lotDetail.saleno;
+    this.blanket = lotDetail.blanket;
     this.inssurance = this.hammer * (lotDetail.inspct/100) ;
-    this.commission = this.hammer * (lotDetail.cms1/100);
+    //this.commission = this.hammer * (lotDetail.cms1/100);
+    this.commission = this.calculateCommision(this.hammer);
     this.arr = this.calculateArr(lotDetail);
-    if(receipts.includes(lotDetail.receipt[0].trim())){
+    if(receipts.includes(lotDetail.receipt[0].trim()) || this.blanket ){
       this.isr = 0;
     }else{
       this.isr = (this.hammer - this.inssurance - this.photo - this.commission - this.arr)* 0.08; 
@@ -202,10 +205,12 @@ export class DetalleLoteVentaComponent implements OnInit {
 
   calculateCommision(hammer: any){
     let commission;
+    console.log(hammer);
+    
     if (hammer >= 0 && hammer < 4999){
         commission = hammer * 0.20;
     }
-    if (this.hammer >= 5000 && this.hammer < 99999){
+    if (this.hammer >= 4999 && this.hammer < 99999){
         commission = hammer * 0.15;
     }
     if (this.hammer >= 100000 && this.hammer < 199999){

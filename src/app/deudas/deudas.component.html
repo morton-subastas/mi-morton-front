@@ -1,0 +1,25 @@
+<app-header></app-header><br>
+    <div class="container">
+        <p>A continuación se muestran los gastos generados en la subasta en tema de consignación: </p>
+        <div class="table-responsive" *ngIf="debts.length">
+          <table class="table table-striped custom-table" >
+            <thead>
+                <tr>
+                    <th style="text-align:left!important;">Subasta</th>
+                    <th style="text-align:left!important;">Contrato</th>
+                    <th style="text-align:left!important;">Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="row" *ngFor="let debt of debts">
+                    <td class="elements-table">{{debt.salenumber}}</td>
+                    <td class="elements-table">{{debt.receipt}}</td>
+                    <td class="elements-table">$ {{numberWithCommas(debt.debit)}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <h1 *ngIf="!debts.length">* No presenta adeudos</h1>
+    </div>
+
+<app-footer></app-footer><br><br>

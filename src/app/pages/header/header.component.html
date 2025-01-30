@@ -21,11 +21,19 @@
             <a class="dropdown-item option" routerLinkActive="active-item" [routerLink]="['/contratos']" style="color:#004d43">Contratos</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link btn-morton-menu" routerLinkActive="active-item" [routerLink]="['/proximas']" style="color:#004d43">Próximas subastas</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle  btn-morton-menu" routerLinkActive="active-item" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#004d43">
+            Consignantes
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item option" routerLinkActive="active-item" [routerLink]="['/deudas']" style="color:#004d43">Adeudos</a>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link btn-morton-menu" routerLinkActive="active-item" [routerLink]="['/cuentas']" style="color:#004d43">Mis Cuentas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn-morton-menu" routerLinkActive="active-item" [routerLink]="['/proximas']" style="color:#004d43">Próximas subastas</a>
         </li>
         <li class="nav-item">
           <a class="nav-link btn-morton-menu" routerLinkActive="active-item" [routerLink]="['/atencion']" style="color:#004d43">Atención</a>

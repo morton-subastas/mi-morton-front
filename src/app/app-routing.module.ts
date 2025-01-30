@@ -26,6 +26,7 @@ import { RecuperarContraseniaComponent } from './pages/recuperar-contrasenia/rec
 import { FacturaUnConceptoComponent } from './pages/factura/factura-un-concepto/factura-un-concepto.component';
 import { AtencionComponent } from './atencion/atencion.component';
 import { CuentasComponent } from './pages/cuentas/cuentas.component';
+import { DeudasComponent } from './deudas/deudas.component';
 
 const routes: Routes = [
 
@@ -54,6 +55,7 @@ const routes: Routes = [
   { path: 'factura-un-concepto', component: FacturaUnConceptoComponent},
   { path: 'atencion', component: AtencionComponent},
   { path: 'cuentas', component: CuentasComponent},
+  { path: 'deudas', component: DeudasComponent},
   { path: '**', redirectTo: 'login' }
 ];
 

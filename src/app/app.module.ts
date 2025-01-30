@@ -55,6 +55,7 @@ import localeEn from '@angular/common/locales/en';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { AtencionComponent } from './atencion/atencion.component';
 import { FooterComponent } from './pages/footer/footer.component';
+import { DeudasComponent } from './deudas/deudas.component';
 
 // registrar los locales con el nombre que quieras utilizar a la hora de proveer
 registerLocaleData(localePy, 'es');
@@ -98,7 +99,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     FacturaUnConceptoComponent,
     AtencionComponent,
     FooterComponent,
-    CuentasComponent
+    CuentasComponent,
+    DeudasComponent
 
   ],
   imports: [

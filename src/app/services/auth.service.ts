@@ -221,7 +221,6 @@ export class AuthService {
   * SERVICIOS NODEJS
   **********************************/
      getContratosToRFC(custno:string){
-      //console.log("https://mimorton.com:8444/getContratosMiMorton/"+custno+"-");
       return this.http.get('https://mimorton.com:8444/getContratosMiMorton/' + custno+'')
       .pipe(
         map ( (res:any ) => {
@@ -233,16 +232,10 @@ export class AuthService {
     prueba:string = '';
 
     getComprasToRFC(custno:string){
-
-
-        //console.log("entro API -" + custno +"-");
         return this.http.get('https://mimorton.com:8444/getComprasMiMorton/' + custno+'')
         .pipe(
           map ( (res:any ) => {
-            //console.log("__COMPRAS");
             this.dataCompras = res;
-            //console.log(this.dataCompras);
-            //console.log("FIN__");
             return res;
           })
         );
@@ -397,6 +390,14 @@ export class AuthService {
 
     getCardBank(card: any){
       return this.http.get(`${this.baseUrl}/getCardBank/`+ card).pipe(
+        map((auctionfindDB: any) => {
+          return auctionfindDB
+        })
+      );
+    }
+
+    getDebts(client: any){
+      return this.http.get(`${this.baseUrl}/getDebts/`+ client).pipe(
         map((auctionfindDB: any) => {
           return auctionfindDB
         })
